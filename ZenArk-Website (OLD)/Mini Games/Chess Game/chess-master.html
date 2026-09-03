@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#06060f">
+<title>Chess Master</title>
+<link rel="icon" href="asset/chess (4).png" type="image/x-icon">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap">
+<link rel="stylesheet" href="chess-style.css">
+</head>
+<body>
+<div id="particles"></div>
+
+<!-- ══════ AUTH: SIGNUP / LOGIN ══════ -->
+<div class="screen" id="screen-auth">
+  <div class="auth-wrap">
+    <div class="auth-logo">
+      <span class="auth-chess-icon"><img src="asset/chess (4).png" style="width:100px;height:100px;"></span>
+      <h1 class="auth-title">Chess Master</h1>
+      <p class="auth-sub" id="lbl-auth-sub">Buat akun untuk melacak peringkat ELO kamu</p>
+    </div>
+    <div class="auth-tabs">
+      <button class="auth-tab on" id="atab-login" onclick="switchAuthTab('login')">Login</button>
+      <button class="auth-tab" id="atab-signup" onclick="switchAuthTab('signup')">Daftar</button>
+    </div>
+    <div class="auth-panel show" id="apanel-login">
+      <div class="auth-field">
+        <label class="auth-lbl" id="lbl-login-username">Username</label>
+        <input class="auth-input" id="login-username" type="text" placeholder="Username kamu" maxlength="24" autocomplete="username">
+      </div>
+      <div class="auth-field">
+        <label class="auth-lbl" id="lbl-login-password">Password</label>
+        <div class="auth-pw-wrap">
+          <input class="auth-input" id="login-password" type="password" placeholder="Password" maxlength="32" autocomplete="current-password">
+          <button class="auth-eye" onclick="togglePw('login-password',this)">👁</button>
+        </div>
+      </div>
+      <div class="auth-err" id="login-err"></div>
+      <button class="auth-btn" id="login-btn" onclick="doLogin()">Masuk →</button>
+      <button class="auth-skip" onclick="skipAuth()" id="lbl-login-skip">Lewati — main tanpa akun</button>
+    </div>
+    <div class="auth-panel" id="apanel-signup">
+      <div class="auth-field">
+        <label class="auth-lbl" id="lbl-signup-username">Username <small id="lbl-signup-username-sub">Huruf, angka, underscore</small></label>
+        <input class="auth-input" id="signup-username" type="text" placeholder="Pilih username unik" maxlength="24"
+          oninput="this.value=this.value.replace(/[^a-zA-Z0-9_]/g,'')" autocomplete="username">
+      </div>
+      <div class="auth-field">
+        <label class="auth-lbl" id="lbl-signup-password">Password <small id="lbl-signup-password-sub">Min. 4 karakter</small></label>
+        <div class="auth-pw-wrap">
+          <input class="auth-input" id="signup-password" type="password" placeholder="Buat password" maxlength="32" autocomplete="new-password">
+          <button class="auth-eye" onclick="togglePw('signup-password',this)">👁</button>
+        </div>
+      </div>
+      <div class="auth-field">
+        <label class="auth-lbl" id="lbl-signup-avatar">Avatar</label>
+        <div class="avatar-picker" id="avatar-picker">
+          <span class="av-opt on" data-av="⚔️" onclick="pickAvatar(this)">⚔️</span>
+          <span class="av-opt" data-av="🏆" onclick="pickAvatar(this)">🏆</span>
+          <span class="av-opt" data-av="🎯" onclick="pickAvatar(this)">🎯</span>
+          <span class="av-opt" data-av="🦁" onclick="pickAvatar(this)">🦁</span>
+          <span class="av-opt" data-av="🐉" onclick="pickAvatar(this)">🐉</span>
+          <span class="av-opt" data-av="👑" onclick="pickAvatar(this)">👑</span>
+        </div>
+        <div class="av-upload-row">
+          <label class="av-upload-btn" for="signup-avatar-file" id="lbl-upload-signup">📷 Upload Foto</label>
+          <input type="file" id="signup-avatar-file" accept="image/*" style="display:none" onchange="handleAvatarUpload(this,'signup')">
+          <div class="av-preview-wrap" id="signup-av-preview" style="display:none">
+            <img class="av-preview-img" id="signup-av-img" src="" alt="preview">
+            <button class="av-remove-btn" onclick="removeAvatarUpload('signup')">✕</button>
+          </div>
+        </div>
+      </div>
+      <div class="auth-field">
+        <label class="auth-lbl" id="lbl-bio">Bio <small id="lbl-bio-sub">Opsional</small></label>
+        <input class="auth-input" id="signup-bio" type="text" placeholder="Bio singkat kamu" maxlength="60">
+      </div>
+      <div class="auth-err" id="signup-err"></div>
+      <button class="auth-btn" id="signup-btn" onclick="doSignup()">Buat Akun →</button>
+      <button class="auth-skip" onclick="skipAuth()" id="lbl-signup-skip">Lewati — main tanpa akun</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ MENU (REDESIGNED) ══════ -->
+<div class="screen hidden" id="screen-menu">
+
+  <!-- Animated background -->
+  <div class="menu-scene">
+    <div class="menu-hex"></div>
+    <div class="menu-orb menu-orb-1"></div>
+    <div class="menu-orb menu-orb-2"></div>
+    <div class="menu-orb menu-orb-3"></div>
+  </div>
+
+  <div class="menu-wrap">
+
+    <!-- Profile bar -->
+    <div class="profile-bar hidden" id="profile-bar">
+      <div class="profile-bar-left">
+        <span class="profile-bar-av" id="pb-avatar"></span>
+        <div>
+          <div class="profile-bar-name" id="pb-name">Player</div>
+          <div class="profile-bar-elo" id="pb-elo">ELO 1200</div>
+        </div>
+      </div>
+      <button class="profile-bar-btn" onclick="openProfile()">👤 <span id="lbl-profile-btn" data-i18n="profil">Profil</span></button>
+    </div>
+
+    <!-- Hero -->
+    <div class="menu-hero">
+      <span class="chess-icon">♔</span>
+      <h1>Chess Master</h1>
+      <p class="tagline" id="lbl-tagline">Permainan Kerajaan</p>
+      <div class="menu-hero-divider"></div>
+    </div>
+
+    <!-- Mode selector + right panel side by side -->
+    <div class="menu-content-row">
+
+      <!-- Mode selector (left sidebar, vertical) -->
+      <div class="mode-row">
+        <div class="mode-card on" id="mc-ai" onclick="selMode('ai')">
+          <div class="mode-active-pip"></div>
+          <div class="mode-icon-box">🤖</div>
+          <div class="mode-card-text">
+            <div class="mode-label" id="lbl-mode-ai">vs AI</div>
+            <div class="mode-desc" id="lbl-mode-ai-desc">Lawan komputer</div>
+          </div>
+        </div>
+        <div class="mode-card" id="mc-mp" onclick="selMode('mp')">
+          <div class="mode-active-pip"></div>
+          <div class="mode-icon-box">🤝</div>
+          <div class="mode-card-text">
+            <div class="mode-label" id="lbl-mode-mp">Lokal</div>
+            <div class="mode-desc" id="lbl-mode-mp-desc">Bergantian, satu perangkat</div>
+          </div>
+        </div>
+        <div class="mode-card" id="mc-online" onclick="selMode('online')">
+          <div class="mode-active-pip"></div>
+          <div class="mode-icon-box">🌐</div>
+          <div class="mode-card-text">
+            <div class="mode-label" id="lbl-mode-online">Online</div>
+            <div class="mode-desc" id="lbl-mode-online-desc">Dua perangkat</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right panel: play btn + menu buttons -->
+      <div class="menu-right-panel">
+
+        <!-- Play button -->
+        <div class="menu-play-wrap">
+          <button class="mbtn prime" id="btn-play" onclick="goPlay()">
+            <span class="mi">⚔️</span>
+            <span class="mt" id="btn-play-lbl">Main vs AI</span>
+            <span class="ma">›</span>
+          </button>
+        </div>
+
+        <!-- Menu buttons 2-col grid -->
+        <div class="menu-btns">
+          <button class="mbtn" onclick="goTo('screen-howto')">
+            <span class="mi">📖</span><span class="mt" id="lbl-howtoplay-btn">Cara Bermain</span><span class="ma">›</span>
+          </button>
+          <button class="mbtn" onclick="openLeaderboard()">
+            <span class="mi">🏅</span><span class="mt" id="lbl-leaderboard-btn">Leaderboard</span><span class="ma">›</span>
+          </button>
+          <button class="mbtn" onclick="showChangelog(true)">
+            <span class="mi">🆕</span><span class="mt" id="lbl-changelog-btn">Update v1.6.0</span><span class="ma">›</span>
+          </button>
+          <button class="mbtn" onclick="openLangModal()">
+            <span class="mi">🌍</span><span class="mt" id="lbl-language-btn">Bahasa</span><span class="ma">›</span>
+          </button>
+          <button class="mbtn" onclick="openAbout()">
+            <span class="mi">✦</span><span class="mt" id="lbl-about-btn">Tentang</span><span class="ma">›</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="menu-footer">
+      <div class="menu-footer-badge">
+        <div class="menu-footer-dot"></div>
+        <span id="lbl-footer">v1.6.0 · Alpha-Beta Engine</span>
+        <div class="menu-footer-dot"></div>
+      </div>
+      <div id="lbl-creator">Dibuat oleh Ardinazer</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════ SETTINGS: AI ══════ -->
+<div class="screen sscreen hidden" id="screen-settings-ai">
+  <div class="sw">
+    <div class="shdr">
+      <button class="back-btn" onclick="goTo('screen-menu')">‹</button>
+      <span class="stitle" id="lbl-settings-title-ai">Pengaturan</span>
+      <span class="sbadge sbadge-ai" id="lbl-badge-ai">vs AI</span>
+    </div>
+    <div class="back-to-game-bar" id="backbtn" style="display:none" onclick="returnToGame()">
+      <span>▶</span> Kembali ke Game
+    </div>
+    <div class="ssec">
+      <div class="ssec-t" id="lbl-sec-player">Pemain</div>
+      <div class="srow">
+        <div class="slbl" id="lbl-yourname">Nama Kamu<small id="lbl-yourname-sub">Ditampilkan saat bermain</small></div>
+        <input class="ninput" id="ai-name" type="text" value="Player" maxlength="12">
+      </div>
+      <div class="srow">
+        <div class="slbl" id="lbl-ainame">Nama AI<small id="lbl-ainame-sub">Nama lawan kamu</small></div>
+        <input class="ninput" id="ai-name-opp" type="text" value="Deep Mind" maxlength="12">
+      </div>
+      <div class="srow" style="align-items:flex-start;gap:10px;">
+        <div class="slbl" id="lbl-ai-avatar-label">Avatar AI<small id="lbl-ai-avatar-sub">Emoji atau foto</small></div>
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+          <div class="ai-avatar-preview" id="ai-avatar-preview">🤖</div>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div class="ai-emoji-row" id="ai-emoji-row">
+              <span class="av-opt on" data-av="🤖" onclick="pickAIAvatar(this)">🤖</span>
+              <span class="av-opt" data-av="👾" onclick="pickAIAvatar(this)">👾</span>
+              <span class="av-opt" data-av="🧠" onclick="pickAIAvatar(this)">🧠</span>
+              <span class="av-opt" data-av="🔮" onclick="pickAIAvatar(this)">🔮</span>
+              <span class="av-opt" data-av="👁️" onclick="pickAIAvatar(this)">👁️</span>
+              <span class="av-opt" data-av="🐲" onclick="pickAIAvatar(this)">🐲</span>
+            </div>
+            <div class="av-upload-row">
+              <label class="av-upload-btn" for="ai-avatar-file" id="lbl-ai-upload">📷 Upload</label>
+              <input type="file" id="ai-avatar-file" accept="image/*" style="display:none" onchange="handleAIAvatarUpload(this)">
+              <div class="av-preview-wrap" id="ai-av-preview-wrap" style="display:none">
+                <img class="av-preview-img" id="ai-av-preview-img" src="" alt="">
+                <button class="av-remove-btn" onclick="removeAIAvatarUpload()">✕</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="srow">
+        <div class="slbl" id="lbl-playas">Bermain sebagai<small id="lbl-playas-sub">Pilih warna kamu</small></div>
+        <div class="chips">
+          <div class="chip on" id="chip-w" onclick="pickCol('w',this)"><span id="lbl-white">♙ Putih</span></div>
+          <div class="chip" id="chip-b" onclick="pickCol('b',this)"><span id="lbl-black">♟ Hitam</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="ssec">
+      <div class="ssec-t" id="lbl-difficulty">Kesulitan AI</div>
+      <div class="srow">
+        <div class="chips">
+          <div class="chip on" id="d1" onclick="pickDiff(1,this)" data-diff="1">Sangat Mudah</div>
+          <div class="chip" id="d2" onclick="pickDiff(2,this)" data-diff="2">Mudah</div>
+          <div class="chip" id="d3" onclick="pickDiff(3,this)" data-diff="3">Sedang</div>
+          <div class="chip" id="d4" onclick="pickDiff(4,this)" data-diff="4">Sulit</div>
+          <div class="chip" id="d5" onclick="pickDiff(5,this)" data-diff="5">Master</div>
+        </div>
+      </div>
+      <div class="srow"><div class="slbl" id="diffdesc" style="font-style:italic;font-size:.77rem;">AI melihat 1 langkah ke depan — sempurna untuk pemula.</div></div>
+    </div>
+    <!--<div class="ssec">
+      <div class="ssec-t" id="lbl-boardtheme-ai">Tema Papan</div>
+      <div class="srow">
+        <div class="cpopts" id="theme-opts-ai">
+          <div class="cpopt on" onclick="pickTheme('classic',this,'theme-opts-ai')"><div class="cpsw" style="background:linear-gradient(135deg,#e8dcc8 50%,#7a6248 50%);">✓</div><span class="cplbl" id="lbl-theme-classic-ai">Klasik</span></div>
+          <div class="cpopt" onclick="pickTheme('forest',this,'theme-opts-ai')"><div class="cpsw" style="background:linear-gradient(135deg,#eeeed2 50%,#769656 50%);"></div><span class="cplbl" id="lbl-theme-forest-ai">Hutan</span></div>
+          <div class="cpopt" onclick="pickTheme('ocean',this,'theme-opts-ai')"><div class="cpsw" style="background:linear-gradient(135deg,#dee3e6 50%,#8ca2ad 50%);"></div><span class="cplbl" id="lbl-theme-ocean-ai">Samudra</span></div>
+          <div class="cpopt" onclick="pickTheme('walnut',this,'theme-opts-ai')"><div class="cpsw" style="background:linear-gradient(135deg,#f0d9b5 50%,#b58863 50%);"></div><span class="cplbl" id="lbl-theme-walnut-ai">Kenari</span></div>
+        </div>
+      </div>
+    </div>-->
+    <div class="ssec">
+      <div class="ssec-t" id="lbl-options">Opsi</div>
+      <div class="srow"><div class="slbl" id="lbl-movehints">Petunjuk Gerakan<small id="lbl-movehints-sub">Tampilkan gerakan legal saat memilih</small></div><button class="tog on" id="ai-tog-hints" onclick="togOpt('hints',this)"></button></div>
+      <div class="srow"><div class="slbl" id="lbl-coords">Koordinat</div><button class="tog on" id="ai-tog-coords" onclick="togOpt('coords',this)"></button></div>
+      <div class="srow"><div class="slbl" id="lbl-lastmove">Sorot Gerakan Terakhir</div><button class="tog on" id="ai-tog-last" onclick="togOpt('lastmove',this)"></button></div>
+    </div>
+    <button class="go-btn ai" onclick="startAI()" id="lbl-start-ai">⚔ Mulai vs AI</button>
+  </div>
+</div>
+
+<!-- ══════ SETTINGS: 2 PLAYERS ══════ -->
+<div class="screen sscreen hidden" id="screen-settings-mp">
+  <div class="sw">
+    <div class="shdr">
+      <button class="back-btn" onclick="goTo('screen-menu')">‹</button>
+      <span class="stitle" id="lbl-settings-title-mp">Pengaturan</span>
+      <span class="sbadge sbadge-mp" id="lbl-badge-mp">2 Pemain</span>
+    </div>
+    <div class="back-to-game-bar" style="display:none" onclick="returnToGame()">
+      <span>▶</span> Kembali ke Game
+    </div>
+    <div class="ssec">
+      <div class="ssec-t" id="lbl-p1-title">Pemain 1 — Putih ♙</div>
+      <div class="srow">
+        <div class="slbl" id="lbl-name-p1">Nama</div>
+        <input class="ninput" id="mp-p1" type="text" value="Pemain 1" maxlength="12">
+      </div>
+    </div>
+    <div class="ssec">
+      <div class="ssec-t" id="lbl-p2-title">Pemain 2 — Hitam ♟</div>
+      <div class="srow">
+        <div class="slbl" id="lbl-name-p2">Nama</div>
+        <input class="ninput" id="mp-p2" type="text" value="Pemain 2" maxlength="12">
+      </div>
+    </div>
+    <!--<div class="ssec">
+      <div class="ssec-t" id="lbl-boardtheme-mp">Tema Papan</div>
+      <div class="srow">
+        <div class="cpopts" id="theme-opts-mp">
+          <div class="cpopt on" onclick="pickTheme('classic',this,'theme-opts-mp')"><div class="cpsw" style="background:linear-gradient(135deg,#e8dcc8 50%,#7a6248 50%);">✓</div><span class="cplbl" id="lbl-theme-classic-mp">Klasik</span></div>
+          <div class="cpopt" onclick="pickTheme('forest',this,'theme-opts-mp')"><div class="cpsw" style="background:linear-gradient(135deg,#eeeed2 50%,#769656 50%);"></div><span class="cplbl" id="lbl-theme-forest-mp">Hutan</span></div>
+          <div class="cpopt" onclick="pickTheme('ocean',this,'theme-opts-mp')"><div class="cpsw" style="background:linear-gradient(135deg,#dee3e6 50%,#8ca2ad 50%);"></div><span class="cplbl" id="lbl-theme-ocean-mp">Samudra</span></div>
+          <div class="cpopt" onclick="pickTheme('walnut',this,'theme-opts-mp')"><div class="cpsw" style="background:linear-gradient(135deg,#f0d9b5 50%,#b58863 50%);"></div><span class="cplbl" id="lbl-theme-walnut-mp">Kenari</span></div>
+        </div>
+      </div>
+    </div>-->
+    <div class="ssec">
+      <div class="ssec-t" id="lbl-mp-options">Opsi Multiplayer</div>
+      <div class="srow"><div class="slbl" id="lbl-movehints-mp">Petunjuk Gerakan</div><button class="tog on" id="mp-tog-hints" onclick="togOpt('hints',this)"></button></div>
+      <div class="srow"><div class="slbl" id="lbl-coords-mp">Koordinat</div><button class="tog on" id="mp-tog-coords" onclick="togOpt('coords',this)"></button></div>
+    </div>
+    <button class="go-btn mp" onclick="startMP()" id="lbl-start-mp">🤝 Mulai Game 2 Pemain</button>
+  </div>
+</div>
+
+<!-- ══════ GAME ══════ -->
+<div class="screen hidden" id="screen-game">
+  <div class="glayout">
+    <div class="gtopbar">
+      <span class="glogo">♔ Chess Master <span class="gmodebadge ai" id="gmbadge">vs AI</span></span>
+      <div class="turncenter">
+        <span class="turnind wt" id="turnind">Giliran Putih</span>
+        <span class="chkbadge" id="chkbadge">⚠ SKAK</span>
+      </div>
+      <div id="turn-timer" class="turn-timer" style="display:none">
+        <span class="timer-icon">⏱</span>
+        <span id="timer-display">3:00</span>
+      </div>
+      <div class="tbacts">
+        <button class="tbbtn" onclick="openPause()" id="lbl-btn-pause">⏸ Jeda</button>
+        <button class="tbbtn" onclick="doUndo()" id="lbl-btn-undo">↩ Undo</button>
+      </div>
+    </div>
+    <div class="gpanel">
+      <div class="gcard">
+        <div class="pcard" id="p2card">
+          <div class="pavatar" id="p2av">🤖</div>
+          <div>
+            <div class="pname" id="p2nm">Deep Mind</div>
+            <div class="plbl" id="p2lb">AI · Hitam</div>
+          </div>
+          <div class="pdot"></div>
+        </div>
+      </div>
+      <div class="gcard">
+        <div class="gcardt" id="cap-lbl-p2">Ditangkap AI</div>
+        <div class="caps" id="cap-p2"></div>
+      </div>
+      <div class="gcard">
+        <div class="gcardt" id="lbl-status">Status</div>
+        <div class="statbox" id="statbox">Putih bergerak.</div>
+      </div>
+    </div>
+    <div class="boardcenter">
+      <div class="boardframe">
+        <div class="cstrv left" id="cvl"></div>
+        <div id="board"></div>
+        <div class="cstrv right" id="cvr"></div>
+      </div>
+      <div class="thinkbar" id="thinkbar"><div class="thinkfill"></div></div>
+      <div class="cstrh" id="chbot"></div>
+    </div>
+    <div class="gpanel">
+      <div class="gcard">
+        <div class="pcard active" id="p1card">
+          <div class="pavatar" id="p1av">👑</div>
+          <div>
+            <div class="pname" id="p1nm">Player</div>
+            <div class="plbl" id="p1lb">Manusia · Putih</div>
+          </div>
+          <div class="pdot"></div>
+        </div>
+      </div>
+      <div class="gcard">
+        <div class="gcardt" id="cap-lbl-p1">Ditangkap Kamu</div>
+        <div class="caps" id="cap-p1"></div>
+      </div>
+      <div class="gcard">
+        <div class="gcardt" id="lbl-actions">Aksi</div>
+        <div class="actcol">
+          <button class="actbtn" onclick="doFlip()"><span class="aico">⇅</span><span id="lbl-flip">Balik Papan</span></button>
+          <button class="actbtn" onclick="doTogHints()"><span class="aico">💡</span><span id="lbl-toggle-hints">Toggle Petunjuk</span></button>
+          <button class="actbtn danger" onclick="doResign()"><span class="aico">🏳</span><span id="lbl-resign">Menyerah</span></button>
+        </div>
+      </div>
+      <div class="gcard">
+        <div class="gcardt" id="lbl-movehistory">Riwayat Gerakan</div>
+        <div id="movehist"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ MP TURN BANNER ══════ -->
+<div id="mp-turn-banner">
+  <div id="mp-turn-inner">
+    <div id="mp-turn-icon">♙</div>
+    <div id="mp-turn-name">Pemain 1</div>
+    <div id="mp-turn-sub">Giliran kamu</div>
+  </div>
+</div>
+
+<!-- ══════ RESULT ══════ -->
+<div class="screen hidden" id="screen-result">
+  <div class="reswrap">
+    <span class="restrophy" id="res-trophy">🏆</span>
+    <h2 class="restitle" id="res-title">Skak Mat!</h2>
+    <p class="ressub" id="res-sub">Pertarungan sengit!</p>
+    <div class="reswinner" id="res-winner">
+      <span class="reswave" id="res-wav">👑</span>
+      <div>
+        <div class="reswname" id="res-wname">Player</div>
+        <div class="reswlbl" id="res-wlbl">Pemenang · Putih</div>
+      </div>
+    </div>
+    <div id="res-elo-card" style="display:none">
+      <div class="elo-card">
+        <div class="elo-row" id="elo-row-me"></div>
+        <div class="elo-row" id="elo-row-opp"></div>
+      </div>
+    </div>
+    <div class="resstats">
+      <div class="statsbox"><span class="statsval" id="st-moves">0</span><span class="statslbl" id="lbl-st-moves">Gerakan</span></div>
+      <div class="statsbox"><span class="statsval" id="st-caps">0</span><span class="statslbl" id="lbl-st-caps">Tangkapan</span></div>
+      <div class="statsbox"><span class="statsval" id="st-chks">0</span><span class="statslbl" id="lbl-st-chks">Skak</span></div>
+    </div>
+    <div class="resbtns">
+      <button class="resbtn prime" onclick="replayGame()" id="lbl-play-again">⚔ Main Lagi</button>
+      <button class="resbtn" onclick="goResSettings()" id="lbl-change-settings">⚙ Ganti Pengaturan</button>
+      <button class="resbtn" onclick="goTo('screen-menu')" id="lbl-main-menu">⌂ Menu Utama</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ LEADERBOARD ══════ -->
+<div class="screen hidden" id="screen-leaderboard">
+  <div class="sw">
+    <div class="shdr">
+      <button class="back-btn" onclick="goTo('screen-menu')">‹</button>
+      <span class="stitle" id="lbl-lb-title">Leaderboard</span>
+      <span class="sbadge" style="border-color:var(--blue);color:var(--blue);">🌐 Online</span>
+    </div>
+    <div class="lb-info" id="lbl-lb-info">Rating ELO dari pertandingan online. ELO awal: 1200.</div>
+    <div class="lb-tiers">
+      <div class="lb-tier-item" style="--tc:#94a3b8">⚪<div><span class="lb-tier-name">Newcomer</span><span class="lb-tier-range">< 1050</span></div></div>
+      <div class="lb-tier-item" style="--tc:#cd7f32"><img src="asset/rank/Bronze.png" class="lb-legend-img" alt="Bronze"><div><span class="lb-tier-name">Bronze</span><span class="lb-tier-range">1050–1149</span></div></div>
+      <div class="lb-tier-item" style="--tc:#cbd5e1"><img src="asset/rank/Silver.png" class="lb-legend-img" alt="Silver"><div><span class="lb-tier-name">Silver</span><span class="lb-tier-range">1150–1299</span></div></div>
+      <div class="lb-tier-item" style="--tc:#fbbf24"><img src="asset/rank/Gold.png" class="lb-legend-img" alt="Gold"><div><span class="lb-tier-name">Gold</span><span class="lb-tier-range">1300–1449</span></div></div>
+      <div class="lb-tier-item" style="--tc:#4ade80"><img src="asset/rank/Emerald.png" class="lb-legend-img" alt="Emerald"><div><span class="lb-tier-name">Emerald</span><span class="lb-tier-range">1450–1599</span></div></div>
+      <div class="lb-tier-item" style="--tc:#67e8f9"><img src="asset/rank/Diamond.png" class="lb-legend-img" alt="Diamond"><div><span class="lb-tier-name">Diamond</span><span class="lb-tier-range">1600–1799</span></div></div>
+      <div class="lb-tier-item" style="--tc:#c084fc"><img src="asset/rank/Master.png" class="lb-legend-img" alt="Master"><div><span class="lb-tier-name">Master</span><span class="lb-tier-range">1800–1999</span></div></div>
+      <div class="lb-tier-item" style="--tc:#ff6b35"><img src="asset/rank/Grandmaster.png" class="lb-legend-img" alt="Grandmaster"><div><span class="lb-tier-name">Grandmaster</span><span class="lb-tier-range">2000+</span></div></div>
+    </div>
+    <div id="lb-status" class="lb-status"></div>
+    <div id="lb-table-wrap">
+      <table class="lb-table" id="lb-table">
+        <thead>
+          <tr>
+            <th style="width:44px">#</th>
+            <th id="lbl-lb-player">Pemain</th>
+            <th class="lb-elo-col" id="lbl-lb-elo">ELO</th>
+            <th style="text-align:center" id="lbl-lb-w">M</th>
+            <th style="text-align:center" id="lbl-lb-l">K</th>
+            <th style="text-align:center" id="lbl-lb-d">S</th>
+          </tr>
+        </thead>
+        <tbody id="lb-body"></tbody>
+      </table>
+    </div>
+    <button class="go-btn ai" style="margin-top:16px" onclick="loadLeaderboard()" id="lbl-lb-refresh">🔄 Refresh</button>
+  </div>
+</div>
+
+<!-- ══════ ONLINE LOBBY ══════ -->
+<div class="screen hidden" id="screen-online">
+  <div class="online-wrap">
+    <div class="shdr">
+      <button class="back-btn" onclick="onlineBack()">‹</button>
+      <span class="stitle" id="lbl-online-title">Game Online</span>
+      <span class="sbadge" style="border-color:var(--blue);color:var(--blue);">🌐 Live</span>
+    </div>
+    <div class="back-to-game-bar" style="display:none" onclick="returnToGame()">
+      <span>▶</span> Kembali ke Game
+    </div>
+    <div class="online-ssec">
+      <div class="online-ssec-t" id="lbl-online-yourname">Nama Kamu</div>
+      <div class="srow">
+        <div class="slbl" id="lbl-displayname">Nama tampilan<small id="lbl-displayname-sub">Terlihat oleh lawan</small></div>
+        <input class="ninput" id="online-name" type="text" value="Player" maxlength="12">
+      </div>
+    </div>
+    <div class="online-tabs">
+      <button class="otab on" id="otab-host" onclick="switchOTab('host')"><span id="lbl-host-tab">🏠 Host Game</span></button>
+      <button class="otab" id="otab-join" onclick="switchOTab('join')"><span id="lbl-join-tab">🔗 Gabung Game</span></button>
+    </div>
+    <div class="opanel show" id="opanel-host">
+      <div class="online-ssec">
+        <div class="online-ssec-t" id="lbl-roomcode">Kode Room</div>
+        <div class="room-display">
+          <div class="room-id-lbl" id="lbl-share-code">Bagikan kode 6 huruf ini ke lawan kamu</div>
+          <div class="room-id" id="host-room-id">——</div>
+          <button class="room-copy-btn" id="host-copy-btn" onclick="copyRoomId()" style="display:none"><span id="lbl-copy-code">📋 Salin Kode</span></button>
+        </div>
+        <div class="conn-status waiting" id="host-conn-status">
+          <div class="conn-dot"></div>
+          <span id="host-conn-text">Klik Generate untuk membuat room</span>
+        </div>
+        <div class="online-hint" id="lbl-hint-host">Kamu bermain sebagai <strong style="color:var(--ivory)">Putih ♙</strong>. Buat room, bagikan kode, lalu tunggu lawan.</div>
+      </div>
+      <button class="online-go-btn" id="host-gen-btn" onclick="hostGenerateRoom()"><span id="lbl-generate">⚡ Buat Room</span></button>
+    </div>
+    <div class="opanel" id="opanel-join">
+      <div class="online-ssec">
+        <div class="online-ssec-t" id="lbl-enter-code">Masukkan Kode Room</div>
+        <div class="join-input-row">
+          <input class="join-input" id="join-code-input" type="text" placeholder="Contoh: ABC123" maxlength="6" oninput="this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'')">
+        </div>
+        <div class="conn-status waiting" id="join-conn-status" style="display:none">
+          <div class="conn-dot"></div>
+          <span id="join-conn-text">Menghubungkan…</span>
+        </div>
+        <div class="online-hint" id="lbl-hint-join">Kamu bermain sebagai <strong style="color:var(--ivory)">Hitam ♟</strong>. Masukkan kode 6 huruf dari lawanmu.</div>
+      </div>
+      <button class="online-go-btn" id="join-btn" onclick="joinRoom()"><span id="lbl-join-btn">🔗 Gabung</span></button>
+    </div>
+  </div>
+</div>
+
+<div id="online-waiting-overlay">
+  <div class="owbox">
+    <span class="owicon">⏳</span>
+    <div class="owtitle" id="lbl-waiting">Menunggu Lawan</div>
+    <div class="owsub" id="lbl-share-friend">Bagikan kode ini ke temanmu:</div>
+    <div class="owroom" id="ow-room-id">——</div>
+    <div class="owsub" style="font-size:.75rem;margin-bottom:16px;" id="lbl-auto-start">Game mulai otomatis saat mereka bergabung.</div>
+    <button class="owcancel" onclick="cancelOnlineHost()" id="lbl-cancel">✕ Batal</button>
+  </div>
+</div>
+
+<!-- ══════ HOW TO PLAY ══════ -->
+<div class="screen hidden" id="screen-howto">
+  <div class="htwrap">
+    <div class="shdr">
+      <button class="back-btn" onclick="goTo('screen-menu')">‹</button>
+      <span class="stitle" id="lbl-howto-title">Cara Bermain</span>
+    </div>
+    <div class="htgrid">
+      <div class="htcard"><span class="htp">♔</span><div class="htn" id="lbl-piece-king">Raja</div><div class="htd" id="lbl-desc-king">Bergerak 1 kotak ke segala arah.</div></div>
+      <div class="htcard"><span class="htp">♕</span><div class="htn" id="lbl-piece-queen">Ratu</div><div class="htd" id="lbl-desc-queen">Paling kuat. Bergerak ke segala arah.</div></div>
+      <div class="htcard"><span class="htp">♖</span><div class="htn" id="lbl-piece-rook">Benteng</div><div class="htd" id="lbl-desc-rook">Bergerak horizontal atau vertikal.</div></div>
+      <div class="htcard"><span class="htp">♗</span><div class="htn" id="lbl-piece-bishop">Gajah</div><div class="htd" id="lbl-desc-bishop">Bergerak diagonal. Tetap di warnanya.</div></div>
+      <div class="htcard"><span class="htp">♘</span><div class="htn" id="lbl-piece-knight">Kuda</div><div class="htd" id="lbl-desc-knight">Gerakan L. Bisa melompati bidak lain.</div></div>
+      <div class="htcard"><span class="htp">♙</span><div class="htn" id="lbl-piece-pawn">Pion</div><div class="htd" id="lbl-desc-pawn">Maju 1 atau 2. Tangkap diagonal. Promosi.</div></div>
+    </div>
+    <div class="htrules">
+      <div class="htri"><span class="htricon">🏰</span><div class="htrtxt" id="lbl-rule-castling"><strong>Rokade:</strong> Raja bergerak 2 kotak ke arah Benteng; Benteng melompati.</div></div>
+      <div class="htri"><span class="htricon">👻</span><div class="htrtxt" id="lbl-rule-enpassant"><strong>En Passant:</strong> Tangkap pion yang baru maju 2 kotak — langsung setelah saja.</div></div>
+      <div class="htri"><span class="htricon">♛</span><div class="htrtxt" id="lbl-rule-promotion"><strong>Promosi:</strong> Pion di baris belakang dipromosikan ke Ratu, Benteng, Gajah, atau Kuda.</div></div>
+      <div class="htri"><span class="htricon">⚠</span><div class="htrtxt" id="lbl-rule-check"><strong>Skak &amp; Skak Mat:</strong> Tidak ada jalan keluar = skak mat.</div></div>
+      <div class="htri"><span class="htricon">½</span><div class="htrtxt" id="lbl-rule-stalemate"><strong>Pat:</strong> Tidak ada gerakan legal tapi tidak dalam skak = seri.</div></div>
+      <div class="htri"><span class="htricon">🤝</span><div class="htrtxt" id="lbl-rule-2p"><strong>Mode 2 Pemain:</strong> Kedua pemain berbagi perangkat.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ LANGUAGE MODAL ══════ -->
+<div id="lang-modal">
+  <div class="lang-box">
+    <button class="profile-close" onclick="closeLangModal()">✕</button>
+    <div class="lang-title">🌍 <span id="lbl-select-lang">Pilih Bahasa</span></div>
+    <div class="lang-options">
+      <button class="lang-opt active" data-lang="id" onclick="setLanguage('id')">
+        <span class="lang-flag">🇮🇩</span>
+        <div><div class="lang-name">Bahasa Indonesia</div><div class="lang-native">Indonesia</div></div>
+        <span class="lang-check">✓</span>
+      </button>
+      <button class="lang-opt" data-lang="en" onclick="setLanguage('en')">
+        <span class="lang-flag">🇬🇧</span>
+        <div><div class="lang-name">English</div><div class="lang-native">English</div></div>
+        <span class="lang-check">✓</span>
+      </button>
+      <button class="lang-opt" data-lang="ms" onclick="setLanguage('ms')">
+        <span class="lang-flag">🇲🇾</span>
+        <div><div class="lang-name">Bahasa Melayu</div><div class="lang-native">Malay</div></div>
+        <span class="lang-check">✓</span>
+      </button>
+      <button class="lang-opt" data-lang="zh" onclick="setLanguage('zh')">
+        <span class="lang-flag">🇨🇳</span>
+        <div><div class="lang-name">中文（简体）</div><div class="lang-native">Chinese Simplified</div></div>
+        <span class="lang-check">✓</span>
+      </button>
+      <button class="lang-opt" data-lang="ja" onclick="setLanguage('ja')">
+        <span class="lang-flag">🇯🇵</span>
+        <div><div class="lang-name">日本語</div><div class="lang-native">Japanese</div></div>
+        <span class="lang-check">✓</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════ CHANGELOG MODAL ══════ -->
+<div id="changelog-modal">
+  <div class="changelog-box">
+    <div class="changelog-header">
+      <span class="changelog-badge" id="lbl-cl-badge">🆕 UPDATE</span>
+      <span class="changelog-ver">v1.6.61</span>
+    </div>
+    <h2 class="changelog-title" id="lbl-cl-title">Yang Baru</h2>
+    <div class="changelog-list">
+      <div class="changelog-item improve">
+        <span class="cl-icon">🔧</span>
+        <div><div class="cl-title" id="cldesc1">Perbaikan UI/UX</div><div class="cl-desc" id="cl1">Perbaikan tampilan dan pengalaman pengguna.</div></div>
+      </div>
+    </div>
+    <button class="changelog-close-btn" onclick="closeChangelog()" id="lbl-cl-close">Mengerti ✓</button>
+    <label class="changelog-dont-show" id="lbl-cl-dontshow">
+      <input type="checkbox" id="changelog-skip-cb"> Jangan tampilkan lagi
+    </label>
+  </div>
+</div>
+
+<!-- ══════ PAUSE ══════ -->
+<div class="screen hidden" id="screen-pause">
+  <div class="pausebox">
+    <span class="pauseicon">⏸</span>
+    <div class="pausettl" id="lbl-pause-title">Game Dijeda</div>
+    <p class="pausesub" id="pausesub">Papan menunggu.</p>
+    <div class="pausebtns">
+      <button class="pausebtn prime" onclick="closePause()" id="lbl-resume">▶ Lanjut</button>
+      <button class="pausebtn" onclick="doUndo()" id="lbl-undo-move">↩ Batalkan Gerakan</button>
+      <button class="pausebtn" onclick="pauseGoSettings()" id="lbl-settings-btn">⚙ Pengaturan</button>
+    </div>
+  </div>
+</div>
+
+<!-- PROMOTION MODAL -->
+<div id="promo-modal">
+  <div class="promobox">
+    <h3 id="lbl-promo">Promosi Pion</h3>
+    <div class="promochs" id="promo-chs"></div>
+  </div>
+</div>
+
+<!-- ABOUT MODAL -->
+<div id="about-modal">
+  <div class="aboutbox">
+    <h2 style="font-size: 1.5rem;">Chess Master</h2>
+    <div class="av" style="font-size: 1.2rem;">VERSI 1.6.0</div>
+    <p style="font-size: medium;" class="aboutdesc1" id="lbl-aboutDesc1">Game catur lengkap dengan AI Minimax (Alpha-Beta pruning + Piece-Square Table), mode lokal 2 pemain, dan multiplayer online via ntfy.sh.</p>
+    <p style="font-size: medium;" class="aboutdesc2" id="lbl-aboutDesc2">Fitur: rokade, en passant, promosi, undo, tema papan, sistem ELO, leaderboard online, sistem akun, avatar kustom.</p>
+    <p style="color:var(--ivory-d);font-size:.74rem;">Building With HTML · CSS · JavaScript</p>
+    <button class="closebtn" onclick="closeAbout()" id="lbl-about-close">Tutup</button>
+  </div>
+</div>
+
+<!-- ══════ PROFILE MODAL ══════ -->
+<div id="profile-modal">
+  <div class="profile-box">
+    <button class="profile-close" onclick="closeProfile()">✕</button>
+    <div class="profile-av-big" id="pm-avatar">♔</div>
+    <div class="profile-username" id="pm-username">Player</div>
+    <div class="profile-bio" id="pm-bio"></div>
+    <div class="profile-stats-row">
+      <div class="profile-stat"><span class="profile-stat-val" id="pm-elo">500</span><span class="profile-stat-lbl" id="lbl-elo-stat">ELO</span></div>
+      <div class="profile-stat"><span class="profile-stat-val" id="pm-wins">0</span><span class="profile-stat-lbl" id="lbl-wins-stat">Menang</span></div>
+      <div class="profile-stat"><span class="profile-stat-val" id="pm-losses">0</span><span class="profile-stat-lbl" id="lbl-losses-stat">Kalah</span></div>
+      <div class="profile-stat"><span class="profile-stat-val" id="pm-draws">0</span><span class="profile-stat-lbl" id="lbl-draws-stat">Seri</span></div>
+    </div>
+    <div class="profile-actions">
+      <button class="profile-edit-btn" onclick="openEditProfile()" id="lbl-edit-profile">✏️ Edit Profil</button>
+      <button class="profile-logout-btn" onclick="doLogout()" id="lbl-logout">🚪 Logout</button>
+    </div>
+    <div class="profile-edit-form hidden" id="profile-edit-form">
+      <div class="auth-field">
+        <label class="auth-lbl" id="lbl-edit-avatar">Avatar</label>
+        <div class="avatar-picker" id="edit-avatar-picker">
+          <span class="av-opt" data-av="⚔️" onclick="pickEditAvatar(this)">⚔️</span>
+          <span class="av-opt" data-av="🏆" onclick="pickEditAvatar(this)">🏆</span>
+          <span class="av-opt" data-av="🎯" onclick="pickEditAvatar(this)">🎯</span>
+          <span class="av-opt" data-av="🦁" onclick="pickEditAvatar(this)">🦁</span>
+          <span class="av-opt" data-av="🐉" onclick="pickEditAvatar(this)">🐉</span>
+          <span class="av-opt" data-av="👑" onclick="pickEditAvatar(this)">👑</span>
+        </div>
+        <div class="av-upload-row">
+          <label class="av-upload-btn" for="edit-avatar-file" id="lbl-upload-edit">📷 Upload Foto</label>
+          <input type="file" id="edit-avatar-file" accept="image/*" style="display:none" onchange="handleAvatarUpload(this,'edit')">
+          <div class="av-preview-wrap" id="edit-av-preview" style="display:none">
+            <img class="av-preview-img" id="edit-av-img" src="" alt="preview">
+            <button class="av-remove-btn" onclick="removeAvatarUpload('edit')">✕</button>
+          </div>
+        </div>
+      </div>
+      <div class="auth-field">
+        <label class="auth-lbl" id="lbl-edit-bio">Bio</label>
+        <input class="auth-input" id="edit-bio" type="text" placeholder="Bio" maxlength="60">
+      </div>
+      <div class="auth-field">
+        <label class="auth-lbl" id="lbl-edit-pw">Password Baru <small id="lbl-edit-pw-sub">Kosongkan jika tidak ingin ganti</small></label>
+        <input class="auth-input" id="edit-password" type="password" placeholder="Password" maxlength="32">
+      </div>
+      <div class="auth-err" id="edit-err"></div>
+      <button style="margin-top:8px" class="auth-btn" onclick="saveEditProfile()">💾 Save</button>
+      <button class="auth-skip" onclick="closeEditProfile()" id="lbl-edit-cancel">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script src="chess-backend/api-client.js"></script>
+<script src="chess-script.js"></script>
+<script src="i18n.js"></script>
+</body>
+</html>

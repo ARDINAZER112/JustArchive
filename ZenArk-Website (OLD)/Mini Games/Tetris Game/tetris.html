@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="stylesheet" href="tetris-style.css">
+<link rel="icon" href="asset/tetris.png" type="image/x-icon">
+<title>TETRIS</title>
+</head>
+<body>
+<div id="app">
+  <div id="title">TETRIS</div>
+
+  <div id="game-area">
+    <div class="side-panel" id="left-panel">
+      <div class="panel-box" id="pb-score">
+        <span class="panel-label">SCORE</span>
+        <span class="panel-value" id="score">0</span>
+      </div>
+      <div class="panel-box" id="pb-level">
+        <span class="panel-label">LEVEL</span>
+        <span class="panel-value" id="level">1</span>
+        <div class="level-bar" id="level-bar" style="width:0%"></div>
+      </div>
+      <div class="panel-box" id="pb-lines">
+        <span class="panel-label">LINES</span>
+        <span class="panel-value" id="lines">0</span>
+      </div>
+      <div class="panel-box" id="pb-best">
+        <span class="panel-label">BEST</span>
+        <span class="panel-value" id="best">0</span>
+      </div>
+    </div>
+
+    <div id="canvas-wrapper">
+      <canvas id="game-canvas"></canvas>
+      <div class="overlay" id="overlay">
+        <div class="overlay-title" id="overlay-title">TETRIS</div>
+        <button class="btn" id="start-btn">MULAI</button>
+        <div class="overlay-sub" id="overlay-sub">← → Gerak &nbsp; ↑ Putar<br>↓ Turun &nbsp; SPACE Drop</div>
+      </div>
+    </div>
+
+    <div class="side-panel" id="right-panel">
+      <div class="panel-box" id="pb-next">
+        <span class="panel-label">NEXT</span>
+        <canvas id="next-canvas"></canvas>
+      </div>
+    </div>
+
+  <div id="kb-info">
+    <div><span>← → atau A D</span> Gerak</div>
+    <div><span>↑ atau W</span> Putar</div>
+    <div><span>↓ atau S</span> Turun</div>
+    <div><span>Space</span> Drop</div>
+    <div><span>P</span> Pause</div>
+    <div><span>R</span> Restart</div>
+  </div>
+
+  </div>
+<div id="mob-controls">
+    <div class="mob-row" id="mob-row-top"></div>
+    <div class="mob-row" id="mob-row-mid"></div>
+    <div class="mob-row" id="mob-row-bot"></div>
+  </div>
+ 
+</div>
+
+<div id="pause-label">PAUSE</div>
+
+<script src="tetris-script.js"></script>
+</body>
+</html>

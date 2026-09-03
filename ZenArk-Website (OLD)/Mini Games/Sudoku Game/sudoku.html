@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#080810">
+<title>SUDOKU</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="sudokustyle.css">
+    <link rel="icon" href="asset/icon.png" type="image/x-icon">
+</head>
+<body>
+<div class="app">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="brand">
+      <span class="brand-eyebrow">Logic Puzzle</span>
+      <div class="brand-title">SUDOKU</div>
+    </div>
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-l">Waktu</span>
+        <div class="stat-v sv-time" id="tv">00:00</div>
+      </div>
+      <div class="stat">
+        <span class="stat-l">Skor</span>
+        <div class="stat-v sv-score" id="sv">0</div>
+      </div>
+      <div class="stat">
+        <span class="stat-l">Salah</span>
+        <div class="stat-v sv-err" id="mv">0/3</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DIFFICULTY -->
+  <div class="diff-bar">
+    <button class="d-btn" data-d="mudah">Mudah</button>
+    <button class="d-btn active" data-d="sedang">Sedang</button>
+    <button class="d-btn" data-d="sulit">Sulit</button>
+    <button class="d-btn" data-d="ekstrem">Ekstrem</button>
+  </div>
+
+  <!-- GAME AREA -->
+  <div class="game-area">
+
+    <!-- BOARD COLUMN -->
+    <div class="board-col">
+      <div class="board-container">
+        <div id="board"></div>
+      </div>
+      <div class="kb-hint">1–9 isi &nbsp;·&nbsp; Arrow pindah &nbsp;·&nbsp; N catatan &nbsp;·&nbsp; Ctrl+Z undo</div>
+    </div>
+
+    <!-- DESKTOP SIDEBAR -->
+    <div class="sidebar">
+
+      <div class="panel">
+        <div class="panel-title">Mode</div>
+        <div class="mode-toggle">
+          <button class="m-pill on" id="md-n" onclick="setMode('normal')">Normal</button>
+          <button class="m-pill" id="md-t" onclick="setMode('note')">Catatan</button>
+        </div>
+        <div class="panel-title">Angka</div>
+        <div class="numpad" id="np-d"></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Aksi</div>
+        <div class="acts">
+          <button class="ab g" onclick="undo()">↩ Undo</button>
+          <button class="ab g" onclick="erase()">⌫ Hapus</button>
+          <button class="ab" onclick="useHint()">💡 Hint</button>
+          <button class="ab r" onclick="confirmReset()">↺ Reset</button>
+        </div>
+        <div class="prog-wrap" style="margin-top:12px">
+          <div class="panel-title">Progres</div>
+          <div class="prog-track"><div class="prog-fill" id="pf-d" style="width:0%"></div></div>
+          <div class="prog-text"><span id="pl">0 terisi</span><span>81 total</span></div>
+        </div>
+        <button class="ngb" onclick="newGame()">Game Baru</button>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Info</div>
+        <div class="info-rows">
+          <div>Hint: <span class="v" id="hd">3</span></div>
+          <div>Level: <span class="vg" id="dl">Sedang</span></div>
+          <div id="btr">Rekor: <span class="vs" id="bt">--:--</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- LANDSCAPE SIDEBAR -->
+    <div class="ls-bar" id="ls">
+      <div class="ls-panel">
+        <div class="panel-title">Mode</div>
+        <div class="ls-mode">
+          <div class="ls-mp on" id="ls-n" onclick="setMode('normal')">Normal</div>
+          <div class="ls-mp" id="ls-t" onclick="setMode('note')">Catatan</div>
+        </div>
+        <div class="panel-title">Angka</div>
+        <div class="ls-np" id="np-ls"></div>
+        <div class="ls-acts">
+          <button class="ls-ab" onclick="undo()">↩ Undo</button>
+          <button class="ls-ab" onclick="erase()">⌫ Hapus</button>
+          <button class="ls-ab" onclick="useHint()">💡 Hint</button>
+          <button class="ls-ab" onclick="confirmReset()">↺ Reset</button>
+        </div>
+        <button class="ngb" style="margin-top:8px;font-size:var(--f-ngb);padding:8px" onclick="newGame()">Game Baru</button>
+      </div>
+    </div>
+
+  </div><!-- game-area -->
+
+  <!-- BOTTOM CONTROLS (mobile/tablet) -->
+  <div class="btm" id="btm">
+
+    <div class="btm-row1">
+      <div class="btm-mode">
+        <button class="bm-pill on" id="bm-n" onclick="setMode('normal')">Normal</button>
+        <button class="bm-pill" id="bm-t" onclick="setMode('note')">Catatan</button>
+      </div>
+      <div class="btm-acts">
+        <button class="bab" onclick="undo()">↩</button>
+        <button class="bab" onclick="erase()">⌫</button>
+        <button class="bab" onclick="useHint()">💡</button>
+        <button class="bab" onclick="confirmReset()">↺</button>
+        <button class="bab new" onclick="newGame()">New</button>
+      </div>
+    </div>
+
+    <div class="btm-np" id="np-m"></div>
+
+    <div class="btm-info">
+      <div class="btm-info-text">
+        Hint: <span id="hm">3</span>
+        &nbsp;·&nbsp;
+        Rekor: <span id="btm-bt" style="color:var(--jade)">--:--</span>
+      </div>
+      <div class="btm-prog">
+        <div class="prog-track"><div class="prog-fill" id="pf-m" style="width:0%"></div></div>
+      </div>
+    </div>
+
+  </div>
+
+</div><!-- .app -->
+
+<div id="toast"></div>
+
+<!-- WIN OVERLAY -->
+<div id="win">
+  <div class="win-card">
+    <div class="confetti" id="confetti"></div>
+    <div class="win-label">Puzzle Selesai</div>
+    <div class="win-title">Solved!</div>
+    <div class="win-stats">
+      <div>
+        <div class="ws-n" id="wt" style="color:var(--sky)">--:--</div>
+        <div class="ws-l">Waktu</div>
+      </div>
+      <div>
+        <div class="ws-n" id="ws" style="color:var(--gold-light)">0</div>
+        <div class="ws-l">Skor</div>
+      </div>
+      <div>
+        <div class="ws-n" id="we" style="color:var(--rose)">0</div>
+        <div class="ws-l">Salah</div>
+      </div>
+    </div>
+    <button class="win-ngb" onclick="newGame();closeWin()">Main Lagi →</button>
+  </div>
+</div>
+
+<script src="Sudokuscript.js"></script>
+</body>
+</html>

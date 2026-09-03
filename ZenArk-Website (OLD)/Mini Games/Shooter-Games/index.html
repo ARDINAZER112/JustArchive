@@ -1,0 +1,1663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Shooter Game - Test your shooting skills!">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="icon" href="assets/icon.png" type="image/png">
+    <title>Shooter Game</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+            background: #1a1a2e;
+        }
+
+        /* ============= WELCOME SCREEN ============= */
+        .screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            z-index: 10;
+        }
+
+        .screen.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .welcome-logo {
+            width: 120px;
+            height: 100px;
+            margin: 0 auto 15px;
+            background: url('assets/shooter.png') center/contain no-repeat;
+        }
+
+        .welcome-title {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .welcome-subtitle {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .welcome-form {
+            background: rgba(255, 255, 255, 0.98);
+            padding: 25px 20px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #333;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            font-family: 'Arial', sans-serif;
+            background: #fff;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 8px rgba(102, 126, 234, 0.3);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #f5f7ff;
+        }
+
+        /* ============= INSTRUCTIONS MODAL ============= */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 15px;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            max-width: 450px;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            animation: slideIn 0.3s ease-out;
+            width: 100%;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .modal p, .modal ul {
+            color: #444;
+            line-height: 1.5;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+        }
+
+        .modal ul {
+            margin-left: 18px;
+        }
+
+        .modal li {
+            margin-bottom: 6px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: #f0f0f0;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.3rem;
+            color: #667eea;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        /* ============= GAME SCREEN ============= */
+        .game-screen {
+            background: url('assets/background.jpg') center/cover;
+            position: relative;
+        }
+
+        .game-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+            color: white;
+            font-weight: bold;
+            z-index: 20;
+        }
+
+        .header-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1px;
+        }
+
+        .header-label {
+            font-size: 0.6rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .header-value {
+            font-size: 0.95rem;
+            color: #fff;
+        }
+
+        .timer {
+            font-size: 1.5rem;
+            color: #ffeb3b;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .gameboard {
+            position: absolute;
+            top: 50px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            cursor: none;
+            overflow: hidden;
+            touch-action: none;
+        }
+
+        .pointer {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: url('assets/pointer.png') center/contain no-repeat;
+            pointer-events: none;
+            z-index: 50;
+            transform: translate(-50%, -50%);
+        }
+
+        .gun {
+            position: absolute;
+            pointer-events: none;
+            z-index: 51;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            /* Gun di tengah bawah */
+            left: 50%;
+            bottom: 0%;
+            transform: translateX(-50%);
+        }
+
+        .gun-type-1 {
+            width: 180px;
+            height: 150px;
+            background-image: url('assets/gun1.png');
+            transform: translateX(-50%) scaleX(-1);
+        }
+
+        .gun-type-2 {
+            width: 220px;
+            height: 180px;
+            background-image: url('assets/gun2.png');
+            transform: translateX(-50%) scaleX(-1);
+        }
+
+        .target {
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            cursor: pointer;
+            animation: targetAppear 0.4s ease-out;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        @keyframes targetAppear {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .target.hit {
+            animation: targetHit 0.3s ease-out forwards;
+        }
+
+        @keyframes targetHit {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(0); opacity: 0; }
+        }
+
+        .target-type-1 { background-image: url('assets/target1.png'); }
+        .target-type-2 { background-image: url('assets/target2.png'); }
+        .target-type-3 { background-image: url('assets/target3.png'); }
+
+        .boom-effect {
+            position: absolute;
+            width: 70px;
+            height: 65px;
+            background: url('assets/boom.png') center/contain no-repeat;
+            pointer-events: none;
+            animation: boomExplosion 0.5s ease-out forwards;
+        }
+
+        @keyframes boomExplosion {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(0.5); opacity: 0; }
+        }
+
+        /* ============= COUNTDOWN ============= */
+        .countdown-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .countdown-overlay.show { display: flex; }
+
+        .countdown-number {
+            font-size: 4rem;
+            color: white;
+            font-weight: bold;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+            animation: countdownPulse 1s ease-out;
+        }
+
+        @keyframes countdownPulse {
+            0% { transform: scale(0.5); opacity: 0; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* ============= PAUSE MODAL ============= */
+        .pause-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 300;
+        }
+
+        .pause-overlay.show { display: flex; }
+
+        .pause-modal {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            animation: slideIn 0.3s ease-out;
+            width: 85%;
+            max-width: 320px;
+        }
+
+        .pause-modal h2 {
+            font-size: 1.8rem;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        .pause-modal-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .pause-btn {
+            padding: 12px 20px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            cursor: pointer;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+
+        .pause-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        /* ============= GAME OVER MODAL ============= */
+        .gameover-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 200;
+            padding: 15px;
+        }
+
+        .gameover-overlay.show { display: flex; }
+
+        .gameover-modal {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            max-width: 380px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .gameover-modal h2 {
+            font-size: 1.8rem;
+            color: #667eea;
+            margin-bottom: 18px;
+        }
+
+        .gameover-stats {
+            background: #f5f7ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .stat-row:last-child { margin-bottom: 0; }
+
+        .stat-label { color: #666; font-weight: bold; }
+        .stat-value { color: #667eea; font-weight: bold; }
+
+        .gameover-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .gameover-btn {
+            padding: 12px 18px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+
+        .gameover-btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .gameover-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .gameover-btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .gameover-btn-secondary:hover {
+            background: #f5f7ff;
+        }
+
+        /* ============= LEADERBOARD SCREEN ============= */
+        .leaderboard-screen {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            flex-direction: column;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .leaderboard-header {
+            text-align: center;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .leaderboard-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+        }
+
+        .sort-buttons {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .sort-btn {
+            padding: 8px 16px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+
+        .sort-btn.active {
+            background: white;
+            color: #667eea;
+            border-color: white;
+        }
+
+        .leaderboard-table {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .leaderboard-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .leaderboard-table th {
+            background: #f5f7ff;
+            padding: 10px 8px;
+            text-align: left;
+            font-weight: bold;
+            color: #667eea;
+            font-size: 0.8rem;
+            border-bottom: 2px solid #e0e6ff;
+        }
+
+        .leaderboard-table td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #e0e6ff;
+            color: #333;
+            font-size: 0.8rem;
+        }
+
+        .rank { color: #667eea; font-weight: bold; }
+
+        .empty-message {
+            color: white;
+            text-align: center;
+            padding: 30px;
+            font-size: 1rem;
+        }
+
+        .leaderboard-back-btn {
+            align-self: center;
+            padding: 10px 25px;
+            border: 2px solid white;
+            background: transparent;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+
+        .leaderboard-back-btn:hover {
+            background: white;
+            color: #667eea;
+        }
+
+        /* ============= GAME WRAPPER ============= */
+        .game-wrapper {
+            width: 100%;
+            height: 100%;
+            max-width: 100vw;
+            max-height: 100vh;
+            position: relative;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+
+        /* ============= GUN & TARGET SELECTION ============= */
+        .data-gun, .target-selection {
+            margin: 15px 0;
+        }
+
+        .data-gun label, .target-selection label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            color: #333;
+        }
+
+        .gun-options, .target-options {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .gun-option, .target-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            padding: 8px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            transition: all 0.3s;
+            min-width: 70px;
+        }
+
+        .gun-option:hover, .target-option:hover {
+            border-color: #667eea;
+            background: #f5f7ff;
+        }
+
+        .gun-option.selected, .target-option.selected {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+        }
+
+        .gun-preview, .target-preview {
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin-bottom: 4px;
+        }
+
+        .gun-preview { width: 60px; height: 45px; }
+        .target-preview { width: 45px; height: 45px; }
+
+        .gun-option input[type="radio"], .target-option input[type="radio"] {
+            display: none;
+        }
+
+        /* ============= RESPONSIVE DESIGN ============= */
+        
+        /* Tablet */
+        @media (max-width: 768px) {
+            .game-header {
+                height: 45px;
+                padding: 0 8px;
+            }
+            
+            .header-label { font-size: 0.55rem; }
+            .header-value { font-size: 0.85rem; }
+            .timer { font-size: 1.3rem; }
+            
+            .gameboard { top: 45px; }
+            
+            .target { width: 60px; height: 60px; }
+            
+            .gun-type-1 { width: 140px; height: 120px; bottom: 8%; }
+            .gun-type-2 { width: 170px; height: 140px; bottom: 8%; }
+            
+            .pointer { width: 35px; height: 35px; }
+            
+            .countdown-number { font-size: 3rem; }
+            
+            .welcome-form { padding: 20px 15px; }
+            .welcome-logo { width: 100px; height: 80px; }
+            .welcome-title { font-size: 1.6rem; }
+        }
+
+        /* Mobile Landscape */
+        @media (max-width: 600px) and (orientation: landscape) {
+            .game-header {
+                height: 40px;
+            }
+            
+            .gameboard { top: 40px; }
+            
+            .header-label { display: none; }
+            .header-value { font-size: 0.8rem; }
+            .timer { font-size: 1.1rem; }
+            
+            .welcome-form {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                justify-content: center;
+                max-width: 90%;
+            }
+            
+            .welcome-form > * {
+                flex: 1;
+                min-width: 140px;
+            }
+            
+            .button-group {
+                width: 100%;
+                flex-direction: row;
+            }
+            
+            .target { width: 50px; height: 50px; }
+            
+            .gun-type-1 { width: 120px; height: 100px; bottom: 5%; }
+            .gun-type-2 { width: 150px; height: 120px; bottom: 5%; }
+        }
+
+        /* Mobile Portrait */
+        @media (max-width: 480px) {
+            .game-header {
+                height: 42px;
+                padding: 0 5px;
+            }
+            
+            .header-item { gap: 0; }
+            .header-label { font-size: 0.5rem; }
+            .header-value { font-size: 0.75rem; }
+            .timer { font-size: 1.1rem; }
+            
+            .gameboard { top: 42px; }
+            
+            .target { width: 55px; height: 55px; }
+            
+            .gun-type-1 { width: 130px; height: 110px; bottom: 5%; }
+            .gun-type-2 { width: 160px; height: 130px; bottom: 5%; }
+            
+            .pointer { width: 30px; height: 30px; }
+            
+            .countdown-number { font-size: 2.5rem; }
+            
+            .welcome-form { padding: 18px 12px; }
+            .welcome-logo { width: 80px; height: 65px; }
+            .welcome-title { font-size: 1.4rem; }
+            .welcome-subtitle { font-size: 0.85rem; }
+            
+            .form-group { margin-bottom: 12px; }
+            .form-group label { font-size: 0.85rem; }
+            .form-group input, .form-group select { padding: 8px 10px; font-size: 0.9rem; }
+            
+            .gun-preview { width: 50px; height: 40px; }
+            .target-preview { width: 40px; height: 40px; }
+            .gun-option, .target-option { padding: 6px; min-width: 60px; }
+            
+            .btn { padding: 10px 12px; font-size: 0.75rem; }
+            
+            .modal { padding: 20px 15px; }
+            .modal h2 { font-size: 1.2rem; }
+            .modal p, .modal ul { font-size: 0.85rem; }
+            
+            .pause-modal { padding: 20px; }
+            .pause-modal h2 { font-size: 1.5rem; }
+            
+            .gameover-modal { padding: 18px; }
+            .gameover-modal h2 { font-size: 1.5rem; }
+            .gameover-stats { padding: 12px; }
+            .stat-row { font-size: 0.85rem; }
+            
+            .leaderboard-header h1 { font-size: 1.4rem; }
+            .sort-btn { padding: 6px 12px; font-size: 0.75rem; }
+            
+            .leaderboard-table th, .leaderboard-table td { padding: 8px 5px; font-size: 0.75rem; }
+        }
+
+        /* Small Mobile */
+        @media (max-width: 360px) {
+            .game-header { height: 38px; }
+            .gameboard { top: 38px; }
+            
+            .header-value { font-size: 0.7rem; }
+            .timer { font-size: 1rem; }
+            
+            .target { width: 48px; height: 48px; }
+            
+            .gun-type-1 { width: 110px; height: 90px; bottom: 4%; }
+            .gun-type-2 { width: 140px; height: 110px; bottom: 4%; }
+            
+            .countdown-number { font-size: 2rem; }
+            
+            .welcome-title { font-size: 1.2rem; }
+        }
+
+        /* Touch device optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .target {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .gun-type-1 { width: 160px; height: 130px; bottom: 12%; }
+            .gun-type-2 { width: 200px; height: 160px; bottom: 12%; }
+            
+            .pointer {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .btn, .pause-btn, .gameover-btn {
+                padding: 14px 20px;
+            }
+            
+            .target-options, .gun-options {
+                gap: 15px;
+            }
+            
+            .gun-option, .target-option {
+                padding: 12px;
+            }
+        }
+
+        /* Very small height */
+        @media (max-height: 500px) {
+            .game-header { height: 35px; }
+            .gameboard { top: 35px; }
+            
+            .header-label { display: none; }
+            
+            .target { width: 50px; height: 50px; }
+            
+            .gun-type-1 { width: 120px; height: 100px; bottom: 3%; }
+            .gun-type-2 { width: 150px; height: 120px; bottom: 3%; }
+            
+            .welcome-logo { width: 70px; height: 55px; }
+            .welcome-title { font-size: 1.2rem; margin-bottom: 5px; }
+            .welcome-subtitle { font-size: 0.8rem; margin-bottom: 15px; }
+            .welcome-form { padding: 15px; }
+        }
+
+        /* Landscape mobile */
+        @media (max-height: 400px) and (orientation: landscape) {
+            .game-header { height: 32px; }
+            .gameboard { top: 32px; }
+            
+            .target { width: 45px; height: 45px; }
+            
+            .gun-type-1 { width: 100px; height: 80px; bottom: 2%; }
+            .gun-type-2 { width: 130px; height: 100px; bottom: 2%; }
+            
+            .pointer { width: 28px; height: 28px; }
+            
+            .countdown-number { font-size: 2rem; }
+            
+            .welcome-form {
+                flex-direction: row;
+                flex-wrap: wrap;
+                max-width: 95%;
+                padding: 12px;
+            }
+            
+            .welcome-logo { display: none; }
+            .welcome-title { font-size: 1.1rem; }
+            
+            .form-group {
+                flex: 1;
+                min-width: 100px;
+                margin-bottom: 8px;
+            }
+            
+            .data-gun, .target-selection {
+                flex: 1;
+                min-width: 120px;
+                margin: 5px 0;
+            }
+            
+            .button-group {
+                width: 100%;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-wrapper">
+        <!-- WELCOME SCREEN -->
+        <div class="screen welcome-screen active" id="welcomeScreen">
+            <div class="welcome-form">
+                <div class="welcome-logo"></div>
+                <div class="welcome-title">SHOOTER GAME</div>
+                
+                <form id="welcomeForm">
+                    <div class="form-group">
+                        <label for="username">Player Name</label>
+                        <input type="text" id="username" placeholder="Enter your name" required autocomplete="off">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="data-difficulty">Select Level</label>
+                        <select id="data-difficulty">
+                            <option value="">Choose a level...</option>
+                            <option value="easy">Easy (30s)</option>
+                            <option value="medium">Medium (20s)</option>
+                            <option value="hard">Hard (15s)</option>
+                        </select>
+                    </div>
+
+                    <div class="data-gun">
+                        <label>Select Gun</label>
+                        <div class="gun-options">
+                            <label class="gun-option">
+                                <div class="gun-preview" style="background-image: url('assets/gun1.png')"></div>
+                                <input type="radio" name="gun" value="gun1">
+                            </label>
+                            <label class="gun-option">
+                                <div class="gun-preview" style="background-image: url('assets/gun2.png')"></div>
+                                <input type="radio" name="gun" value="gun2">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="target-selection">
+                        <label>Select Target</label>
+                        <div class="target-options">
+                            <label class="target-option">
+                                <div class="target-preview" style="background-image: url('assets/target1.png')"></div>
+                                <input type="radio" name="target" value="target1">
+                            </label>
+                            <label class="target-option">
+                                <div class="target-preview" style="background-image: url('assets/target2.png')"></div>
+                                <input type="radio" name="target" value="target2">
+                            </label>
+                            <label class="target-option">
+                                <div class="target-preview" style="background-image: url('assets/target3.png')"></div>
+                                <input type="radio" name="target" value="target3">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="button-group">
+                        <button type="button" class="btn btn-secondary" id="instructionsBtn">
+                            📖 Instructions
+                        </button>
+                        <button type="submit" class="btn btn-primary" id="playBtn" disabled>
+                            Play Game
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div class="screen game-screen" id="gameScreen">
+            <div class="game-header">
+                <div class="header-item">
+                    <span class="header-label">Player</span>
+                    <span class="header-value" id="headerUsername">-</span>
+                </div>
+                <div class="header-item">
+                    <span class="header-label">Score</span>
+                    <span class="header-value" id="headerScore">0</span>
+                </div>
+                <div class="header-item">
+                    <span class="header-label">Gun</span>
+                    <span class="header-value" id="headerGun">-</span>
+                </div>
+                <div class="header-item">
+                    <span class="timer" id="timer">30</span>
+                </div>
+            </div>
+            <div class="gameboard" id="gameboard">
+                <div class="pointer" id="pointer"></div>
+                <div class="gun gun-type-1" id="gun"></div>
+            </div>
+
+            <!-- Countdown Overlay -->
+            <div class="countdown-overlay" id="countdownOverlay">
+                <div class="countdown-number" id="countdownNumber">3</div>
+            </div>
+
+            <!-- Pause Overlay -->
+            <div class="pause-overlay" id="pauseOverlay">
+                <div class="pause-modal">
+                    <h2>Game Paused</h2>
+                    <div class="pause-modal-buttons">
+                        <button class="pause-btn" id="resumeBtn">Continue</button>
+                        <button class="pause-btn" id="pauseRestartBtn">Restart</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Game Over Overlay -->
+            <div class="gameover-overlay" id="gameoverOverlay">
+                <div class="gameover-modal">
+                    <h2>Game Over!</h2>
+                    <div class="gameover-stats">
+                        <div class="stat-row">
+                            <span class="stat-label">Player:</span>
+                            <span class="stat-value" id="gameoverUsername">-</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Score:</span>
+                            <span class="stat-value" id="gameoverScore">0</span>
+                        </div>
+                        <div class="stat-row">
+                            <span class="stat-label">Level:</span>
+                            <span class="stat-value" id="gameoverDifficulty">-</span>
+                        </div>
+                    </div>
+                    <div class="gameover-buttons">
+                        <button class="gameover-btn gameover-btn-secondary" id="viewLeaderboardBtn">
+                            📊 Leaderboard
+                        </button>
+                        <button class="gameover-btn gameover-btn-primary" id="saveScoreBtn">
+                            💾 Save Score
+                        </button>
+                        <button class="gameover-btn gameover-btn-secondary" id="playAgainBtn">
+                            🎮 Play Again
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Leaderboard Screen -->
+        <div class="screen leaderboard-screen" id="leaderboardScreen">
+            <div class="leaderboard-header">
+                <h1>🏆 Match History</h1>
+                <div class="sort-buttons">
+                    <button class="sort-btn active" id="sortScoreBtn">By Score</button>
+                    <button class="sort-btn" id="sortDateBtn">By Recent</button>
+                </div>
+            </div>
+
+            <div class="leaderboard-table">
+                <table id="leaderboardTable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Player</th>
+                            <th>Score</th>
+                            <th>Level</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboardBody">
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="empty-message" id="emptyMessage" style="display: none;">
+                No match history yet!
+            </div>
+
+            <button class="leaderboard-back-btn" id="leaderboardBackBtn">Back to Menu</button>
+        </div>
+    </div>
+
+    <!-- Instructions Modal -->
+    <div class="modal-overlay" id="instructionsOverlay">
+        <div class="modal">
+            <button class="modal-close" id="closeInstructionsBtn">&times;</button>
+            <h2>How to Play</h2>
+            <p><strong>Welcome to Shooter Game!</strong></p>
+            
+            <h3 style="color: #667eea; margin-top: 12px;">Controls:</h3>
+            <ul>
+                <li><strong>Move:</strong> Move mouse/touch to aim</li>
+                <li><strong>Click/Tap:</strong> Shoot target</li>
+                <li><strong>SPACE:</strong> Change gun</li>
+                <li><strong>ESC:</strong> Pause game</li>
+            </ul>
+
+            <h3 style="color: #667eea; margin-top: 12px;">Rules:</h3>
+            <ul>
+                <li>Hit target = <strong>+10 points</strong></li>
+                <li>Miss = <strong>-5 seconds</strong></li>
+                <li>Targets appear every 3 seconds</li>
+            </ul>
+
+            <h3 style="color: #667eea; margin-top: 12px;">Levels:</h3>
+            <ul>
+                <li><strong>Easy:</strong> 30 seconds</li>
+                <li><strong>Medium:</strong> 20 seconds</li>
+                <li><strong>Hard:</strong> 15 seconds</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // ===================== GAME STATE =====================
+        const gameState = {
+            username: '',
+            difficulty: 'easy',
+            gun: '1',
+            target: '1',
+            score: 0,
+            timeLeft: 30,
+            gameActive: false,
+            gamePaused: false,
+            currentTargets: [],
+            matchHistory: [],
+            timerInterval: null,
+            targetSpawnInterval: null
+        };
+
+        const difficultySettings = {
+            easy: { time: 30, label: 'Easy' },
+            medium: { time: 20, label: 'Medium' },
+            hard: { time: 15, label: 'Hard' }
+        };
+
+        // ===================== DOM ELEMENTS =====================
+        const welcomeScreen = document.getElementById('welcomeScreen');
+        const gameScreen = document.getElementById('gameScreen');
+        const leaderboardScreen = document.getElementById('leaderboardScreen');
+        const usernameInput = document.getElementById('username');
+        const playBtn = document.getElementById('playBtn');
+        const instructionsBtn = document.getElementById('instructionsBtn');
+        const instructionsOverlay = document.getElementById('instructionsOverlay');
+        const closeInstructionsBtn = document.getElementById('closeInstructionsBtn');
+        const gameboard = document.getElementById('gameboard');
+        const pointer = document.getElementById('pointer');
+        const gun = document.getElementById('gun');
+        const timer = document.getElementById('timer');
+        const headerUsername = document.getElementById('headerUsername');
+        const headerScore = document.getElementById('headerScore');
+        const headerGun = document.getElementById('headerGun');
+        const countdownOverlay = document.getElementById('countdownOverlay');
+        const countdownNumber = document.getElementById('countdownNumber');
+        const pauseOverlay = document.getElementById('pauseOverlay');
+        const resumeBtn = document.getElementById('resumeBtn');
+        const pauseRestartBtn = document.getElementById('pauseRestartBtn');
+        const gameoverOverlay = document.getElementById('gameoverOverlay');
+        const gameoverUsername = document.getElementById('gameoverUsername');
+        const gameoverScore = document.getElementById('gameoverScore');
+        const gameoverDifficulty = document.getElementById('gameoverDifficulty');
+        const saveScoreBtn = document.getElementById('saveScoreBtn');
+        const playAgainBtn = document.getElementById('playAgainBtn');
+        const viewLeaderboardBtn = document.getElementById('viewLeaderboardBtn');
+        const leaderboardBody = document.getElementById('leaderboardBody');
+        const emptyMessage = document.getElementById('emptyMessage');
+        const sortScoreBtn = document.getElementById('sortScoreBtn');
+        const sortDateBtn = document.getElementById('sortDateBtn');
+        const leaderboardBackBtn = document.getElementById('leaderboardBackBtn');
+        const leaderboardTable = document.getElementById('leaderboardTable');
+
+        // ===================== LOCAL STORAGE =====================
+        function loadMatchHistory() {
+            const saved = localStorage.getItem('shooterGameHistory');
+            return saved ? JSON.parse(saved) : [];
+        }
+
+        function saveMatchHistory() {
+            localStorage.setItem('shooterGameHistory', JSON.stringify(gameState.matchHistory));
+        }
+
+        // ===================== WELCOME SCREEN EVENTS =====================
+        usernameInput.addEventListener('input', validateForm);
+        usernameInput.addEventListener('paste', () => setTimeout(validateForm, 10));
+
+        document.getElementById('data-difficulty').addEventListener('change', (e) => {
+            gameState.difficulty = e.target.value;
+            validateForm();
+        });
+
+        document.querySelectorAll('input[name="gun"]').forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                gameState.gun = e.target.value.replace('gun', '');
+                updateGunSelectionUI();
+                validateForm();
+            });
+        });
+
+        document.querySelectorAll('input[name="target"]').forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                gameState.target = e.target.value.replace('target', '');
+                updateTargetSelectionUI();
+                validateForm();
+            });
+        });
+
+        function updateGunSelectionUI() {
+            document.querySelectorAll('.gun-option').forEach(opt => opt.classList.remove('selected'));
+            const selectedGun = document.querySelector('input[name="gun"]:checked');
+            if (selectedGun) selectedGun.closest('.gun-option').classList.add('selected');
+        }
+
+        function updateTargetSelectionUI() {
+            document.querySelectorAll('.target-option').forEach(opt => opt.classList.remove('selected'));
+            const selectedTarget = document.querySelector('input[name="target"]:checked');
+            if (selectedTarget) selectedTarget.closest('.target-option').classList.add('selected');
+        }
+
+        function validateForm() {
+            const username = usernameInput.value.trim();
+            const difficulty = document.getElementById('data-difficulty').value;
+            const gun = document.querySelector('input[name="gun"]:checked');
+            const target = document.querySelector('input[name="target"]:checked');
+            playBtn.disabled = !(username && difficulty && gun && target);
+        }
+
+        // Instructions
+        instructionsBtn.addEventListener('click', () => instructionsOverlay.classList.add('show'));
+        closeInstructionsBtn.addEventListener('click', () => instructionsOverlay.classList.remove('show'));
+        instructionsOverlay.addEventListener('click', (e) => {
+            if (e.target === instructionsOverlay) instructionsOverlay.classList.remove('show');
+        });
+
+        // Play button
+        document.getElementById('welcomeForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            gameState.username = usernameInput.value.trim();
+            if (gameState.username) startGame();
+        });
+
+        // ===================== GAME LOGIC =====================
+        function startGame() {
+            showScreen('gameScreen');
+            gameState.score = 0;
+            gameState.gameActive = false;
+            gameState.currentTargets = [];
+            gameState.timeLeft = difficultySettings[gameState.difficulty].time;
+
+            headerUsername.textContent = gameState.username;
+            headerScore.textContent = '0';
+            headerGun.textContent = 'Gun ' + gameState.gun;
+            timer.textContent = gameState.timeLeft;
+            updateGunAppearance();
+
+            showCountdown();
+        }
+
+        function showCountdown() {
+            countdownOverlay.classList.add('show');
+            let count = 3;
+            countdownNumber.textContent = count;
+            
+            const countInterval = setInterval(() => {
+                count--;
+                countdownNumber.textContent = count;
+                if (count < 0) {
+                    clearInterval(countInterval);
+                    countdownOverlay.classList.remove('show');
+                    startGameplay();
+                }
+            }, 1000);
+        }
+
+        function startGameplay() {
+            gameState.gameActive = true;
+            gameState.gamePaused = false;
+
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => spawnTarget(), i * 500);
+            }
+
+            startTimer();
+
+            gameState.targetSpawnInterval = setInterval(() => {
+                if (gameState.gameActive && !gameState.gamePaused) spawnTarget();
+            }, 3000);
+        }
+
+        function spawnTarget() {
+            if (!gameState.gameActive || gameState.currentTargets.length >= 5) return;
+
+            const target = document.createElement('div');
+            target.className = `target target-type-${gameState.target}`;
+
+            const boardWidth = gameboard.clientWidth;
+            const boardHeight = gameboard.clientHeight;
+            const targetSize = window.innerWidth <= 480 ? 55 : (window.innerWidth <= 768 ? 60 : 70);
+            
+            const maxX = boardWidth - targetSize;
+            const maxY = boardHeight - targetSize;
+            
+            const x = Math.random() * maxX;
+            const y = Math.random() * maxY;
+
+            target.style.left = x + 'px';
+            target.style.top = y + 'px';
+
+            const targetId = Date.now() + Math.random();
+            target.dataset.id = targetId;
+
+            // Mouse click
+            target.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (gameState.gameActive && !gameState.gamePaused) hitTarget(targetId);
+            });
+
+            // Touch support
+            target.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                if (gameState.gameActive && !gameState.gamePaused) hitTarget(targetId);
+            }, { passive: false });
+
+            gameboard.appendChild(target);
+            gameState.currentTargets.push({ id: targetId, element: target });
+        }
+
+        function hitTarget(targetId) {
+            const targetObj = gameState.currentTargets.find(t => t.id === targetId);
+            if (!targetObj) return;
+
+            gameState.score += 10;
+            headerScore.textContent = gameState.score;
+
+            targetObj.element.classList.add('hit');
+
+            const rect = targetObj.element.getBoundingClientRect();
+            const gameboardRect = gameboard.getBoundingClientRect();
+            const x = rect.left - gameboardRect.left;
+            const y = rect.top - gameboardRect.top;
+
+            const boom = document.createElement('div');
+            boom.className = 'boom-effect';
+            boom.style.left = x + 'px';
+            boom.style.top = y + 'px';
+            gameboard.appendChild(boom);
+
+            setTimeout(() => {
+                boom.remove();
+                targetObj.element.remove();
+            }, 300);
+
+            gameState.currentTargets = gameState.currentTargets.filter(t => t.id !== targetId);
+        }
+
+        function startTimer() {
+            gameState.timerInterval = setInterval(() => {
+                if (!gameState.gamePaused && gameState.gameActive) {
+                    gameState.timeLeft--;
+                    timer.textContent = gameState.timeLeft;
+                    if (gameState.timeLeft <= 0) endGame();
+                }
+            }, 1000);
+        }
+
+        function endGame() {
+            gameState.gameActive = false;
+            clearInterval(gameState.timerInterval);
+            clearInterval(gameState.targetSpawnInterval);
+
+            gameState.currentTargets.forEach(target => target.element.remove());
+
+            gameoverUsername.textContent = gameState.username;
+            gameoverScore.textContent = gameState.score;
+            gameoverDifficulty.textContent = difficultySettings[gameState.difficulty].label;
+            gameoverOverlay.classList.add('show');
+        }
+
+        // ===================== MOUSE & TOUCH EVENTS =====================
+        function updatePointerPosition(clientX, clientY) {
+            const rect = gameboard.getBoundingClientRect();
+            let x = clientX - rect.left;
+            let y = clientY - rect.top;
+            
+            // Clamp to bounds
+            x = Math.max(0, Math.min(x, rect.width));
+            y = Math.max(0, Math.min(y, rect.height));
+
+            pointer.style.left = x + 'px';
+            pointer.style.top = y + 'px';
+        }
+
+        gameboard.addEventListener('mousemove', (e) => {
+            if (gameState.gameActive && !gameState.gamePaused) {
+                updatePointerPosition(e.clientX, e.clientY);
+            }
+        });
+
+        // Touch support for aiming
+        gameboard.addEventListener('touchmove', (e) => {
+            if (gameState.gameActive && !gameState.gamePaused) {
+                e.preventDefault();
+                const touch = e.touches[0];
+                updatePointerPosition(touch.clientX, touch.clientY);
+            }
+        }, { passive: false });
+
+        gameboard.addEventListener('click', (e) => {
+            if (!gameState.gameActive || gameState.gamePaused) return;
+
+            const rect = gameboard.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            let hitAny = false;
+            const targetSize = window.innerWidth <= 480 ? 28 : 35;
+            
+            gameState.currentTargets.forEach(target => {
+                const targetRect = target.element.getBoundingClientRect();
+                const targetX = targetRect.left - rect.left + targetRect.width / 2;
+                const targetY = targetRect.top - rect.top + targetRect.height / 2;
+
+                const distance = Math.sqrt(Math.pow(x - targetX, 2) + Math.pow(y - targetY, 2));
+                if (distance < targetSize) hitAny = true;
+            });
+
+            if (!hitAny && gameState.timeLeft > 0) {
+                gameState.timeLeft = Math.max(0, gameState.timeLeft - 5);
+                timer.textContent = gameState.timeLeft;
+            }
+        });
+
+        // Touch to shoot
+        gameboard.addEventListener('touchend', (e) => {
+            if (!gameState.gameActive || gameState.gamePaused) return;
+            e.preventDefault();
+            
+            const touch = e.changedTouches[0];
+            const rect = gameboard.getBoundingClientRect();
+            const x = touch.clientX - rect.left;
+            const y = touch.clientY - rect.top;
+
+            let hitAny = false;
+            const targetSize = window.innerWidth <= 480 ? 40 : 50;
+            
+            gameState.currentTargets.forEach(target => {
+                const targetRect = target.element.getBoundingClientRect();
+                const targetX = targetRect.left - rect.left + targetRect.width / 2;
+                const targetY = targetRect.top - rect.top + targetRect.height / 2;
+
+                const distance = Math.sqrt(Math.pow(x - targetX, 2) + Math.pow(y - targetY, 2));
+                if (distance < targetSize) hitAny = true;
+            });
+
+            if (!hitAny && gameState.timeLeft > 0) {
+                gameState.timeLeft = Math.max(0, gameState.timeLeft - 5);
+                timer.textContent = gameState.timeLeft;
+            }
+        });
+
+        // ===================== KEYBOARD EVENTS =====================
+        document.addEventListener('keydown', (e) => {
+            if (!gameState.gameActive) return;
+
+            if (e.code === 'Space') {
+                e.preventDefault();
+                if (!gameState.gamePaused) changeGun();
+            } else if (e.code === 'Escape') {
+                e.preventDefault();
+                if (gameState.gamePaused) resumeGame();
+                else pauseGame();
+            }
+        });
+
+        function changeGun() {
+            gameState.gun = gameState.gun === '1' ? '2' : '1';
+            headerGun.textContent = 'Gun ' + gameState.gun;
+            updateGunAppearance();
+        }
+
+        function updateGunAppearance() {
+            gun.className = `gun gun-type-${gameState.gun}`;
+        }
+
+        function pauseGame() {
+            gameState.gamePaused = true;
+            pauseOverlay.classList.add('show');
+        }
+
+        function resumeGame() {
+            pauseOverlay.classList.remove('show');
+            gameState.gamePaused = false;
+        }
+
+        resumeBtn.addEventListener('click', resumeGame);
+        
+        pauseRestartBtn.addEventListener('click', () => {
+            gameState.gameActive = false;
+            clearInterval(gameState.timerInterval);
+            clearInterval(gameState.targetSpawnInterval);
+            gameState.currentTargets.forEach(t => t.element.remove());
+            pauseOverlay.classList.remove('show');
+            resetWelcome();
+        });
+
+        // ===================== GAME OVER EVENTS =====================
+        saveScoreBtn.addEventListener('click', () => {
+            const match = {
+                username: gameState.username,
+                score: gameState.score,
+                difficulty: gameState.difficulty,
+                gun: gameState.gun,
+                target: gameState.target,
+                date: new Date().toLocaleString()
+            };
+
+            gameState.matchHistory.push(match);
+            saveMatchHistory();
+
+            saveScoreBtn.textContent = '✓ Saved!';
+            saveScoreBtn.disabled = true;
+        });
+
+        playAgainBtn.addEventListener('click', () => {
+            gameoverOverlay.classList.remove('show');
+            resetWelcome();
+        });
+
+        viewLeaderboardBtn.addEventListener('click', () => {
+            gameoverOverlay.classList.remove('show');
+            showLeaderboard();
+        });
+
+        // ===================== LEADERBOARD =====================
+        function showLeaderboard() {
+            showScreen('leaderboardScreen');
+            displayLeaderboard('score');
+        }
+
+        function displayLeaderboard(sortBy = 'score') {
+            leaderboardBody.innerHTML = '';
+
+            let sorted = [...gameState.matchHistory];
+
+            if (sortBy === 'score') {
+                sorted.sort((a, b) => b.score - a.score);
+            } else {
+                sorted.sort((a, b) => new Date(b.date) - new Date(a.date));
+            }
+
+            if (sorted.length === 0) {
+                leaderboardTable.style.display = 'none';
+                emptyMessage.style.display = 'block';
+                return;
+            }
+
+            leaderboardTable.style.display = 'table';
+            emptyMessage.style.display = 'none';
+
+            sorted.forEach((match, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="rank">#${index + 1}</td>
+                    <td>${escapeHtml(match.username)}</td>
+                    <td>${match.score}</td>
+                    <td>${difficultySettings[match.difficulty].label}</td>
+                    <td>${match.date.split(',')[0]}</td>
+                `;
+                leaderboardBody.appendChild(row);
+            });
+        }
+
+        sortScoreBtn.addEventListener('click', () => {
+            sortScoreBtn.classList.add('active');
+            sortDateBtn.classList.remove('active');
+            displayLeaderboard('score');
+        });
+
+        sortDateBtn.addEventListener('click', () => {
+            sortDateBtn.classList.add('active');
+            sortScoreBtn.classList.remove('active');
+            displayLeaderboard('date');
+        });
+
+        leaderboardBackBtn.addEventListener('click', resetWelcome);
+
+        // ===================== UTILITY FUNCTIONS =====================
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById(screenId).classList.add('active');
+        }
+
+        function resetWelcome() {
+            gameState.gameActive = false;
+            clearInterval(gameState.timerInterval);
+            clearInterval(gameState.targetSpawnInterval);
+            gameState.currentTargets.forEach(t => t.element.remove());
+            gameoverOverlay.classList.remove('show');
+
+            saveScoreBtn.textContent = '💾 Save Score';
+            saveScoreBtn.disabled = false;
+
+            usernameInput.value = '';
+            document.getElementById('data-difficulty').value = '';
+            document.querySelectorAll('input[name="gun"]').forEach(radio => radio.checked = false);
+            document.querySelectorAll('input[name="target"]').forEach(radio => radio.checked = false);
+            document.querySelectorAll('.gun-option, .target-option').forEach(opt => opt.classList.remove('selected'));
+            
+            playBtn.disabled = true;
+
+            showScreen('welcomeScreen');
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // ===================== INITIALIZATION =====================
+        gameState.matchHistory = loadMatchHistory();
+    </script>
+</body>
+</html>
+
