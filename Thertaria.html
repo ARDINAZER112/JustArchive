@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARCHTEN - Therzevena Project</title>
+    <link rel="icon" href="asset/icon/Arcana Therzevena.png" type="image/x-icon">
+    <link rel="stylesheet" href="style/thestyle.css">
+</head>
+<body oncontextmenu="return false;">
+    <!-- HEADER & NAVBAR -->
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="#" class="logo">Therzevena Project Website</a>
+                
+                <ul class="nav-menu" id="navMenu">
+                    <li class="nav-item"><a href="#beranda" class="nav-link" data-i18n="nav_home">Beranda</a></li>
+                    <li class="nav-item"><a href="#fitur" class="nav-link" data-i18n="nav_features">Fitur</a></li>
+                    <li class="nav-item"><a href="#quick-links" class="nav-link" data-i18n="nav_menu">Menu</a></li>
+                    <li class="nav-item"><a href="#tentang" class="nav-link" data-i18n="nav_about">Tentang</a></li>
+                    <li class="nav-item"><a href="#social-media" class="nav-link" data-i18n="nav_social">Sosial Media</a></li>
+                </ul>
+
+                <div class="nav-controls">
+                    <button class="nav-btn settings-btn" id="headerSettingsBtn" title="Pengaturan" aria-label="Pengaturan">⚙️</button>
+                    <button class="nav-btn hamburger-btn" id="hamburgerBtn" title="Menu Navigasi" aria-label="Toggle Menu">
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MOBILE NAVIGATION MENU POPUP -->
+    <div class="nav-mobile-menu" id="navMobileMenu">
+        <div class="nav-mobile-overlay"></div>
+        <div class="nav-mobile-panel">
+            <div class="nav-mobile-header">
+                <h2 data-i18n="nav_menu_title">Menu Navigasi</h2>
+                <button class="nav-mobile-close" id="navMobileClose" aria-label="Tutup Menu">&times;</button>
+            </div>
+            <div class="nav-mobile-content">
+                <div class="nav-mobile-section">
+                    <h3 data-i18n="nav_menu_main">Menu Utama</h3>
+                    <ul>
+                        <li><a href="#beranda" data-i18n="nav_home">🏠 Beranda</a></li>
+                        <li><a href="#fitur" data-i18n="nav_features">✨ Fitur</a></li>
+                        <li><a href="#quick-links" data-i18n="nav_menu">📚 Menu </a></li>
+                        <li><a href="#tentang" data-i18n="nav_about">ℹ️ Tentang</a></li>
+                        <li><a href="#social-media" data-i18n="nav_social">📱 Sosial Media</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SETTINGS MODAL PANEL -->
+    <div id="settingsModal" class="settings-modal">
+        <div class="settings-panel">
+            <!-- Header -->
+            <div class="settings-header">
+                <h2 id="settingsTitle" data-i18n="settings_title">Pengaturan</h2>
+                <button class="close-settings-btn" id="closeSettingsBtn">&times;</button>
+            </div>
+
+            <!-- Content -->
+            <div class="settings-content">
+                <!-- General Settings -->
+                <div class="settings-section">
+                    <h3 data-i18n="settings_general">Umum</h3>
+                    <div class="setting-item">
+                        <label for="language" data-i18n="settings_language">Bahasa:</label>
+                        <select id="language">
+                            <option value="id">Bahasa Indonesia</option>
+                            <option value="en">English</option>
+                            <option value="ja">日本語/Japan</option>
+                            <option value="cn">中文/Chinese</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Audio Settings -->
+                <div class="settings-section">
+                    <h3 data-i18n="settings_audio">Audio & Notifikasi</h3>
+                    <div class="setting-item">
+                        <label data-i18n="settings_volume">Volume:</label>
+                        <span class="setting-value" id="volumeValue">70%</span>
+                    </div>
+                    <div class="setting-item">
+                        <input type="range" id="volume" min="0" max="100" value="70">
+                    </div>
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="soundEnabled" checked>
+                            <span data-i18n="settings_sound">Aktifkan Suara</span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="notificationEnabled" checked>
+                            <span data-i18n="settings_notification">Aktifkan Notifikasi</span>
+                        </label>
+                    </div>
+                </div>
+
+               <!-- GANTI SECTION INI DI DALAM #settingsModal -->
+
+                <!-- Display Settings -->
+                <div class="settings-section">
+                    <h3 data-i18n="settings_display">Tampilan</h3>
+                    <div class="setting-item">
+                        <label for="textSize" data-i18n="settings_textsize">Ukuran Teks:</label>
+                        <select id="textSize">
+                            <option value="small" data-i18n="settings_textsize_small">Kecil</option>
+                            <option value="normal" selected data-i18n="settings_textsize_normal">Normal</option>
+                            <option value="large" data-i18n="settings_textsize_large">Besar</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Dark Mode Settings -->
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="darkModeToggle">
+                            <span data-i18n="settings_darkmode_enable">🌙 Aktifkan Mode Gelap</span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label for="darkModeAuto" data-i18n="settings_darkmode_auto">Mode Otomatis:</label>
+                        <select id="darkModeAuto">
+                            <option value="off" data-i18n="settings_darkmode_off">Nonaktifkan</option>
+                            <option value="system" data-i18n="settings_darkmode_system">Mengikuti Sistem</option>
+                            <option value="schedule" data-i18n="settings_darkmode_schedule">Jadwal (Malam)</option>
+                        </select>
+                    </div>
+                    <div class="setting-item" id="scheduleTimeSettings" style="display: none;">
+                        <label for="darkModeStartTime" data-i18n="settings_darkmode_start">Waktu Mulai:</label>
+                        <input type="time" id="darkModeStartTime" value="19:00">
+                    </div>
+                    <div class="setting-item" id="scheduleTimeSettingsEnd" style="display: none;">
+                        <label for="darkModeEndTime" data-i18n="settings_darkmode_end">Waktu Selesai:</label>
+                        <input type="time" id="darkModeEndTime" value="06:00">
+                    </div>
+                </div>
+
+                <!-- Privacy Settings -->
+                <div class="settings-section">
+                    <h3 data-i18n="settings_privacy">Privasi & Keamanan</h3>
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="analytics" checked>
+                            <span data-i18n="settings_analytics">Izinkan Analytics</span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="cookies" checked>
+                            <span data-i18n="settings_cookies">Izinkan Cookies</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="settings-footer">
+                <button class="btn-settings btn-reset" id="resetBtn" data-i18n="settings_reset">Reset</button>
+                <button class="btn-settings btn-save" id="saveBtn" data-i18n="settings_save">Simpan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="beranda">
+        <div class="hero-content">
+            <h1 data-i18n="hero_welcome">Selamat Datang di Website Saya</h1>
+            <h1>THE ARC</h1>
+            <p data-i18n="hero_subtitle">Hanya sekedar webstie biasa</p>
+            <a href="#social-media" class="hero-btn" data-i18n="hero_social">Social Media</a>
+            <a href="#quick-links" class="hero-btn" data-i18n="hero_project">Project</a>
+            <a href="https://therzevena.infinityfree.me/" class="hero-btn" data-i18n="port">Portofolio</a>
+        </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section class="features" id="fitur">
+        <div class="features-container">
+            <h2 class="section-title" data-i18n="features_title">✨ Fitur Unggulan</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3 data-i18n="feature_fast">Cepat & Efisien</h3>
+                    <p data-i18n="feature_fast_desc">Website kami dioptimalkan untuk kecepatan maksimal dengan loading time yang sangat singkat.</p>
+                </div>
+                <!--- <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3 data-i18n="feature_secure">Aman & Terpercaya</h3>
+                    <p data-i18n="feature_secure_desc">Data Anda dilindungi dengan enkripsi tingkat enterprise dan standar keamanan internasional.</p>
+                </div> --->
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3 data-i18n="feature_responsive">Responsive Design</h3>
+                    <p data-i18n="feature_responsive_desc">Tampilan sempurna di semua perangkat, dari desktop, tablet, hingga smartphone.</p>
+                </div>
+                <!--- <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3 data-i18n="feature_design">Desain Modern</h3>
+                    <p data-i18n="feature_design_desc">Interface yang indah dan intuitif dengan desain modern yang mengikuti tren terkini.</p>
+                </div> --->
+                <div class="feature-card">
+                    <div class="feature-icon">🌍</div>
+                    <h3 data-i18n="feature_multilang">Multi Bahasa</h3>
+                    <p data-i18n="feature_multilang_desc">Dukungan berbagai bahasa memudahkan pengguna dari seluruh dunia mengakses konten kami.</p>
+                </div>
+         <!--- <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 data-i18n="feature_performance">High Performance</h3>
+                    <p data-i18n="feature_performance_desc">Performa tinggi dengan teknologi terdepan memastikan pengalaman pengguna yang luar biasa.</p>
+                </div> --->
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT -->
+      <!--Daftar Project-->
+     <section class="projects" class="menu-section" id="quick-links">
+        <div class="projects-container">
+        <div class="menu-section" id="quick-links">
+            <h2 class="section-title" style="text-align: center;">「 ✦ <span data-i18n="menu_title">MENU</span> ✦ 」</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image"><img src="asset/img/Learning.jpg" alt="LearnMenuPreview" style="width:400px; height:300px;"></div>
+                    <div class="project-content">
+                        <h3 data-i18n="menu_learn">Menu Belajar</h3>
+                        <p data-i18n="learndescription">Menu Belajar</p>
+                        <a href="Learn.html" target="_parent"><button class="btn btn-primary" data-i18n="btn_look">Lihat</button></a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image"><img src="asset/img/Ramdhan_Preview.jpg" alt="RamadhanSchedulePreview" style="width:400px; height:300px;"></div>
+                    <div class="project-content">
+                        <h3 data-i18n="ramadhan">Jadwal Ramadhan</h3>
+                        <p data-i18n="ramadhan_description">Project Kecil, Jadwal Ramadhan Real-Time</p>
+                        <a href="menu/Other/Ramadhan.html" target="_parent"><button data-i18n="btn_look" class="btn btn-primary">Lihat</button></a>
+                    </div>
+                </div>
+
+            </div>
+            </div>
+        </div>
+        <div class="projects-container">
+        <div class="menu-section" id="quick-links">
+            <h2 class="section-title" style="text-align: center;">「 ✦ <span data-i18n="project_title">Mini Game</span> ✦ 」</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image"><img src="asset/img/Snake_Game_Preview.jpg" alt="SnakeGamePreview" style="width:350px; height:300px;"></div>
+                    <div class="project-content">
+                        <h3>Snake Game</h3>
+                        <p data-i18n="snake_description">Project MiniGame Berbasis Web ke 1</p>
+                        <a href="Mini Games/Snake Game/index.html"><button class="btn btn-primary">Play</button></a>
+                    </div>
+                </div>
+               <div class="project-card">
+                    <div class="project-image"><img src="asset/img/Fruit_Dropper.jpg" alt="FruitDropperPreview" style="width:350px; height:300px;"></div>
+                    <div class="project-content">
+                        <h3>Fruit Dropper</h3>
+                        <p data-i18n="fruit_description">Project MiniGame Berbasis Web ke 2</p>
+                        <a href="Mini Games/Fruit Dropper/fruit-dropper.html"><button class="btn btn-primary">Play</button></a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image"><img src="asset/img/Shooter_Game_Preview.jpg" alt="ShooterGamePreview" style="width:350px; height:300px;"></div>
+                    <div class="project-content">
+                        <h3>Shooter Game</h3>
+                        <p data-i18n="shooter_description">Project MiniGame Berbasis Web ke 3</p>
+                        <a href="Mini Games/Shooter-Games/index.html"><button class="btn btn-primary">Play</button></a>
+                    </div>
+                </div>
+                 <div class="project-card">
+                    <div class="project-image"><img src="asset/img/Chess_Game.jpg" alt="ChessGamePreview" style="width:350px; height:300px;"></div>
+                    <div class="project-content">
+                        <h3>Shooter Game</h3>
+                        <p data-i18n="shooter_description">Project MiniGame Berbasis Web ke 4</p>
+                        <a href="Mini Games/Chess Game/chess-master.html"><button class="btn btn-primary">Play</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section class="about" id="tentang">
+        <div class="about-container">
+            <div class="about-content">
+                <h2 data-i18n="about_title">Hi there, I'm ARDINAZER112</h2>
+                <p data-i18n="about_desc1">I am an aspiring web developer who is currently learning and building projects with modern web technologies. 
+                    I am learning and improving my programming skills.</p>
+                <p data-i18n="about_desc2">Currently focused on:</p>
+                    <ul>
+                        <li data-i18n="ullist_1">Learning the basics of backend and frontend development</li>
+                        <li data-i18n="ullist_2">Building web applications with HTML, CSS, and JavaScript</li>
+                        <li data-i18n="ullist_3">Understanding the basics of Node.js, PHP, and Electron.js</li>
+                        <li data-i18n="ullist_4">Learning and understanding the Linux command line</li>
+                        <li data-i18n="ullist_5">Learning more about web development, specifically HTML, CSS, JavaScript, and PHP</li>
+                    </ul>
+                    <p> </p>
+                    <a href="https://github.com/ARDINAZER112" target="_blank">
+                    <img src="asset/icon/GitHub_Invertocat_Black.svg" alt="GitHub" style="width:50px; height:50px;">
+                    </a>
+            </div>
+            <div class="about-image">
+            <img src="https://media1.tenor.com/m/cRs4lnEWw48AAAAC/everknight-evernight.gif" alt="About Us" style="width:100%; height:100%; border-radius:10px;">
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="social-media" id="social-media">
+        <div class="social-media-container">
+            <h2 style="text-align: center;" data-i18n="social_title">Social Media</h2>
+            <div class="menu-links">
+                <a href="https://www.instagram.com/ardinazer10/" target="_blank">
+                    <img src="asset/icon/instagram.png" alt="Instagram" style="width:50px; height:50px;">
+                    <span>ardinazer10</span>
+                </a>
+                <a href="https://www.tiktok.com/@ardinazer10?_r=1&_t=ZS-93gWcSJLryk" target="_blank">
+                    <img src="asset/icon/TikTok-logo-RGB-Stacked-white.png" alt="TikTok" style="width:50px; height:50px;">
+                    <span>Ardinazer10</span>
+                </a>
+                <a href="https://youtube.com/@ardinazer?si=nlhVOV-EvKif-LDp" target="_blank">
+                    <img src="asset/icon/yt_icon_red_digital.png" alt="YouTube" style="width:50px; height:50px;">
+                    <span>ARDINAZER</span>
+                </a>
+                <a href="https://x.com/KTZINTHEHOUSE7" target="_blank">
+                    <img src="asset/icon/logo.svg" alt="X" style="width:50px; height:50px;">
+                    <span>KTZINTHEHOUSE7</span>
+                </a>
+                <a href="https://web.facebook.com/profile.php?id=100091670920007" target="_blank">
+                    <img src="asset/icon/Facebook_f_logo_(2019).svg" alt="Facebook" style="width:50px; height:50px;">
+                    <span>Ardinazer</span>
+                </a>
+                <a href="https://github.com/ARDINAZER112" target="_blank">
+                    <img src="asset/icon/GitHub_Invertocat_Black.svg" alt="GitHub" style="width:50px; height:50px;">
+                    <span>ARDINAZER112</span>
+                </a>
+            </div>
+        </div>
+    </section>
+    <!-- Footer (shared) -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>Thertaria Project</h3>
+                    <p data-i18n="namespace">Your gateway to a simpler, more secure computing experience. Lightweight, fast, and user-friendly.</p>
+                </div>
+            </div>
+
+            <!-- Advertisement Section -->
+            <div class="ad-section" style="text-align: center; margin: 20px 0;">
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1883744520022866"
+                     crossorigin="anonymous"></script>
+                <ins class="adsbygoogle"
+                     style="display:inline-block;width:728px;height:90px"
+                     data-ad-client="ca-pub-1883744520022866"
+                     data-ad-slot="5985558433"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+            <div class="copyright">
+                <p data-i18n="footer_copyright">&copy;Thertaria Project 2026. All rights reserved.</p>
+                <p>Designed with <i class="fas fa-heart" style="color: var(--accent);"></i> ARDINAZER★シ - ARCHTEN</p>
+            </div>
+        </div>
+    </footer>
+
+  <script src="script/thescript.js"></script>
+  <script src="script/i18n.js"></script>
+  <script src="script/thegsap.js"></script>
+</body>
+</html>
