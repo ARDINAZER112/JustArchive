@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>THEARC Project</title>
+    <link rel="icon" href="asset/icon/Arcana Therzevena.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="style/thestyle.css">
+    <link rel="stylesheet" href="style/projectlistcss.css">
+</head>
+<body oncontextmenu="return false">
+
+    <!-- HEADER & NAVBAR -->
+    <header id="mainHeader">
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="#" class="logo">THEARC Project</a>
+                
+                <ul class="nav-menu" id="navMenu">
+                    <li class="nav-item"><a href="#beranda" class="nav-link" data-i18n="nav_home">Beranda</a></li>
+                    <li class="nav-item"><a href="#quick-links" class="nav-link" data-i18n="nav_menu">Menu</a></li>
+                    <li class="nav-item"><a href="#tentang" class="nav-link" data-i18n="nav_about">Tentang</a></li>
+                    <li class="nav-item"><a href="#social-media" class="nav-link" data-i18n="nav_social">Sosial Media</a></li>
+                    <li class="nav-item"><a href="#" onclick="openModal(event)" class="nav-link" data-i18n="nav_projectlist">Daftar Project</a></li>
+                    <!--<li class="nav-item"><a href="#" onclick="openSupport(); return false;" class="nav-link" data-i18n="nav-support">Hubungi Saya</a></li>-->
+                    <li class="nav-item"><a href="#" onclick="openFeatures(event)" class="nav-link" data-i18n="nav_features">Features</a></li>
+                    <li><a href="https://therzevenaproject.vercel.app/" class="hero-btn hero-btn-secondary" data-i18n="port">💼 Portofolio</a></li>
+                </ul>
+
+                <div class="nav-controls">
+                    <button class="nav-btn settings-btn" id="headerSettingsBtn" title="Pengaturan" aria-label="Pengaturan">⚙️</button>
+                    <button class="nav-btn hamburger-btn" id="hamburgerBtn" title="Menu" aria-label="Toggle Menu">
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MOBILE NAVIGATION -->
+    <div class="nav-mobile-menu" id="navMobileMenu">
+        <div class="nav-mobile-overlay"></div>
+        <div class="nav-mobile-panel">
+            <div class="nav-mobile-header">
+                <h2 data-i18n="nav_menu_title">Menu Navigasi</h2>
+                <button class="nav-mobile-close" id="navMobileClose" aria-label="Tutup">&times;</button>
+            </div>
+            <div class="nav-mobile-content">
+                <div class="nav-mobile-section">
+                    <h3 data-i18n="nav_menu_main">Menu Utama</h3>
+                    <ul>
+                        <li><a href="#beranda" data-i18n="nav_home">🏠 Beranda</a></li>
+                        <li><a href="#fitur" data-i18n="nav_features">✨ Fitur</a></li>
+                        <li><a href="#quick-links" data-i18n="nav_menu">📚 Menu</a></li>
+                        <li><a href="#tentang" data-i18n="nav_about">ℹ️ Tentang</a></li>
+                        <li><a href="#social-media" data-i18n="nav_social">📱 Sosial Media</a></li>
+                        <li class="nav-item"><a href="#" onclick="openFeatures(event)" class="nav-link" data-i18n="nav_features">Features</a></li>
+                        <li><a href="https://therzevenaproject.vercel.app/" class="hero-btn hero-btn-secondary" data-i18n="port">💼 Portofolio</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SETTINGS MODAL -->
+    <div id="settingsModal" class="settings-modal">
+        <div class="settings-panel">
+            <div class="settings-header">
+                <h2 data-i18n="settings_title">Pengaturan</h2>
+                <button class="close-settings-btn" id="closeSettingsBtn">&times;</button>
+            </div>
+            <div class="settings-content">
+                <div class="settings-section">
+                    <h3 data-i18n="settings_general">Umum</h3>
+                    <div class="setting-item">
+                        <label for="language" data-i18n="settings_language">Bahasa:</label>
+                        <select id="language">
+                            <option value="id">Bahasa Indonesia</option>
+                            <option value="en">English</option>
+                            <option value="ja">日本語</option>
+                            <option value="cn">中文</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="settings-section">
+                    <h3 data-i18n="settings_audio">Audio & Notifikasi</h3>
+                    <div class="setting-item">
+                        <label data-i18n="settings_volume">Volume:</label>
+                        <span class="setting-value" id="volumeValue">70%</span>
+                    </div>
+                    <div class="setting-item">
+                        <input type="range" id="volume" min="0" max="100" value="70">
+                    </div>
+                    <div class="setting-item">
+                        <label><input type="checkbox" id="soundEnabled" checked><span data-i18n="settings_sound"> Aktifkan Suara</span></label>
+                    </div>
+                    <div class="setting-item">
+                        <label><input type="checkbox" id="notificationEnabled" checked><span data-i18n="settings_notification"> Aktifkan Notifikasi</span></label>
+                    </div>
+                </div>
+                <div class="settings-section">
+                    <h3 data-i18n="settings_display">Tampilan</h3>
+                    <div class="setting-item">
+                        <label for="textSize" data-i18n="settings_textsize">Ukuran Teks:</label>
+                        <select id="textSize">
+                            <option value="small" data-i18n="settings_textsize_small">Kecil</option>
+                            <option value="normal" selected data-i18n="settings_textsize_normal">Normal</option>
+                            <option value="large" data-i18n="settings_textsize_large">Besar</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="settings-section">
+                    <h3 data-i18n="settings_privacy">Privasi & Keamanan</h3>
+                    <div class="setting-item">
+                        <label><input type="checkbox" id="analytics" checked><span data-i18n="settings_analytics"> Izinkan Analytics</span></label>
+                    </div>
+                    <div class="setting-item">
+                        <label><input type="checkbox" id="cookies" checked><span data-i18n="settings_cookies"> Izinkan Cookies</span></label>
+                    </div>
+                </div>
+            </div>
+            <div class="settings-footer">
+                <button class="btn-settings btn-reset" id="resetBtn" data-i18n="settings_reset">Reset</button>
+                <button class="btn-settings btn-save" id="saveBtn" data-i18n="settings_save">Simpan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="beranda">
+        <div class="hero-gif-wrap" id="heroBgGif">
+            <video
+                class="hero-gif"
+                autoplay
+                loop
+                muted
+                playsinline
+                preload="none"
+                disablepictureinpicture
+                disableremoteplayback
+                poster="asset/fallback-image.jpg"
+            >
+                <source src="asset/vid/hero-bg-1080.webm" type="video/webm">
+                <source src="asset/vid/hero-bg-1080.mp4" type="video/mp4">
+            </video>
+            <div class="hero-video-overlay"></div>
+        </div>
+
+        <div class="hero-content">
+            <div class="hero-eyebrow gsap-reveal" data-i18n="hero_eyebrow_label">✦ Therzevena Project</div>
+            <h1>
+                <span class="gsap-reveal" style="display:block">THE</span>
+                <span class="hero-title-accent gsap-reveal" style="display:block">ARC</span>
+            </h1>
+            <span class="hero-codename gsap-reveal" id="hero-cta">ZEPHELIN</span>
+            <p class="gsap-reveal" data-i18n="hero_subtitle" id="hero-subtitle">Hanya sekedar website biasa</p>
+            <div class="hero-buttons gsap-reveal">
+                <a href="#social-media" class="hero-btn hero-btn-primary" data-i18n="hero_social">📱 Social Media</a>
+                <a href="#quick-links" class="hero-btn hero-btn-secondary" data-i18n="hero_project">🎮 Project</a>
+                <a href="https://therzevenaproject.vercel.app/" class="hero-btn hero-btn-secondary" data-i18n="port">💼 Portofolio</a>
+                <button onclick="openOverlay()" data-i18n="nav_features">Features</button>
+            </div>
+        </div>
+
+        <div class="scroll-indicator">
+            <span>scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <div class="features" id="fitur">
+        <div class="features-container">
+        <button class="close-btn" onclick="closeFeatures()">&times;</button>
+            <div class="features-header">
+                <div class="section-label gsap-reveal">✨ Features</div>
+                <h2 class="section-title gsap-reveal" data-i18n="features_title">Fitur Unggulan</h2>
+                <p class="section-subtitle gsap-reveal" data-i18n="features_desc">Dikembangkan dengan teknologi web modern untuk pengalaman terbaik.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card gsap-reveal-scale">
+                    <div class="feature-icon-wrap">🚀</div>
+                    <h3 data-i18n="feature_fast">Cepat & Efisien</h3>
+                    <p data-i18n="feature_fast_desc">Website kami dioptimalkan untuk kecepatan maksimal dengan loading time yang sangat singkat.</p>
+                </div>
+                <div class="feature-card gsap-reveal-scale">
+                    <div class="feature-icon-wrap">📱</div>
+                    <h3 data-i18n="feature_responsive">Responsive Design</h3>
+                    <p data-i18n="feature_responsive_desc">Tampilan sempurna di semua perangkat, dari desktop, tablet, hingga smartphone.</p>
+                </div>
+                <div class="feature-card gsap-reveal-scale">
+                    <div class="feature-icon-wrap">🌍</div>
+                    <h3 data-i18n="feature_multilang">Multi Bahasa</h3>
+                    <p data-i18n="feature_multilang_desc">Dukungan berbagai bahasa memudahkan pengguna dari seluruh dunia mengakses konten kami.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT / MENU -->
+    <section class="projects" id="quick-links">
+        <!-- Menu -->
+        <div class="projects-container">
+            <div class="section-divider gsap-reveal">
+                <span data-i18n="menu_title">MENU</span>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card gsap-reveal">
+                    <div class="project-image">
+                        <img src="asset/img/Learning.jpg" alt="Learning Menu Preview">
+                        <div class="project-image-overlay"></div>
+                    </div>
+                    <div class="project-content">
+                        <h3 data-i18n="menu_learn">Menu Belajar</h3>
+                        <p data-i18n="learndescription">Menu Belajar — Kumpulan materi pembelajaran interaktif.</p>
+                        <a href="https://www.luxinesid.my.id/Learn.html" target="_parent"><button class="btn btn-primary" data-i18n="btn_look">Lihat →</button></a>
+                    </div>
+                </div>
+                <div class="project-card gsap-reveal">
+                    <div class="project-image">
+                        <img src="asset/img/Learning.jpg" alt="Learning Menu Preview">
+                        <div class="project-image-overlay"></div>
+                    </div>
+                    <div class="project-content">
+                        <h3 data-i18n="menu_novel">NovelKu</h3>
+                        <p data-i18n="noveldescription">NovelKu — Platform baca, tulis dan upload Novel.</p>
+                        <a href="https://www.luxinesid.my.id/menu/novel/novelku/novelku.html" target="_parent"><button class="btn btn-primary" data-i18n="btn_look">Lihat →</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mini Games -->
+        <div class="projects-container">
+            <div class="section-divider gsap-reveal">
+                <span data-i18n="project_title">Mini Game</span>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card gsap-reveal">
+                    <div class="project-image">
+                        <img src="asset/img/Chess_Game.jpg" alt="Chess Master">
+                        <div class="project-image-overlay"></div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Chess Master</h3>
+                        <p data-i18n="chess_description">Chess Master — Jadilan pemenang di permainan catur</p>
+                        <a href="https://www.luxinesid.my.id/Mini%20Games/Chess%20Game/chess-master.html"><button class="btn btn-primary">Play →</button></a>
+                    </div>
+                </div>
+                 <div class="project-card gsap-reveal">
+                    <div class="project-image">
+                        <img src="asset/img/tetrisgamepre.jpg" alt="Tetris">
+                        <div class="project-image-overlay"></div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Tetris</h3>
+                        <p data-i18n="tetris_description">Tetris — Susunlah balok dan raih score tertinggi</p>
+                        <a href="https://www.luxinesid.my.id/Mini%20Games/Tetris%20Game/tetris.html"><button class="btn btn-primary">Play →</button></a>
+                    </div>
+                </div>
+                <div class="project-card gsap-reveal">
+                    <div class="project-image">
+                        <img src="asset/img/sudoku.jpg" alt="Sudoku">
+                        <div class="project-image-overlay"></div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Sudoku</h3>
+                        <p data-i18n="sudoku_description">Sudoku — Temukan dan selesaikan puzzel</p>
+                        <a href="https://www.luxinesid.my.id/Mini%20Games/Sudoku%20Game/sudoku.html"><button class="btn btn-primary">Play →</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Project Sekolah-->
+        <div class="projects-container">
+            <div class="section-divider gsap-reveal">
+                <span data-i18n="menu_school">School Project</span>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card gsap-reveal">
+                    <div class="project-image">
+                        <img src="asset/img/Ramdhan_Preview.jpg" alt="Ramadhan Schedule Preview">
+                        <div class="project-image-overlay"></div>
+                    </div>
+                    <div class="project-content">
+                        <h3 data-i18n="ramadhan">Jadwal Ramadhan</h3>
+                        <p data-i18n="ramadhan_description">Project Kecil — Jadwal Ramadhan Real-Time.</p>
+                        <a href="https://www.luxinesid.my.id/menu/Other/Ramadhan.html" target="_parent"><button class="btn btn-primary" data-i18n="btn_look">Lihat →</button></a>
+                    </div>
+                </div>
+                                <div class="project-card gsap-reveal">
+                    <div class="project-image">
+                        <img src="asset/img/Snake_Game_Preview.jpg" alt="Snake Game">
+                        <div class="project-image-overlay"></div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Snake Game</h3>
+                        <p data-i18n="snake_description">Snake Game — Raihlah skor tertinggi</p>
+                        <a href="https://www.luxinesid.my.id/Mini%20Games/Snake%20Game/index.html"><button class="btn btn-primary">Play →</button></a>
+                    </div>
+                </div>
+                <div class="project-card gsap-reveal">
+                    <div class="project-image">
+                        <img src="asset/img/Fruit_Dropper.jpg" alt="Fruit Dropper">
+                        <div class="project-image-overlay"></div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Fruit Dropper</h3>
+                        <p data-i18n="fruit_description">Fruit Dropper — Raihlah skor tertinggi</p>
+                        <a href="https://www.luxinesid.my.id/Mini%20Games/Fruit%20Dropper/fruit-dropper.html"><button class="btn btn-primary">Play →</button></a>
+                    </div>
+                </div>
+                <div class="project-card gsap-reveal">
+                    <div class="project-image">
+                        <img src="asset/img/Shooter_Game_Preview.jpg" alt="Shooter Game">
+                        <div class="project-image-overlay"></div>
+                    </div>
+                    <div class="project-content">
+                        <h3>Shooter Game</h3>
+                        <p data-i18n="shooter_description">Shooter Game — Raihlah skor tertinggi</p>
+                        <a href="https://www.luxinesid.my.id/Mini%20Games/Shooter-Games/index.html"><button class="btn btn-primary">Play →</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section class="about" id="tentang">
+        <div class="about-container">
+            <div class="about-content">
+                <div class="section-label gsap-reveal-left">👾 About</div>
+                <h2 class="gsap-reveal-left" data-i18n="about_title">Hi there, I'm ARDINAZER112</h2>
+                <p class="gsap-reveal-left" data-i18n="about_desc1">I am an aspiring web developer who is currently learning and building projects with modern web technologies. I am learning and improving my programming skills.</p>
+                <p class="gsap-reveal-left" data-i18n="about_desc2">Currently focused on:</p>
+                <ul class="about-list gsap-reveal-left">
+                    <li data-i18n="ullist_1">Learning the basics of backend and frontend development</li>
+                    <li data-i18n="ullist_2">Building web applications with HTML, CSS, and JavaScript</li>
+                    <li data-i18n="ullist_3">Understanding the basics of Node.js, PHP, and Electron.js</li>
+                    <li data-i18n="ullist_4">Learning and understanding the Linux command line</li>
+                    <li data-i18n="ullist_5">Learning more about web development, specifically HTML, CSS, JavaScript, and PHP</li>
+                </ul>
+                <a href="https://github.com/ARDINAZER112" target="_blank" class="github-link gsap-reveal-left">
+                    <img src="asset/icon/GitHub_Invertocat_Black.svg" alt="GitHub">
+                    <span>ARDINAZER112 on GitHub</span>
+                </a>
+            </div>
+            <div class="about-visual gsap-reveal-right">
+                <img src="https://media1.tenor.com/m/cRs4lnEWw48AAAAC/everknight-evernight.gif" alt="About Visual">
+                <div class="about-visual-overlay"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOCIAL MEDIA -->
+    <section class="social-media" id="social-media">
+        <div class="social-media-container">
+            <div class="section-label gsap-reveal" style="display:inline-flex; margin-bottom: 20px;">📡 Connect</div>
+            <h2 class="gsap-reveal" data-i18n="social_title">Social Media</h2>
+            <p class="section-subtitle gsap-reveal" style="margin: 0 auto 56px;" data-i18n="sodia_desc">Temukan saya di berbagai platform sosial media.</p>
+            <div class="menu-links">
+                <a href="https://www.instagram.com/ardinazer10/" target="_blank" class="gsap-reveal-scale">
+                    <img src="asset/icon/instagram.png" alt="Instagram">
+                    <span>ardinazer10</span>
+                </a>
+                <a href="https://www.tiktok.com/@ardinazer10" target="_blank" class="gsap-reveal-scale">
+                    <img src="asset/icon/TikTok-logo-RGB-Stacked-white.png" alt="TikTok">
+                    <span>Ardinazer10</span>
+                </a>
+                <a href="https://youtube.com/@ardinazer" target="_blank" class="gsap-reveal-scale">
+                    <img src="asset/icon/yt_icon_red_digital.png" alt="YouTube">
+                    <span>ARDINAZER</span>
+                </a>
+                <a href="https://x.com/KTZINTHEHOUSE7" target="_blank" class="gsap-reveal-scale">
+                    <img src="asset/icon/logo.svg" alt="X">
+                    <span>KTZINTHEHOUSE7</span>
+                </a>
+                <a href="https://web.facebook.com/profile.php?id=100091670920007" target="_blank" class="gsap-reveal-scale">
+                    <img src="asset/icon/Facebook_f_logo_(2019).svg" alt="Facebook">
+                    <span>Ardinazer</span>
+                </a>
+                <a href="https://github.com/ARDINAZER112" target="_blank" class="gsap-reveal-scale">
+                    <img src="asset/icon/GitHub_Invertocat_Black.svg" alt="GitHub" style="filter: invert(1)">
+                    <span>ARDINAZER112</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+            <!-- MODAL -->
+        <div class="overlay" id="modalOvl" role="dialog" aria-modal="true" aria-label="Daftar semua project">
+            <div class="modal">
+                <div class="modal-hdr">
+                    <h2>📋 Daftar Project</h2>
+                    <button class="close-btn" onclick="closeModal()" aria-label="Tutup">&times;</button>
+                </div>
+                <div class="filter-tabs" role="group" aria-label="Filter kategori">
+                    <button class="ftab on" data-f="all"     onclick="setFilter(this)">🌐 Semua</button>
+                    <button class="ftab"    data-f="game"    onclick="setFilter(this)">🎮 Game</button>
+                    <button class="ftab"    data-f="website" onclick="setFilter(this)">💻 Website</button>
+                </div>
+                <div class="modal-grid" id="modalGrid" aria-live="polite"></div>
+            </div>
+        </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>Thertaria Project</h3>
+                    <p data-i18n="namespace">Your gateway to a simpler, more secure computing experience.</p>
+                </div>
+            </div>
+            <div class="ad-section" style="text-align: center; margin: 20px 0;">
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1883744520022866" crossorigin="anonymous"></script>
+                <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-1883744520022866" data-ad-slot="5985558433"></ins>
+                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+            <div class="copyright">
+                <p data-i18n="footer_copyright">&copy; Thertaria Project 2026. All rights reserved.</p>
+                <p>Designed with ♥ by Ardinazer IX</p><!--Ardinazer★シ — --> 
+            </div>
+        </div>
+    </footer>
+
+    <!-- GSAP CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <script src="script/thescript.js"></script>
+    <script src="script/projectlist.js"></script>
+    <script src="script/i18n.js"></script>
+    <script src="script/gsap-animations.js"></script>
+</body>
+</html>

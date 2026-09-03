@@ -1,0 +1,21 @@
+{
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://pagead2.googlesyndication.com https://cdn.tailwindcss.com https://cdn.jsdelivr.net https://cdn.landbot.io https://cdn.quilljs.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.quilljs.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://pagead2.googlesyndication.com https://media1.tenor.com https://syrxhvrzbgqieidhvjqw.supabase.co; worker-src 'self' blob: https://cdnjs.cloudflare.com; frame-src https://googleads.g.doubleclick.net; connect-src 'self' https://syrxhvrzbgqieidhvjqw.supabase.co wss://syrxhvrzbgqieidhvjqw.supabase.co https://storage.googleapis.com;"
+        }
+      ]
+    }
+  ]
+}
