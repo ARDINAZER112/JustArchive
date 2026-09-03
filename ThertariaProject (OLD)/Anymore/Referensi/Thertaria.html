@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARCHTEN - Thertaria Project</title>
+    <link rel="icon" href="asset/icon/Zuiho-icon.jpeg" type="image/x-icon">
+    <link rel="stylesheet" href="style/thestyle.css">
+</head>
+<body oncontextmenu="return false;">
+    <!-- HEADER & NAVBAR -->
+    <header>
+        <nav>
+            <a href="#" class="logo">🌟 ARCHTEN - Thertaria Project Website</a>
+            <ul class="nav-menu">
+                <li><a href="#beranda" data-i18n="nav_home">Beranda</a></li>
+                <li><a href="#fitur" data-i18n="nav_features">Fitur</a></li>
+                <li><a href="#quick-links" data-i18n="nav_learning">Pembelajaran</a></li>
+                <li><a href="#tentang" data-i18n="nav_about">Tentang</a></li>
+                <li><a href="#social-media" data-i18n="nav_social">Sosial Media</a></li>
+                <li><a href="#project" data-i18n="nav_project">Project</a></li>
+                <li><span class="settings-icon" id="headerSettingsBtn">⚙️</span></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- SETTINGS MODAL PANEL -->
+    <div id="settingsModal" class="settings-modal">
+        <div class="settings-panel">
+            <!-- Header -->
+            <div class="settings-header">
+                <h2 id="settingsTitle" data-i18n="settings_title">Pengaturan</h2>
+                <button class="close-settings-btn" id="closeSettingsBtn">&times;</button>
+            </div>
+
+            <!-- Content -->
+            <div class="settings-content">
+                <!-- General Settings -->
+                <div class="settings-section">
+                    <h3 data-i18n="settings_general">Umum</h3>
+                    <div class="setting-item">
+                        <label for="language" data-i18n="settings_language">Bahasa:</label>
+                        <select id="language">
+                            <option value="id">Bahasa Indonesia</option>
+                            <option value="en">English</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Audio Settings -->
+                <div class="settings-section">
+                    <h3 data-i18n="settings_audio">Audio & Notifikasi</h3>
+                    <div class="setting-item">
+                        <label data-i18n="settings_volume">Volume:</label>
+                        <span class="setting-value" id="volumeValue">70%</span>
+                    </div>
+                    <div class="setting-item">
+                        <input type="range" id="volume" min="0" max="100" value="70">
+                    </div>
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="soundEnabled" checked>
+                            <span data-i18n="settings_sound">Aktifkan Suara</span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="notificationEnabled" checked>
+                            <span data-i18n="settings_notification">Aktifkan Notifikasi</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Display Settings -->
+                <div class="settings-section">
+                    <h3 data-i18n="settings_display">Tampilan</h3>
+                    <div class="setting-item">
+                        <label data-i18n="settings_brightness">Kecerahan:</label>
+                        <span class="setting-value" id="brightnessValue">100%</span>
+                    </div>
+                    <div class="setting-item">
+                        <input type="range" id="brightness" min="0" max="100" value="100">
+                    </div>
+                    <div class="setting-item">
+                        <label for="textSize" data-i18n="settings_textsize">Ukuran Teks:</label>
+                        <select id="textSize">
+                            <option value="small" data-i18n="settings_textsize_small">Kecil</option>
+                            <option value="normal" selected data-i18n="settings_textsize_normal">Normal</option>
+                            <option value="large" data-i18n="settings_textsize_large">Besar</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Privacy Settings -->
+                <div class="settings-section">
+                    <h3 data-i18n="settings_privacy">Privasi & Keamanan</h3>
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="analytics" checked>
+                            <span data-i18n="settings_analytics">Izinkan Analytics</span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="cookies" checked>
+                            <span data-i18n="settings_cookies">Izinkan Cookies</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="settings-footer">
+                <button class="btn-settings btn-save" id="saveBtn" data-i18n="settings_save">Simpan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="beranda">
+        <div class="hero-content">
+            <h1 data-i18n="hero_welcome">Selamat Datang di Website Kami</h1>
+            <h1>====ARCHTEN====</h1>
+            <p data-i18n="hero_subtitle">Temukan solusi terbaik untuk kebutuhan digital Anda</p>
+            <a href="#social-media" class="hero-btn" data-i18n="hero_social">Social Media</a>
+            <a href="#project" class="hero-btn" data-i18n="hero_project">Project</a>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+        <!-- QUICK LINKS -->
+        <div class="menu-section" id="quick-links">
+            <h2><center>「 ✦ <span data-i18n="menu_title">MENU</span> ✦ 」</center></h2>
+            <div class="menu-links">
+                <a href="history.html" target="_parent" data-i18n="menu_history">Histori Of World</a>
+                <a href="LearnCoding.html" target="_parent" data-i18n="menu_coding">Belajar Koding</a>
+                <a href="LearnDesign.html" target="_parent" data-i18n="menu_design">Belajar Design</a>
+                <a href="LearnMarketing.html" target="_parent" data-i18n="menu_marketing">Belajar Marketing</a>
+                <a href="LearnBusiness.html" target="_parent" data-i18n="menu_business">Belajar Bisnis</a>
+                <a href="LearnProductivity.html" target="_parent" data-i18n="menu_productivity">Belajar Produktivitas</a>
+                <a href="LearnTools.html" target="_parent" data-i18n="menu_tools">Belajar Tools</a>
+                <a href="LearnOther.html" target="_parent" data-i18n="menu_other">Lainnya</a>
+            </div>
+        </div>
+        <!-- PROJECT LINKS -->
+        <div class="menu-section" id="project">
+            <h2><center>「 ✦ <span data-i18n="project_title">PROJECT</span> ✦ 」</center></h2>
+            <div class="menu-links">
+                <a href="project1.html" target="_parent">Project 1</a>
+                <a href="project2.html" target="_parent">Project 2</a>
+                <a href="project3.html" target="_parent">Project 3</a>
+            </div>
+        </div>
+         <!-- Herta LINKS -->
+        <div class="menu-section" id="Kurukuru">
+            <h2><center>「 ✦ <span data-i18n="herta_title">HERTA</span> ✦ 」</center></h2>
+            <div class="menu-links">
+                <a href="Herta Project/Hertaruia/index.html" target="_parent">Herutaria</a>
+                <a href="Herta Project/Kurukuru/kurukuru.html" target="_parent">Herta</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABOUT SECTION -->
+    <section class="about" id="tentang">
+        <div class="about-container">
+            <div class="about-content">
+                <h2 data-i18n="about_title">Tentang Kami</h2>
+                <p data-i18n="about_desc1">Kami adalah tim profesional yang berdedikasi untuk memberikan solusi digital terbaik bagi klien kami.</p>
+                <p data-i18n="about_desc2">Dengan menyediakan pengalaman pembelajaran yang luar biasa, kami membantu pengguna mencapai tujuan mereka dengan mudah dan efisien.</p>
+                <p data-i18n="about_desc3">Komitmen kami adalah memberikan hasil yang cukup luar biasa dan membantu pengguna mencapai tujuan mereka.</p>
+            </div>
+            <div class="about-image">
+            <img src="asset/icon/about-icon.jpg" alt="About Us" style="width:80%; height:80%; border-radius:10px;">
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="social-media" id="social-media">
+        <div class="social-media-container">
+              <h2><center data-i18n="social_title">Social Media</center></h2>
+            <div class="menu-links">
+                <a href="https://www.instagram.com/ardinazer10/" target="_blank">
+                <img src="asset/icon/instagram-icon.png" alt="Instagram" style="width:60px; height:60px;">ardinazer10</a>
+                <a href="https://discord.com/channels/@me/1460183027090067491" target="_blank"> 
+                <img src="asset/icon/discord-icon.png" alt="Discord" style="width:60px; height:60px;">ARDINAZER★シ</a>
+                <a href="https://youtube.com/@ardinazer?si=nlhVOV-EvKif-LDp" target="_blank">
+                <img src="asset/icon/youtube-icon.png" alt="YouTube" style="width:60px; height:60px;">ARDINAZER</a>
+                <a href="https://x.com/KTZINTHEHOUSE7" target="_blank">       
+                <img src="asset/icon/x-icon.png" alt="X" style="width:60px; height:60px;">KTZINTHEHOUSE7</a>
+                <a href="https://web.facebook.com/profile.php?id=100091670920007" target="_blank">
+                <img src="asset/icon/facebook-icon.png" alt="Facebook" style="width :60px; height:60px;">Ardinazer</a>
+                <a href="https://github.com/ARDINAZER112" target="_blank">
+                <img src="asset/icon/github-icon.png" alt="GitHub" style="width:60px; height:60px;">ARDINAZER112</a>
+            </div>
+        </div>
+        </div>
+
+   <!-- FOOTER -->
+    <footer>
+        <div class="footer ">
+        </div>
+        <p data-i18n="footer_copyright">&copy; 2026 Thertaria Project. Semua hak dilindungi.</p>
+    </footer>
+
+  <script src="script/thescript.js"></script>
+  <script src="script/i18n.js"></script>
+</body>
+</html>

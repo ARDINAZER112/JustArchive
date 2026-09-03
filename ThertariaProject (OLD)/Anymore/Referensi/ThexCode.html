@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thertaria - Settings Demo</title>
+    <link rel="stylesheet" href="style/settings-popup.css">
+</head>
+<body>
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Selamat Datang di Thertaria</h1>
+        <button id="settingsBtn" class="settings-btn">⚙️ Pengaturan</button>
+    </div>
+
+    <!-- Settings Pop-up Modal -->
+    <div id="settingsModal" class="settings-modal">
+        <div class="settings-modal-content">
+            <!-- Header -->
+            <div class="settings-header">
+                <h2>Pengaturan</h2>
+                <button class="close-btn" id="closeBtn">&times;</button>
+            </div>
+
+            <!-- Settings Content -->
+            <div class="settings-body">
+                <!-- General Settings -->
+                <div class="settings-section">
+                    <h3>Umum</h3>
+                    <div class="setting-item">
+                        <label for="language">Bahasa:</label>
+                        <select id="language">
+                            <option value="id">Bahasa Indonesia</option>
+                            <option value="en">English</option>
+                            <option value="ja">日本語</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <label for="theme">Tema:</label>
+                        <select id="theme">
+                            <option value="light">Terang</option>
+                            <option value="dark">Gelap</option>
+                            <option value="auto">Otomatis</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Audio Settings -->
+                <div class="settings-section">
+                    <h3>Audio & Notifikasi</h3>
+                    <div class="setting-item">
+                        <label for="volume">Volume:</label>
+                        <input type="range" id="volume" min="0" max="100" value="70">
+                        <span id="volumeValue">70%</span>
+                    </div>
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="soundEnabled" checked>
+                            Aktifkan Suara
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="notificationEnabled" checked>
+                            Aktifkan Notifikasi
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Display Settings -->
+                <div class="settings-section">
+                    <h3>Tampilan</h3>
+                    <div class="setting-item">
+                        <label for="brightness">Kecerahan:</label>
+                        <input type="range" id="brightness" min="0" max="100" value="100">
+                        <span id="brightnessValue">100%</span>
+                    </div>
+                    <div class="setting-item">
+                        <label for="textSize">Ukuran Teks:</label>
+                        <select id="textSize">
+                            <option value="small">Kecil</option>
+                            <option value="normal" selected>Normal</option>
+                            <option value="large">Besar</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Privacy Settings -->
+                <div class="settings-section">
+                    <h3>Privasi & Keamanan</h3>
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="analytics" checked>
+                            Izinkan Analytics
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="cookies" checked>
+                            Izinkan Cookies
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="settings-footer">
+                <button id="resetBtn" class="btn-reset">Reset ke Default</button>
+                <div class="footer-buttons">
+                    <button id="cancelBtn" class="btn-cancel">Batal</button>
+                    <button id="saveBtn" class="btn-save">Simpan Pengaturan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script/settings.js"></script>
+</body>
+</html>
