@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History Of World</title>
+    <link rel="icon" href="asset/icon/history-icon.png" type="image/x-icon">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f0f2f5;
+        }
+
+        /* NAVBAR */
+        nav {
+            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        nav li {
+            display: inline-block;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 16px 25px;
+            display: block;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: #ffb300;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding-bottom: 13px;
+        }
+
+        nav a:hover::after {
+            width: 80%;
+        }
+
+        /* HEADER SECTION */
+        .header {
+            background: linear-gradient(135deg, #1a237e 0%, #283593 50%, #3f51b5 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            top: -250px;
+            right: -250px;
+        }
+
+        .header h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 20px;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* MAIN CONTENT */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .menu-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+        }
+
+        .menu-section h2 {
+            color: #1a237e;
+            margin-bottom: 20px;
+            font-size: 24px;
+            border-bottom: 3px solid #ffb300;
+            padding-bottom: 10px;
+        }
+
+        .menu-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .menu-links a {
+            background: linear-gradient(135deg, #3f51b5 0%, #5c6bc0 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-links a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(63, 81, 181, 0.4);
+        }
+
+        /* SHIP CARDS */
+        .ships-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .ship-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .ship-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .ship-header {
+            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .ship-header h3 {
+            font-size: 28px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .ship-type {
+            font-size: 14px;
+            opacity: 0.9;
+            font-style: italic;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .ship-content {
+            padding: 25px;
+        }
+
+        .ship-content dt {
+            color: #1a237e;
+            font-weight: 700;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .ship-content dd {
+            color: #555;
+            margin-bottom: 15px;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        .ship-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #f0f2f5;
+        }
+
+        .stat {
+            background: #f0f2f5;
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #999;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .stat-value {
+            font-size: 18px;
+            color: #1a237e;
+            font-weight: 700;
+            margin-top: 5px;
+        }
+
+        /* TIMELINE */
+        .timeline {
+            margin-top: 30px;
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-item {
+            padding-left: 40px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 5px;
+            width: 12px;
+            height: 12px;
+            background: #ffb300;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px #1a237e;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 19px;
+            top: 17px;
+            width: 2px;
+            height: calc(100% + 5px);
+            background: #e0e0e0;
+        }
+
+        .timeline-item:last-child::after {
+            display: none;
+        }
+
+        .timeline-item p {
+            margin: 0;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .timeline-date {
+            color: #1a237e;
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        /* IMAGE GALLERY */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: 0.3s;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 32px;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav li {
+                width: 100%;
+            }
+
+            nav a {
+                text-align: center;
+            }
+
+            .ships-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .menu-links {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* FOOTER */
+        footer {
+            background: #1a237e;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        footer a {
+            color: #ffb300;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body oncontextmenu="return false;">
+    <!-- NAVBAR -->
+    <nav id="home">
+        <ul>
+            <li><a href="Thertaria.html">🏠 Beranda</a></li>
+            <li><a href="#histori">⚓ Daftar Sejarah Dunia</a></li>
+            <li><a href="#layanan">📞 Layanan</a></li>
+        </ul>
+    </nav>
+   
+
+    <!-- HEADER -->
+    <div class="header">
+        <h1>🗺 SEJARAH DUNIA</h1>
+        <p>Jelajahi Sejarah Yang Tercatat Oleh Dunia</p>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+        <!-- QUICK LINKS -->
+        <div class="menu-section" id="histori">
+            <h2>🗺 Daftar Sejarah Dunia</h2>
+            <div class="menu-links">
+                <a href="histori_kapal.html" target="_parent">Sejarah Kapal</a>
+                <a href="histori_pesawat.html" target="_parent">Sejarah Pesawat Terbang</a>
+                <a href="histori_mobil.html" target="_parent">Sejarah Mobil Klasik</a>
+                <a href="histori_kereta.html" target="_parent">Sejarah Kereta Api</a>
+                <a href="militer/histori_kapal_militer.html" target="_parent">Sejarah Militer</a>
+                <a href="histori_teknologi.html" target="_parent">Sejarah Teknologi</a>
+            </div>
+        </div>
+
+        <!-- LEGACY SECTION -->
+        <div class="menu-section" id="layanan" style="margin-top: 60px;">
+            <h2>🏛️ Warisan & Pengaruh Historis</h2>
+            <p style="color: #555; line-height: 1.8; margin-top: 15px;">
+                sejarah dunia adalah sejarah umat manusia di seluruh dunia, semua daerah di Bumi, dirunut dari era Paleolitikum (zaman batu tua)
+                hingga zaman modern. Sejarah dunia mencakup peristiwa-peristiwa penting, budaya, penemuan, dan interaksi antarperadapan yang telah membentuk 
+                dunia kita saat ini. Sejarah dunia melibatkan berbagai aspek seperti politik, ekonomi, sosial, budaya, dan teknologi yang saling berinteraksi
+                sepanjang waktu.
+            </p>
+            <p style="color: #555; line-height: 1.8; margin-top: 15px;">
+                Studi tentang sejarah dunia membantu kita memahami perkembangan peradaban manusia,  interaksi antarbangsa, serta dampak dari peristiwa-peristiwa besar seperti perang, revolusi, dan penemuan-penemuan penting.
+                Dengan mempelajari sejarah dunia, kita dapat mengambil pelajaran berharga untuk membentuk masa depan yang lebih baik.
+            </p>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer id="kontak">
+        <p><strong>🗺 Museum Sejarah Dunia</strong></p>
+        <p>Melestarikan Sejarah Yang Pernah Tercatat Oleh Dunia 🗿</p>
+        <p style="margin-top: 15px; font-size: 12px; opacity: 0.8;">
+            &copy; 2026 Thertaria Project. Semua hak dilindungi.
+        </p>
+    </footer>
+
+    <script>
+        // Smooth scroll untuk semua anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

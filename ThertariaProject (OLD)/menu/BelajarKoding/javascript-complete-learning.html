@@ -1,0 +1,2667 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belajar JavaScript Lengkap - Tutorial & IDE Interaktif</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f0f2f5;
+        }
+
+        /* NAVBAR */
+        nav {
+            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        nav li {
+            display: inline-block;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 16px 20px;
+            display: block;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            font-size: 13px;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: #ffb300;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding-bottom: 13px;
+        }
+
+        nav a:hover::after {
+            width: 80%;
+        }
+
+        /* HEADER SECTION */
+        .header {
+            background: linear-gradient(135deg, #1a237e 0%, #283593 50%, #3f51b5 100%);
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            top: -250px;
+            right: -250px;
+        }
+
+        .header h1 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 18px;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* MAIN CONTENT */
+        .container {
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .menu-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+        }
+
+        .menu-section h2 {
+            color: #1a237e;
+            margin-bottom: 20px;
+            font-size: 24px;
+            border-bottom: 3px solid #ffb300;
+            padding-bottom: 10px;
+        }
+
+        .menu-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .menu-links a {
+            background: linear-gradient(135deg, #3f51b5 0%, #5c6bc0 100%);
+            color: white;
+            padding: 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            font-size: 14px;
+        }
+
+        .menu-links a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(63, 81, 181, 0.4);
+        }
+
+        /* TABS */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 12px 20px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            font-size: 15px;
+        }
+
+        .tab-btn.active {
+            color: #1a237e;
+            border-bottom-color: #ffb300;
+        }
+
+        .tab-btn:hover {
+            color: #1a237e;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* TUTORIAL CARDS */
+        .tutorial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .tutorial-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border-left: 5px solid #3f51b5;
+        }
+
+        .tutorial-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .tutorial-header {
+            background: linear-gradient(135deg, #1a237e 0%, #f5650a 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .tutorial-header h3 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .tutorial-level {
+            font-size: 12px;
+            opacity: 0.9;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 12px;
+            border-radius: 15px;
+            display: inline-block;
+        }
+
+        .tutorial-content {
+            padding: 25px;
+        }
+
+        .tutorial-content h4 {
+            color: #1a237e;
+            font-weight: 700;
+            margin: 15px 0 10px 0;
+            font-size: 15px;
+        }
+
+        .tutorial-content p {
+            color: #555;
+            margin-bottom: 12px;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            position: relative;
+        }
+
+        .code-block code {
+            color: #f8f8f2;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ffb300;
+            color: #333;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #ffa000;
+            transform: scale(1.05);
+        }
+
+        /* PROBLEM SECTION */
+        .problem-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+            border-left: 5px solid #ff6b6b;
+        }
+
+        .problem-card h3 {
+            color: #1a237e;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .problem-section {
+            margin-bottom: 20px;
+        }
+
+        .problem-section strong {
+            color: #1a237e;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+
+        .problem-section p {
+            color: #555;
+            margin-bottom: 10px;
+            line-height: 1.7;
+        }
+
+        /* IDE SECTION */
+        .ide-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .ide-panel {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .ide-header {
+            background: linear-gradient(135deg, #1a237e 0%, #f5650a 100%);
+            color: white;
+            padding: 15px 20px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ide-header button {
+            background: #ffb300;
+            color: #333;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.3s ease;
+        }
+
+        .ide-header button:hover {
+            background: #ffa000;
+            transform: scale(1.05);
+        }
+
+        .editor {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            min-height: 400px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .editor textarea {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            border: none;
+            width: 100%;
+            height: 100%;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            padding: 0;
+            resize: none;
+        }
+
+        .output {
+            background: #1e1e1e;
+            color: #00ff00;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            min-height: 200px;
+            max-height: 300px;
+            overflow-y: auto;
+            border-top: 1px solid #333;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .output.error {
+            color: #ff6b6b;
+        }
+
+        /* FEATURES LIST */
+        .features-list {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .features-list li {
+            padding: 10px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .features-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #ffb300;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        /* QUICK TIPS */
+        .tip-box {
+            background: #f0f7ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .tip-box strong {
+            color: #1a237e;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ff9800;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .warning-box strong {
+            color: #1a237e;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 28px;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav li {
+                width: 100%;
+            }
+
+            nav a {
+                text-align: center;
+                padding: 12px 15px;
+                font-size: 12px;
+            }
+
+            .tutorial-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .menu-links {
+                grid-template-columns: 1fr;
+            }
+
+            .ide-container {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab-btn {
+                text-align: left;
+            }
+        }
+
+        /* FOOTER */
+        footer {
+            background: #1a237e;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        footer a {
+            color: #ffb300;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* HIGHLIGHT COLORS */
+        .highlight-js {
+            color: #ffb300;
+            font-weight: 600;
+        }
+
+        .success {
+            color: #00ff00;
+        }
+
+        .error {
+            color: #ff6b6b;
+        }
+    </style>
+</head>
+
+<body oncontextmenu="return false;">
+    <!-- NAVBAR -->
+    <nav id="home">
+        <ul>
+            <li><a href="LearnCoding.html">🏠 Kembali</a></li>
+            <li><a href="#pengenalan">📖 Pengenalan</a></li>
+            <li><a href="#tutorial">📚 Tutorial</a></li>
+            <li><a href="#problem">🔧 Pemecahan Masalah</a></li>
+            <li><a href="#ide">💻 IDE Interaktif</a></li>
+            <li><a href="#reference">📋 Referensi</a></li>
+        </ul>
+    </nav>
+
+    <!-- HEADER -->
+    <div class="header">
+        <h1>📜 BELAJAR JAVASCRIPT LENGKAP</h1>
+        <p>Dari Pemula hingga Mahir - Tutorial Komprehensif, Problem Solving, dan IDE Interaktif</p>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+        <!-- PENGENALAN SECTION -->
+        <div class="menu-section" id="pengenalan">
+            <h2>📖 Pengenalan JavaScript</h2>
+            
+            <h3 style="color: #1a237e; margin-top: 20px; margin-bottom: 10px;">Apa itu JavaScript?</h3>
+            <p style="color: #555; line-height: 1.8; margin-bottom: 15px;">
+                JavaScript adalah bahasa pemrograman yang dirancang untuk membuat halaman web interaktif dan dinamis. 
+                Awalnya dibuat oleh Brendan Eich pada tahun 1995, JavaScript telah berkembang menjadi salah satu bahasa 
+                pemrograman paling penting di dunia. Setiap browser modern menjalankan JavaScript untuk memberikan 
+                pengalaman pengguna yang interaktif.
+            </p>
+
+            <h3 style="color: #1a237e; margin-top: 20px; margin-bottom: 10px;">Mengapa JavaScript?</h3>
+            <ul class="features-list">
+                <li><strong>Universal</strong> - Berjalan di semua browser tanpa perlu instalasi</li>
+                <li><strong>Interaktif</strong> - Membuat website responsive dan user-friendly</li>
+                <li><strong>Versatile</strong> - Bisa untuk frontend, backend (Node.js), mobile, dll</li>
+                <li><strong>Mudah Dipelajari</strong> - Sintaks yang sederhana dan intuitif</li>
+                <li><strong>Komunitas Besar</strong> - Ribuan library dan framework tersedia</li>
+            </ul>
+
+            <h3 style="color: #1a237e; margin-top: 20px; margin-bottom: 10px;">Aplikasi JavaScript</h3>
+            <p style="color: #555; line-height: 1.8;">
+                <strong>🌐 Web Development:</strong> React, Vue, Angular, Next.js <br>
+                <strong>💻 Backend:</strong> Node.js, Express, NestJS <br>
+                <strong>📱 Mobile:</strong> React Native, Flutter <br>
+                <strong>🎮 Game Development:</strong> Phaser, Babylon.js <br>
+                <strong>🤖 Machine Learning:</strong> TensorFlow.js <br>
+                <strong>📊 Data Visualization:</strong> D3.js, Chart.js <br>
+                <strong>⚡ Real-time Apps:</strong> WebSocket, Socket.io
+            </p>
+
+            <h3 style="color: #1a237e; margin-top: 20px; margin-bottom: 10px;">Cara Menggunakan JavaScript</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                <code>
+&lt;!-- 1. Inline JavaScript --&gt;
+&lt;button onclick="alert('Hello')"&gt;Klik Me&lt;/button&gt;
+
+&lt;!-- 2. Internal Script --&gt;
+&lt;script&gt;
+    console.log('Hello, JavaScript!');
+&lt;/script&gt;
+
+&lt;!-- 3. External Script --&gt;
+&lt;script src="script.js"&gt;&lt;/script&gt;
+                </code>
+            </div>
+        </div>
+
+        <!-- TUTORIAL SECTION -->
+        <div class="menu-section" id="tutorial">
+            <h2>📚 Tutorial JavaScript</h2>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab(event, 'tab-dasar')">Dasar</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tab-tipe-data')">Tipe Data</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tab-kontrol')">Kontrol Alur</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tab-function')">Fungsi</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tab-dom')">DOM</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tab-async')">Async</button>
+            </div>
+
+            <!-- TAB 1: DASAR -->
+            <div id="tab-dasar" class="tab-content active">
+                <div class="tutorial-grid">
+                    <!-- Hello World -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Hello World</h3>
+                            <span class="tutorial-level">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Program pertama Anda dalam JavaScript - menampilkan teks di console.</p>
+                            
+                            <h4>💡 Konsep</h4>
+                            <p>console.log() digunakan untuk menampilkan output ke browser console.</p>
+
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>console.log("Hello, World!");</code>
+                            </div>
+
+                            <h4>📝 Output</h4>
+                            <div class="code-block" style="background: #1e1e1e; color: #00ff00;">Hello, World!</div>
+                        </div>
+                    </div>
+
+                    <!-- Variabel -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Variabel</h3>
+                            <span class="tutorial-level">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Menyimpan dan menggunakan data dalam program.</p>
+                            
+                            <h4>💡 Konsep</h4>
+                            <p>Gunakan var, let, atau const untuk mendeklarasikan variabel.</p>
+
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+// Variabel dengan let (recommended)
+let nama = "Budi";
+let umur = 20;
+let tinggi = 175.5;
+
+// Variabel dengan const (tidak bisa diubah)
+const PI = 3.14;
+
+// Variabel dengan var (old style, hindari)
+var email = "budi@example.com";
+
+console.log(nama);  // Budi
+console.log(umur);  // 20
+                                </code>
+                            </div>
+
+                            <div class="tip-box">
+                                <strong>💡 Tip:</strong> Gunakan <span style="color: #ffb300;">let</span> dan <span style="color: #ffb300;">const</span> 
+                                daripada <span style="color: #ffb300;">var</span>. Const lebih aman karena tidak bisa diubah.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Operator -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Operator</h3>
+                            <span class="tutorial-level">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Melakukan operasi matematika dan perbandingan.</p>
+                            
+                            <h4>💡 Jenis Operator</h4>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+// Operator Aritmatika
+let a = 10;
+let b = 3;
+console.log(a + b);    // 13
+console.log(a - b);    // 7
+console.log(a * b);    // 30
+console.log(a / b);    // 3.33
+console.log(a % b);    // 1 (sisa bagi)
+console.log(a ** b);   // 1000 (pangkat)
+
+// Operator Perbandingan
+console.log(a == b);   // false
+console.log(a != b);   // true
+console.log(a > b);    // true
+console.log(a < b);    // false
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- String -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>String</h3>
+                            <span class="tutorial-level">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Bekerja dengan teks dan string manipulation.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+// String basics
+let text = "Halo JavaScript";
+
+// Template literals (backtick)
+let name = "Budi";
+let greeting = `Hello, ${name}!`;
+
+// String methods
+console.log(text.toUpperCase());      // HALO JAVASCRIPT
+console.log(text.toLowerCase());      // halo javascript
+console.log(text.length);              // 15
+console.log(text.charAt(0));           // H
+console.log(text.substring(0, 4));    // Halo
+console.log(text.includes("Java"));   // true
+console.log(text.split(" "));         // ["Halo", "JavaScript"]
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Comments & Alert -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Comments & Alert</h3>
+                            <span class="tutorial-level">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Menambahkan komentar dan menampilkan dialog.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+// Ini adalah komentar single line
+
+/* 
+   Ini adalah multi-line comment
+   Berguna untuk dokumentasi panjang
+*/
+
+// alert - Tampilkan dialog
+alert("Halo, ini adalah alert!");
+
+// prompt - Minta input
+let name = prompt("Siapa nama kamu?");
+console.log(name);
+
+// confirm - Minta konfirmasi
+let setuju = confirm("Apakah kamu setuju?");
+console.log(setuju);  // true atau false
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Typeof -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Typeof Operator</h3>
+                            <span class="tutorial-level">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Mengetahui tipe data suatu nilai.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+console.log(typeof 42);              // number
+console.log(typeof "hello");         // string
+console.log(typeof true);            // boolean
+console.log(typeof undefined);       // undefined
+console.log(typeof {});              // object
+console.log(typeof []);              // object
+console.log(typeof function(){});    // function
+console.log(typeof null);            // object (quirk)
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: TIPE DATA -->
+            <div id="tab-tipe-data" class="tab-content">
+                <div class="tutorial-grid">
+                    <!-- Tipe Data -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Tipe Data</h3>
+                            <span class="tutorial-level">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Memahami berbagai tipe data dalam JavaScript.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+// Primitif types
+let number = 42;           // number
+let decimal = 3.14;        // number
+let text = "hello";        // string
+let flag = true;           // boolean
+let nothing = undefined;   // undefined
+let empty = null;          // null
+
+// Symbol (unique identifier)
+let sym = Symbol("id");
+
+// Objects
+let person = {
+    name: "Budi",
+    age: 25
+};
+
+// Arrays
+let colors = ["red", "green", "blue"];
+
+// Functions
+let greet = function(name) {
+    return "Hello, " + name;
+};
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Array -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Array</h3>
+                            <span class="tutorial-level">Intermediate</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Menyimpan multiple items dalam satu variabel.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+// Membuat array
+let fruits = ["apple", "banana", "cherry"];
+let numbers = [1, 2, 3, 4, 5];
+let mixed = [1, "hello", 3.14, true];
+
+// Mengakses item
+console.log(fruits[0]);        // apple
+console.log(fruits[fruits.length - 1]); // cherry
+
+// Mengubah item
+fruits[0] = "orange";
+
+// Array methods
+fruits.push("grape");           // Tambah di akhir
+fruits.pop();                   // Hapus di akhir
+fruits.shift();                 // Hapus di awal
+fruits.unshift("mango");        // Tambah di awal
+fruits.includes("apple");       // true/false
+fruits.indexOf("banana");       // index
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Object -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Object</h3>
+                            <span class="tutorial-level">Intermediate</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Menyimpan data dengan key-value pairs.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+// Membuat object
+let person = {
+    name: "Budi",
+    age: 25,
+    city: "Jakarta",
+    greet: function() {
+        return "Hello, " + this.name;
+    }
+};
+
+// Mengakses property
+console.log(person.name);       // Budi
+console.log(person["age"]);     // 25
+
+// Mengubah property
+person.age = 26;
+person["city"] = "Bandung";
+
+// Menambah property
+person.email = "budi@example.com";
+
+// Menghapus property
+delete person.city;
+
+// Memanggil method
+console.log(person.greet());    // Hello, Budi
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Array Methods -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Array Methods</h3>
+                            <span class="tutorial-level">Advanced</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Manipulasi array dengan method bawaan.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+let numbers = [1, 2, 3, 4, 5];
+
+// map - Transform setiap element
+let doubled = numbers.map(x => x * 2);
+// [2, 4, 6, 8, 10]
+
+// filter - Select element tertentu
+let even = numbers.filter(x => x % 2 === 0);
+// [2, 4]
+
+// reduce - Accumulate ke single value
+let sum = numbers.reduce((a, b) => a + b, 0);
+// 15
+
+// find - Cari element pertama
+let first = numbers.find(x => x > 3);
+// 4
+
+// forEach - Loop through array
+numbers.forEach(x => console.log(x));
+
+// sort - Urutkan array
+let sorted = numbers.sort((a, b) => b - a);
+// [5, 4, 3, 2, 1]
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Destructuring -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Destructuring</h3>
+                            <span class="tutorial-level">Advanced</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Extract values dari array atau object dengan mudah.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+// Array destructuring
+let [a, b, c] = [1, 2, 3];
+console.log(a);  // 1
+
+// Object destructuring
+let {name, age} = {
+    name: "Budi",
+    age: 25,
+    city: "Jakarta"
+};
+console.log(name);  // Budi
+
+// With default value
+let [x, y = 10] = [5];
+console.log(y);  // 10
+
+// Renaming
+let {name: fullName} = {name: "Budi"};
+console.log(fullName);  // Budi
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: KONTROL ALUR -->
+            <div id="tab-kontrol" class="tab-content">
+                <div class="tutorial-grid">
+                    <!-- If Statement -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>If Statement</h3>
+                            <span class="tutorial-level">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Membuat keputusan dalam program berdasarkan kondisi.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+// If statement
+let umur = 18;
+if (umur >= 18) {
+    console.log("Anda sudah dewasa");
+}
+
+// If-else
+let nilai = 75;
+if (nilai >= 70) {
+    console.log("Lulus");
+} else {
+    console.log("Tidak lulus");
+}
+
+// If-else if-else
+let score = 85;
+if (score >= 90) {
+    console.log("Nilai A");
+} else if (score >= 80) {
+    console.log("Nilai B");
+} else if (score >= 70) {
+    console.log("Nilai C");
+} else {
+    console.log("Nilai D");
+}
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Comparison & Logical Operators -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Comparison & Logical</h3>
+                            <span class="tutorial-level">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Membandingkan nilai dan menggabungkan kondisi.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+// Comparison operators
+5 == "5"      // true (loose equality)
+5 === "5"     // false (strict equality)
+5 != "5"      // false
+5 !== "5"     // true
+5 > 3         // true
+5 >= 5        // true
+
+// Logical AND
+if (age >= 18 && gaji >= 1000000) {
+    console.log("Dapat pinjaman");
+}
+
+// Logical OR
+if (status === "student" || status === "unemployed") {
+    console.log("Diskon tersedia");
+}
+
+// NOT operator
+if (!isRainy) {
+    console.log("Saya pergi jalan");
+}
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Switch Case -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Switch Case</h3>
+                            <span class="tutorial-level">Intermediate</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Alternatif if-else untuk banyak kondisi.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+let day = "Monday";
+
+switch (day) {
+    case "Monday":
+        console.log("Hari Senin");
+        break;
+    case "Tuesday":
+        console.log("Hari Selasa");
+        break;
+    case "Wednesday":
+        console.log("Hari Rabu");
+        break;
+    default:
+        console.log("Hari lainnya");
+}
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- For Loop -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>For Loop</h3>
+                            <span class="tutorial-level">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Mengulang kode dengan jumlah tertentu.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+// For loop tradisional
+for (let i = 0; i < 5; i++) {
+    console.log(i);  // 0, 1, 2, 3, 4
+}
+
+// For loop dengan array
+let fruits = ["apple", "banana", "cherry"];
+for (let i = 0; i < fruits.length; i++) {
+    console.log(fruits[i]);
+}
+
+// For...of loop
+for (let fruit of fruits) {
+    console.log(fruit);
+}
+
+// For...in loop (untuk object)
+let person = {name: "Budi", age: 25};
+for (let key in person) {
+    console.log(key + ": " + person[key]);
+}
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- While Loop -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>While Loop</h3>
+                            <span class="tutorial-level">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Mengulang selama kondisi tertentu terpenuhi.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+// While loop
+let i = 0;
+while (i < 5) {
+    console.log(i);
+    i++;
+}
+
+// Do...while loop
+let count = 0;
+do {
+    console.log(count);
+    count++;
+} while (count < 3);
+
+// Break & Continue
+for (let i = 0; i < 10; i++) {
+    if (i === 3) continue;  // Skip 3
+    if (i === 7) break;     // Stop at 7
+    console.log(i);
+}
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Ternary Operator -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Ternary Operator</h3>
+                            <span class="tutorial-level">Intermediate</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Short-hand untuk if-else statement.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+// Syntax: condition ? true : false
+let age = 20;
+let status = (age >= 18) ? "Dewasa" : "Anak-anak";
+console.log(status);  // Dewasa
+
+// Nested ternary
+let score = 85;
+let grade = (score >= 90) ? "A" : 
+            (score >= 80) ? "B" : 
+            (score >= 70) ? "C" : "D";
+console.log(grade);  // B
+
+// Dengan variable
+let isRainy = true;
+let activity = isRainy ? 
+    "Menonton film di rumah" : 
+    "Bermain di taman";
+console.log(activity);
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: FUNCTION -->
+            <div id="tab-function" class="tab-content">
+                <div class="tutorial-grid">
+                    <!-- Function Basics -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Function Basics</h3>
+                            <span class="tutorial-level">Intermediate</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Membuat dan menggunakan fungsi.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+// Function declaration
+function greet() {
+    console.log("Halo!");
+}
+greet();  // Panggil fungsi
+
+// Function dengan parameter
+function add(a, b) {
+    return a + b;
+}
+console.log(add(5, 3));  // 8
+
+// Function expression
+let multiply = function(a, b) {
+    return a * b;
+};
+console.log(multiply(4, 5));  // 20
+
+// Default parameter
+function sayHello(name = "Teman") {
+    console.log("Halo, " + name);
+}
+sayHello();          // Halo, Teman
+sayHello("Budi");    // Halo, Budi
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Arrow Functions -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Arrow Functions</h3>
+                            <span class="tutorial-level">Intermediate</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Syntax yang lebih singkat untuk function.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+// Arrow function - single line
+const square = x => x * x;
+console.log(square(5));  // 25
+
+// Arrow function - multiple parameters
+const add = (a, b) => a + b;
+console.log(add(3, 5));  // 8
+
+// Arrow function - multi line
+const multiply = (a, b) => {
+    console.log("Mengalikan...");
+    return a * b;
+};
+console.log(multiply(4, 5));  // 20
+
+// Arrow function dengan array
+const numbers = [1, 2, 3, 4, 5];
+const doubled = numbers.map(x => x * 2);
+console.log(doubled);  // [2, 4, 6, 8, 10]
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Scope & Closure -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Scope & Closure</h3>
+                            <span class="tutorial-level">Advanced</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Memahami scope dan closure dalam JavaScript.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+// Global scope
+let global = "Saya global";
+
+function outer() {
+    // Function scope
+    let local = "Saya lokal";
+    console.log(global);  // Bisa akses
+    console.log(local);   // Bisa akses
+}
+
+// console.log(local);  // Error!
+
+// Closure
+function makeCounter() {
+    let count = 0;  // Private variable
+    return function() {
+        count++;
+        return count;
+    };
+}
+
+let counter = makeCounter();
+console.log(counter());  // 1
+console.log(counter());  // 2
+console.log(counter());  // 3
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hoisting -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Hoisting</h3>
+                            <span class="tutorial-level">Advanced</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Memahami hoisting di JavaScript.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+// Function hoisting - Bisa dipanggil sebelum deklarasi
+sayHello();  // Works!
+
+function sayHello() {
+    console.log("Hello");
+}
+
+// Variable hoisting dengan var
+console.log(x);  // undefined (bukan error)
+var x = 5;
+console.log(x);  // 5
+
+// let dan const - Temporal Dead Zone
+// console.log(y);  // ReferenceError!
+let y = 10;
+console.log(y);  // 10
+                                </code>
+                            </div>
+
+                            <div class="warning-box">
+                                <strong>⚠️ Penting:</strong> Gunakan let/const untuk menghindari confusing hoisting behavior.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- This Keyword -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>This Keyword</h3>
+                            <span class="tutorial-level">Advanced</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Memahami penggunaan 'this' dalam JavaScript.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+// This dalam object method
+let person = {
+    name: "Budi",
+    age: 25,
+    greet: function() {
+        console.log("Halo, " + this.name);
+    }
+};
+person.greet();  // Halo, Budi
+
+// Arrow function - this bukan dari method
+let obj = {
+    name: "Budi",
+    greet: () => {
+        console.log(this.name);  // undefined
+    }
+};
+
+// Function constructor
+function Person(name) {
+    this.name = name;
+    this.greet = function() {
+        console.log("Halo, " + this.name);
+    };
+}
+
+let person2 = new Person("Andi");
+person2.greet();  // Halo, Andi
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Callback Functions -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Callback Functions</h3>
+                            <span class="tutorial-level">Advanced</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Function yang dikirim sebagai parameter.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+// Callback function
+function processData(data, callback) {
+    console.log("Processing: " + data);
+    callback(data);
+}
+
+function showResult(data) {
+    console.log("Result: " + data);
+}
+
+processData("Hello", showResult);
+
+// Callback dengan array methods
+let numbers = [1, 2, 3, 4, 5];
+numbers.forEach(function(num) {
+    console.log(num * 2);
+});
+
+// Callback hell (избегать!)
+setTimeout(function() {
+    console.log("1 second");
+    setTimeout(function() {
+        console.log("2 seconds");
+    }, 1000);
+}, 1000);
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 5: DOM -->
+            <div id="tab-dom" class="tab-content">
+                <div class="tutorial-grid">
+                    <!-- DOM Basics -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>DOM Basics</h3>
+                            <span class="tutorial-level">Intermediate</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Mengakses dan memanipulasi elemen HTML.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+// Mengakses elemen
+let element1 = document.getElementById("myId");
+let element2 = document.querySelector(".myClass");
+let element3 = document.querySelector("#myId");
+
+// Multiple elements
+let elements = document.getElementsByClassName("myClass");
+let elements2 = document.querySelectorAll("p");
+
+// Mengubah content
+element1.innerHTML = "&lt;strong&gt;Hello&lt;/strong&gt;";
+element1.textContent = "Hello";
+element1.value = "Input value";
+
+// Mengubah attribute
+element1.setAttribute("data-id", "123");
+element1.getAttribute("data-id");
+element1.removeAttribute("disabled");
+
+// Mengubah style
+element1.style.color = "red";
+element1.style.backgroundColor = "yellow";
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DOM Events -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>DOM Events</h3>
+                            <span class="tutorial-level">Intermediate</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Menanggapi interaksi pengguna.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+// Event listener
+let button = document.getElementById("myButton");
+button.addEventListener("click", function() {
+    console.log("Button clicked!");
+});
+
+// Arrow function dalam event
+button.addEventListener("mouseover", () => {
+    console.log("Mouse over button");
+});
+
+// Event object
+button.addEventListener("click", function(event) {
+    console.log(event.target);   // Element yang di-klik
+    console.log(event.type);     // Tipe event
+});
+
+// Mencegah default behavior
+let link = document.getElementById("myLink");
+link.addEventListener("click", function(event) {
+    event.preventDefault();
+    console.log("Link clicked but not navigated");
+});
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Class & List -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Class Manipulation</h3>
+                            <span class="tutorial-level">Intermediate</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Memanipulasi class CSS dari JavaScript.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+let element = document.getElementById("myElement");
+
+// Add class
+element.classList.add("active");
+
+// Remove class
+element.classList.remove("inactive");
+
+// Toggle class
+element.classList.toggle("highlight");
+
+// Check class
+if (element.classList.contains("active")) {
+    console.log("Element is active");
+}
+
+// Replace class
+element.classList.replace("old-class", "new-class");
+
+// Multiple classes
+element.classList.add("class1", "class2", "class3");
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Traversing DOM -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Traversing DOM</h3>
+                            <span class="tutorial-level">Intermediate</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Navigasi antar elemen di DOM tree.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+let element = document.getElementById("myElement");
+
+// Parent element
+element.parentElement;
+element.parentNode;
+
+// Child elements
+element.children;           // HTMLCollection
+element.childNodes;         // NodeList
+element.firstChild;
+element.lastChild;
+element.firstElementChild;
+element.lastElementChild;
+
+// Sibling elements
+element.nextSibling;
+element.previousSibling;
+element.nextElementSibling;
+element.previousElementSibling;
+
+// Getting all parents
+function getParents(element) {
+    let parents = [];
+    while (element.parentElement) {
+        parents.push(element.parentElement);
+        element = element.parentElement;
+    }
+    return parents;
+}
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Creating Elements -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Creating Elements</h3>
+                            <span class="tutorial-level">Intermediate</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Membuat dan menambahkan elemen HTML baru.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+// Membuat elemen baru
+let newDiv = document.createElement("div");
+newDiv.textContent = "Hello";
+newDiv.setAttribute("id", "myDiv");
+newDiv.classList.add("container");
+
+// Menambahkan ke halaman
+document.body.appendChild(newDiv);
+
+// Menambah di posisi tertentu
+let parent = document.getElementById("parent");
+let child = document.createElement("p");
+parent.insertBefore(child, parent.firstChild);
+
+// Insert adjacent HTML
+element.insertAdjacentHTML(
+    "beforeend", 
+    "&lt;span&gt;New content&lt;/span&gt;"
+);
+
+// Positions: beforebegin, afterbegin, beforeend, afterend
+
+// Hapus elemen
+element.remove();
+parent.removeChild(child);
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Handling -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Form Handling</h3>
+                            <span class="tutorial-level">Advanced</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Menangani form dan input.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+let form = document.getElementById("myForm");
+let nameInput = document.getElementById("name");
+
+// Form submission
+form.addEventListener("submit", function(event) {
+    event.preventDefault();
+    console.log("Form submitted");
+});
+
+// Input value
+console.log(nameInput.value);
+nameInput.value = "Budi";
+
+// Input types
+let email = document.getElementById("email");
+let checkbox = document.getElementById("agree");
+let select = document.getElementById("country");
+
+// Get form data
+let formData = new FormData(form);
+for (let [key, value] of formData.entries()) {
+    console.log(key + ": " + value);
+}
+
+// Validation
+if (nameInput.value.length < 3) {
+    console.log("Nama terlalu pendek!");
+}
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 6: ASYNC -->
+            <div id="tab-async" class="tab-content">
+                <div class="tutorial-grid">
+                    <!-- Promises -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Promises</h3>
+                            <span class="tutorial-level">Advanced</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Menangani operasi async dengan Promise.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+// Membuat Promise
+let promise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+        resolve("Sukses!");
+    }, 1000);
+});
+
+// Menggunakan Promise
+promise
+    .then(result => {
+        console.log(result);  // Sukses!
+    })
+    .catch(error => {
+        console.log(error);
+    });
+
+// Chain promises
+function fetchData() {
+    return new Promise(resolve => {
+        setTimeout(() => resolve("Data"), 1000);
+    });
+}
+
+fetchData()
+    .then(data => {
+        console.log(data);
+        return data.toUpperCase();
+    })
+    .then(data => {
+        console.log(data);
+    });
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Async/Await -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Async/Await</h3>
+                            <span class="tutorial-level">Advanced</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Syntax yang lebih clean untuk Promise.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+// Async function
+async function getData() {
+    try {
+        let response = await fetch(
+            "https://api.example.com/data"
+        );
+        let data = await response.json();
+        console.log(data);
+        return data;
+    } catch (error) {
+        console.log("Error: " + error);
+    }
+}
+
+// Call async function
+getData();
+
+// Wait for result
+async function main() {
+    let result = await getData();
+    console.log("Result: " + result);
+}
+
+main();
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fetch API -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Fetch API</h3>
+                            <span class="tutorial-level">Advanced</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Membuat HTTP request ke server.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+// GET request
+fetch("https://api.example.com/users")
+    .then(response => response.json())
+    .then(data => console.log(data));
+
+// POST request
+fetch("https://api.example.com/users", {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        name: "Budi",
+        email: "budi@example.com"
+    })
+})
+    .then(response => response.json())
+    .then(data => console.log(data));
+
+// Dengan async/await
+async function getUsers() {
+    let response = await fetch(
+        "https://api.example.com/users"
+    );
+    let data = await response.json();
+    return data;
+}
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- setTimeout & setInterval -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>setTimeout & setInterval</h3>
+                            <span class="tutorial-level">Intermediate</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Menjalankan kode dengan delay atau repeat.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+// setTimeout - Jalankan sekali setelah delay
+setTimeout(() => {
+    console.log("Setelah 2 detik");
+}, 2000);
+
+// setInterval - Jalankan berulang
+let counter = 0;
+let interval = setInterval(() => {
+    counter++;
+    console.log("Count: " + counter);
+    if (counter === 5) {
+        clearInterval(interval);
+    }
+}, 1000);
+
+// clearTimeout
+let timeoutId = setTimeout(() => {
+    console.log("Ini tidak akan jalan");
+}, 2000);
+clearTimeout(timeoutId);
+
+// requestAnimationFrame - Untuk animasi
+function animate() {
+    console.log("Frame");
+    requestAnimationFrame(animate);
+}
+animate();
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Error Handling -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Error Handling</h3>
+                            <span class="tutorial-level">Advanced</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Menangani error dengan try-catch.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+// Try-catch
+try {
+    let result = riskyFunction();
+    console.log(result);
+} catch (error) {
+    console.log("Error: " + error.message);
+} finally {
+    console.log("Selalu dijalankan");
+}
+
+// Throw error
+function divide(a, b) {
+    if (b === 0) {
+        throw new Error("Tidak boleh bagi dengan 0");
+    }
+    return a / b;
+}
+
+// Custom error
+class ValidationError extends Error {
+    constructor(message) {
+        super(message);
+        this.name = "ValidationError";
+    }
+}
+
+try {
+    throw new ValidationError("Invalid input");
+} catch (error) {
+    if (error instanceof ValidationError) {
+        console.log("Validation error: " + error.message);
+    }
+}
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- JSON -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>JSON</h3>
+                            <span class="tutorial-level">Intermediate</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Bekerja dengan JSON data.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+// Object ke JSON string
+let person = {
+    name: "Budi",
+    age: 25,
+    hobbies: ["reading", "gaming"]
+};
+
+let jsonString = JSON.stringify(person);
+console.log(jsonString);
+// {"name":"Budi","age":25,"hobbies":["reading","gaming"]}
+
+// JSON string ke object
+let jsonData = '{"name":"Andi","age":30}';
+let obj = JSON.parse(jsonData);
+console.log(obj.name);  // Andi
+
+// Stringify dengan formatting
+let formatted = JSON.stringify(person, null, 2);
+console.log(formatted);
+
+// Parse dengan error handling
+try {
+    let data = JSON.parse(invalidJSON);
+} catch (error) {
+    console.log("JSON error: " + error.message);
+}
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PROBLEM SOLVING SECTION -->
+        <div class="menu-section" id="problem">
+            <h2>🔧 Pemecahan Masalah JavaScript</h2>
+            <p style="color: #555; margin-bottom: 20px; line-height: 1.8;">
+                Bagian ini berisi masalah umum yang dihadapi saat belajar JavaScript dan cara mengatasinya.
+            </p>
+
+            <!-- Common Errors -->
+            <div class="problem-card">
+                <h3>❌ Error: ReferenceError</h3>
+                <div class="problem-section">
+                    <strong>📌 Penyebab:</strong>
+                    <p>Variabel atau fungsi belum didefinisikan atau nama salah ketika digunakan.</p>
+                </div>
+                <div class="problem-section">
+                    <strong>💡 Solusi:</strong>
+                    <p>Pastikan variabel sudah didefinisikan sebelum digunakan. Perhatikan huruf besar/kecil dan typo.</p>
+                </div>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                    <code>
+// ❌ SALAH
+console.log(name);  // ReferenceError: name is not defined
+
+// ✅ BENAR
+let name = "Budi";
+console.log(name);
+                    </code>
+                </div>
+            </div>
+
+            <div class="problem-card">
+                <h3>❌ Error: TypeError</h3>
+                <div class="problem-section">
+                    <strong>📌 Penyebab:</strong>
+                    <p>Operasi dilakukan pada tipe data yang tidak sesuai atau calling method yang tidak ada.</p>
+                </div>
+                <div class="problem-section">
+                    <strong>💡 Solusi:</strong>
+                    <p>Periksa tipe data dengan typeof dan pastikan method ada pada object tersebut.</p>
+                </div>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                    <code>
+// ❌ SALAH
+let number = 5;
+console.log(number.toUpperCase());  // TypeError
+
+// ✅ BENAR
+let text = "hello";
+console.log(text.toUpperCase());  // HELLO
+
+// ❌ SALAH
+let obj = null;
+console.log(obj.name);  // TypeError: Cannot read property 'name' of null
+
+// ✅ BENAR
+let obj = {name: "Budi"};
+console.log(obj.name);  // Budi
+                    </code>
+                </div>
+            </div>
+
+            <div class="problem-card">
+                <h3>❌ Error: Undefined Variable</h3>
+                <div class="problem-section">
+                    <strong>📌 Penyebab:</strong>
+                    <p>Variabel dideklarasikan tapi belum diberi nilai atau fungsi tidak return value.</p>
+                </div>
+                <div class="problem-section">
+                    <strong>💡 Solusi:</strong>
+                    <p>Selalu berikan nilai awal atau gunakan default value dalam function.</p>
+                </div>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                    <code>
+// ❌ SALAH
+let result;
+console.log(result);  // undefined
+
+// ✅ BENAR
+let result = 0;  // atau nilai default lainnya
+console.log(result);
+
+// ❌ SALAH
+function getValue() {
+    let value = 10;
+    // Tidak ada return
+}
+
+// ✅ BENAR
+function getValue() {
+    let value = 10;
+    return value;
+}
+                    </code>
+                </div>
+            </div>
+
+            <div class="problem-card">
+                <h3>❌ Error: This Context</h3>
+                <div class="problem-section">
+                    <strong>📌 Penyebab:</strong>
+                    <p>Menggunakan arrow function dalam object method atau event listener.</p>
+                </div>
+                <div class="problem-section">
+                    <strong>💡 Solusi:</strong>
+                    <p>Gunakan function biasa (tidak arrow) atau bind this ke function.</p>
+                </div>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                    <code>
+// ❌ SALAH
+let obj = {
+    name: "Budi",
+    greet: () => {
+        console.log(this.name);  // undefined
+    }
+};
+
+// ✅ BENAR
+let obj = {
+    name: "Budi",
+    greet: function() {
+        console.log(this.name);  // Budi
+    }
+};
+
+// ✅ JUGA BENAR - Bind
+let obj2 = {
+    name: "Andi",
+    greet: (() => {
+        console.log(this.name);
+    }).bind(obj2)
+};
+                    </code>
+                </div>
+            </div>
+
+            <div class="problem-card">
+                <h3>❌ Error: Async/Await</h3>
+                <div class="problem-section">
+                    <strong>📌 Penyebab:</strong>
+                    <p>Lupa await saat memanggil async function atau tidak ada try-catch untuk error handling.</p>
+                </div>
+                <div class="problem-section">
+                    <strong>💡 Solusi:</strong>
+                    <p>Selalu gunakan await dan wrap dalam try-catch.</p>
+                </div>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                    <code>
+// ❌ SALAH
+async function main() {
+    let data = fetchData();  // Promise, bukan data
+    console.log(data);  // Promise object
+}
+
+// ✅ BENAR
+async function main() {
+    let data = await fetchData();
+    console.log(data);  // Actual data
+}
+
+// ❌ SALAH
+async function getUser() {
+    let user = await fetch("/api/user");
+    return user;  // Tidak bisa di-await
+}
+
+// ✅ BENAR
+async function getUser() {
+    try {
+        let response = await fetch("/api/user");
+        let user = await response.json();
+        return user;
+    } catch (error) {
+        console.log("Error: " + error);
+    }
+}
+                    </code>
+                </div>
+            </div>
+
+            <div class="problem-card">
+                <h3>❌ Error: Index Out of Range</h3>
+                <div class="problem-section">
+                    <strong>📌 Penyebab:</strong>
+                    <p>Mengakses array index yang tidak ada.</p>
+                </div>
+                <div class="problem-section">
+                    <strong>💡 Solusi:</strong>
+                    <p>Periksa panjang array sebelum akses atau gunakan optional chaining (?.).</p>
+                </div>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                    <code>
+// ❌ SALAH
+let arr = [1, 2, 3];
+console.log(arr[5]);  // undefined (tidak error, tapi wrong result)
+
+// ✅ BENAR
+let arr = [1, 2, 3];
+if (arr.length > 5) {
+    console.log(arr[5]);
+}
+
+// ✅ JUGA BENAR - Optional chaining
+console.log(arr?.[5]);  // undefined (aman)
+                    </code>
+                </div>
+            </div>
+
+            <!-- Tips & Best Practices -->
+            <h3 style="color: #1a237e; margin-top: 30px; margin-bottom: 15px; font-size: 18px;">💡 Tips & Best Practices</h3>
+
+            <div class="problem-card" style="border-left-color: #2196F3;">
+                <h3 style="color: #2196F3;">🎯 Debug dengan Browser Console</h3>
+                <p style="color: #555;">Gunakan console methods untuk debug:</p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                    <code>
+console.log("Log");
+console.error("Error message");
+console.warn("Warning message");
+console.table(data);
+console.time("timer");
+// ... kode
+console.timeEnd("timer");
+console.trace();  // Stack trace
+                    </code>
+                </div>
+            </div>
+
+            <div class="problem-card" style="border-left-color: #4CAF50;">
+                <h3 style="color: #4CAF50;">✅ Gunakan Strict Mode</h3>
+                <p style="color: #555;">Aktifkan strict mode untuk lebih banyak error checking:</p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                    <code>
+"use strict";
+
+// Sekarang akan error
+x = 3.14;  // ReferenceError
+
+// Di non-strict mode, x akan jadi global variable
+                    </code>
+                </div>
+            </div>
+
+            <div class="problem-card" style="border-left-color: #FF9800;">
+                <h3 style="color: #FF9800;">🔍 Gunakan DevTools</h3>
+                <ul class="features-list">
+                    <li>F12 atau Ctrl+Shift+I untuk buka DevTools</li>
+                    <li>Console tab untuk debug</li>
+                    <li>Debugger breakpoints untuk step through code</li>
+                    <li>Network tab untuk monitor API calls</li>
+                    <li>Elements tab untuk inspect HTML dan CSS</li>
+                </ul>
+            </div>
+
+            <div class="problem-card" style="border-left-color: #9C27B0;">
+                <h3 style="color: #9C27B0;">📚 Gunakan Linter (ESLint)</h3>
+                <p style="color: #555;">ESLint membantu menemukan masalah dalam kode sebelum runtime:</p>
+                <ul class="features-list">
+                    <li>Install ESLint untuk project Anda</li>
+                    <li>Setup .eslintrc untuk rules</li>
+                    <li>Integrate dengan VS Code</li>
+                    <li>Auto-fix dengan --fix flag</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- IDE INTERAKTIF -->
+        <div class="menu-section" id="ide">
+            <h2>💻 IDE Interaktif - Coba Kode JavaScript</h2>
+            <p style="color: #555; margin-bottom: 20px; line-height: 1.8;">
+                Tulis dan jalankan kode JavaScript langsung di browser ini. Sempurna untuk belajar dan bereksperimen!
+            </p>
+
+            <div class="ide-container">
+                <!-- Code Editor -->
+                <div class="ide-panel">
+                    <div class="ide-header">
+                        <span>📝 Editor</span>
+                        <div style="display: flex; gap: 10px;">
+                            <button onclick="loadExample('hello')">Hello</button>
+                            <button onclick="loadExample('loop')">Loop</button>
+                            <button onclick="loadExample('function')">Function</button>
+                        </div>
+                    </div>
+                    <div class="editor">
+                        <textarea id="codeInput" placeholder="Tulis kode JavaScript di sini...
+// Contoh:
+console.log('Hello, World!');
+
+let name = 'Budi';
+console.log(`Halo, ${name}!`);">console.log('Hello, World!');</textarea>
+                    </div>
+                </div>
+
+                <!-- Output & Controls -->
+                <div class="ide-panel">
+                    <div class="ide-header">
+                        <span>▶️ Output</span>
+                        <button onclick="runCode()">▶️ Jalankan Kode</button>
+                    </div>
+                    <div class="output" id="output">
+Output akan muncul di sini...
+                    </div>
+                    <div style="padding: 15px; background: #f0f2f5; text-align: center; border-top: 1px solid #ddd;">
+                        <button onclick="clearOutput()" style="background: #f44336; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-weight: 600;">
+                            🗑️ Hapus Output
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Examples -->
+            <div style="margin-top: 30px;">
+                <h3 style="color: #1a237e; margin-bottom: 20px; font-size: 18px;">📚 Contoh Kode Cepat</h3>
+                <div class="tutorial-grid">
+                    <button class="tutorial-card" onclick="loadExample('hello')" style="border: none; background: none; cursor: pointer; text-align: left;">
+                        <div class="tutorial-header" style="cursor: pointer;">
+                            <h3>Hello World</h3>
+                        </div>
+                        <div class="tutorial-content" style="cursor: pointer;">
+                            <p>Cetak teks sederhana</p>
+                        </div>
+                    </button>
+
+                    <button class="tutorial-card" onclick="loadExample('loop')" style="border: none; background: none; cursor: pointer; text-align: left;">
+                        <div class="tutorial-header" style="cursor: pointer;">
+                            <h3>For Loop</h3>
+                        </div>
+                        <div class="tutorial-content" style="cursor: pointer;">
+                            <p>Perulangan 1 sampai 10</p>
+                        </div>
+                    </button>
+
+                    <button class="tutorial-card" onclick="loadExample('function')" style="border: none; background: none; cursor: pointer; text-align: left;">
+                        <div class="tutorial-header" style="cursor: pointer;">
+                            <h3>Function</h3>
+                        </div>
+                        <div class="tutorial-content" style="cursor: pointer;">
+                            <p>Membuat dan memanggil function</p>
+                        </div>
+                    </button>
+
+                    <button class="tutorial-card" onclick="loadExample('array')" style="border: none; background: none; cursor: pointer; text-align: left;">
+                        <div class="tutorial-header" style="cursor: pointer;">
+                            <h3>Array</h3>
+                        </div>
+                        <div class="tutorial-content" style="cursor: pointer;">
+                            <p>Bekerja dengan array</p>
+                        </div>
+                    </button>
+
+                    <button class="tutorial-card" onclick="loadExample('condition')" style="border: none; background: none; cursor: pointer; text-align: left;">
+                        <div class="tutorial-header" style="cursor: pointer;">
+                            <h3>If Condition</h3>
+                        </div>
+                        <div class="tutorial-content" style="cursor: pointer;">
+                            <p>Percabangan dengan if-else</p>
+                        </div>
+                    </button>
+
+                    <button class="tutorial-card" onclick="loadExample('object')" style="border: none; background: none; cursor: pointer; text-align: left;">
+                        <div class="tutorial-header" style="cursor: pointer;">
+                            <h3>Object</h3>
+                        </div>
+                        <div class="tutorial-content" style="cursor: pointer;">
+                            <p>Bekerja dengan object</p>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Limitations Notice -->
+            <div class="warning-box" style="margin-top: 30px;">
+                <strong>⚠️ Catatan:</strong> IDE ini menjalankan kode di browser utama. 
+                Jangan jalankan kode yang suspicious atau mencoba akses data sensitive.
+                Gunakan Node.js atau IDE lokal untuk project yang lebih kompleks.
+            </div>
+        </div>
+
+        <!-- REFERENSI -->
+        <div class="menu-section" id="reference">
+            <h2>📋 Referensi & Resources</h2>
+
+            <h3 style="color: #1a237e; margin-top: 20px; margin-bottom: 10px;">📚 Dokumentasi</h3>
+            <ul class="features-list">
+                <li><strong>MDN Web Docs:</strong> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/" target="_blank" style="color: #ffb300; text-decoration: none;">mdn.org/en-US/docs/Web/JavaScript</a></li>
+                <li><strong>JavaScript.info:</strong> <a href="https://javascript.info/" target="_blank" style="color: #ffb300; text-decoration: none;">javascript.info</a></li>
+                <li><strong>W3Schools JavaScript:</strong> <a href="https://www.w3schools.com/js/" target="_blank" style="color: #ffb300; text-decoration: none;">w3schools.com/js</a></li>
+                <li><strong>ECMAScript Spec:</strong> <a href="https://www.ecma-international.org/publications-and-standards/standards/ecma-262/" target="_blank" style="color: #ffb300; text-decoration: none;">ecma-international.org</a></li>
+            </ul>
+
+            <h3 style="color: #1a237e; margin-top: 20px; margin-bottom: 10px;">🛠️ Tools & IDEs</h3>
+            <ul class="features-list">
+                <li><strong>VS Code:</strong> Text editor ringan dengan JavaScript support terbaik</li>
+                <li><strong>WebStorm:</strong> IDE profesional dari JetBrains</li>
+                <li><strong>CodePen:</strong> Online editor untuk frontend development</li>
+                <li><strong>JSFiddle:</strong> Quick JavaScript testing</li>
+                <li><strong>Repl.it:</strong> Online IDE untuk berbagai bahasa termasuk JavaScript</li>
+            </ul>
+
+            <h3 style="color: #1a237e; margin-top: 20px; margin-bottom: 10px;">📦 Popular Frameworks & Libraries</h3>
+            <ul class="features-list">
+                <li><strong>React:</strong> UI library dengan component-based approach</li>
+                <li><strong>Vue.js:</strong> Progressive framework yang mudah dipelajari</li>
+                <li><strong>Angular:</strong> Full-featured framework untuk large applications</li>
+                <li><strong>Node.js:</strong> JavaScript runtime untuk backend</li>
+                <li><strong>Express:</strong> Web framework untuk Node.js</li>
+                <li><strong>D3.js:</strong> Data visualization</li>
+                <li><strong>Lodash:</strong> Utility library</li>
+                <li><strong>Axios:</strong> HTTP client</li>
+            </ul>
+
+            <h3 style="color: #1a237e; margin-top: 20px; margin-bottom: 10px;">🎓 Learning Resources</h3>
+            <ul class="features-list">
+                <li><strong>Codecademy:</strong> Interactive JavaScript courses</li>
+                <li><strong>freeCodeCamp:</strong> Free comprehensive courses on YouTube</li>
+                <li><strong>Udemy:</strong> Affordable in-depth courses</li>
+                <li><strong>Frontend Masters:</strong> Advanced frontend development</li>
+                <li><strong>YouTube Channels:</strong> Traversy Media, The Net Ninja, dll</li>
+            </ul>
+
+            <h3 style="color: #1a237e; margin-top: 20px; margin-bottom: 10px;">🤝 Community & Support</h3>
+            <ul class="features-list">
+                <li><strong>Stack Overflow:</strong> Tanya jawab untuk masalah coding</li>
+                <li><strong>GitHub:</strong> Share dan contribute ke open source projects</li>
+                <li><strong>Discord Communities:</strong> Real-time chat dengan developers</li>
+                <li><strong>Reddit r/javascript:</strong> Diskusi komunitas JavaScript</li>
+                <li><strong>Dev.to:</strong> Blog platform untuk developers</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p><strong>📜 Platform Belajar JavaScript Lengkap</strong></p>
+        <p>Tutorial Komprehensif, Problem Solving, dan IDE Interaktif</p>
+        <p style="margin-top: 15px; font-size: 12px; opacity: 0.8;">
+            &copy; 2026 Thertaria Project. Semua hak dilindungi.
+        </p>
+    </footer>
+
+    <script>
+        // Smooth scroll untuk semua anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Tab switching
+        function switchTab(event, tabName) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // Show the current tab
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Copy to clipboard
+        function copyToClipboard(btn) {
+            const code = btn.nextElementSibling.textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const originalText = btn.textContent;
+                btn.textContent = '✓ Copied!';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 2000);
+            });
+        }
+
+        // IDE Functions
+        const examples = {
+            hello: `console.log('Hello, World!');
+console.log('Selamat datang di JavaScript!');
+
+let name = 'Budi';
+console.log('Halo, ' + name + '!');`,
+            loop: `// Cetak angka 1 sampai 10
+for (let i = 1; i <= 10; i++) {
+    console.log('Angka: ' + i);
+}`,
+            function: `function greet(name) {
+    return 'Halo, ' + name + '!';
+}
+
+let result = greet('Budi');
+console.log(result);`,
+            array: `// Membuat array
+let fruits = ['apple', 'banana', 'cherry'];
+
+// Menampilkan array
+console.log('Daftar buah:');
+for (let fruit of fruits) {
+    console.log('- ' + fruit);
+}
+
+// Menambah item
+fruits.push('grape');
+console.log('Total buah: ' + fruits.length);`,
+            condition: `// Program untuk menentukan kategori nilai
+let nilai = 85;
+
+if (nilai >= 90) {
+    console.log('Grade: A');
+} else if (nilai >= 80) {
+    console.log('Grade: B');
+} else if (nilai >= 70) {
+    console.log('Grade: C');
+} else {
+    console.log('Grade: D');
+}`,
+            object: `// Membuat object
+let person = {
+    name: 'Budi',
+    age: 25,
+    city: 'Jakarta'
+};
+
+// Menampilkan data
+for (let key in person) {
+    console.log(key + ': ' + person[key]);
+}`
+        };
+
+        function loadExample(exampleName) {
+            document.getElementById('codeInput').value = examples[exampleName];
+            document.getElementById('codeInput').focus();
+        }
+
+        let capturedOutput = [];
+
+        function runCode() {
+            const code = document.getElementById('codeInput').value;
+            const output = document.getElementById('output');
+            
+            if (!code.trim()) {
+                output.textContent = 'Tulis kode terlebih dahulu!';
+                output.classList.add('error');
+                return;
+            }
+
+            // Clear previous output
+            capturedOutput = [];
+            output.classList.remove('error');
+
+            // Override console.log
+            const originalLog = console.log;
+            console.log = function(...args) {
+                capturedOutput.push(args.map(arg => {
+                    if (typeof arg === 'object') {
+                        return JSON.stringify(arg, null, 2);
+                    }
+                    return String(arg);
+                }).join(' '));
+                originalLog.apply(console, args);
+            };
+
+            try {
+                eval(code);
+                if (capturedOutput.length === 0) {
+                    output.textContent = 'Kode berhasil dijalankan (tidak ada output)';
+                } else {
+                    output.textContent = capturedOutput.join('\n');
+                }
+            } catch (error) {
+                output.textContent = `Error: ${error.message}\n\n${error.stack}`;
+                output.classList.add('error');
+            } finally {
+                console.log = originalLog;
+            }
+        }
+
+        function clearOutput() {
+            document.getElementById('output').textContent = 'Output akan muncul di sini...\n';
+            document.getElementById('output').classList.remove('error');
+        }
+
+        // Initialize IDE example
+        loadExample('hello');
+
+        // Keyboard shortcut for running code (Ctrl+Enter)
+        document.getElementById('codeInput').addEventListener('keydown', function(event) {
+            if (event.ctrlKey && event.key === 'Enter') {
+                runCode();
+            }
+        });
+    </script>
+</body>
+</html>

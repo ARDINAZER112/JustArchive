@@ -1,0 +1,1750 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belajar HTML & CSS Lengkap - Tutorial & Playground Interaktif</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f0f2f5;
+        }
+
+        /* NAVBAR */
+        nav {
+            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        nav li {
+            display: inline-block;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 16px 20px;
+            display: block;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            font-size: 13px;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: #ffed4e;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding-bottom: 13px;
+        }
+
+        nav a:hover::after {
+            width: 80%;
+        }
+
+        /* HEADER SECTION */
+        .header {
+            background: linear-gradient(135deg, #1a237e 0%, #283593 50%, #3f51b5 100%);
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            top: -250px;
+            right: -250px;
+        }
+
+        .header h1 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 18px;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* MAIN CONTENT */
+        .container {
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .menu-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+        }
+
+        .menu-section h2 {
+            color: #1a237e;
+            margin-bottom: 20px;
+            font-size: 24px;
+            border-bottom: 3px solid #ffed4e;
+            padding-bottom: 10px;
+        }
+
+        .menu-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .menu-links a {
+            background: linear-gradient(135deg, #f5650a 0%, #ff8c3a 100%);
+            color: white;
+            padding: 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            font-size: 14px;
+        }
+
+        .menu-links a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(245, 101, 10, 0.4);
+        }
+
+        /* TABS */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 12px 20px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            font-size: 15px;
+        }
+
+        .tab-btn.active {
+            color: #1a237e;
+            border-bottom-color: #ffed4e;
+        }
+
+        .tab-btn:hover {
+            color: #1a237e;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* TUTORIAL CARDS */
+        .tutorial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .tutorial-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border-left: 5px solid #3f51b5;
+        }
+
+        .tutorial-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .tutorial-header {
+            background: linear-gradient(135deg, #1a237e 0%, #f5650a 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .tutorial-header h3 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .tutorial-level {
+            font-size: 12px;
+            opacity: 0.9;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 12px;
+            border-radius: 15px;
+            display: inline-block;
+        }
+
+        .tutorial-content {
+            padding: 25px;
+        }
+
+        .tutorial-content h4 {
+            color: #1a237e;
+            font-weight: 700;
+            margin: 15px 0 10px 0;
+            font-size: 15px;
+        }
+
+        .tutorial-content p {
+            color: #555;
+            margin-bottom: 12px;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            position: relative;
+        }
+
+        .code-block code {
+            color: #f8f8f2;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ffed4e;
+            color: #333;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #ffd700;
+            transform: scale(1.05);
+        }
+
+        /* PREVIEW SECTION */
+        .preview-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+            border-left: 5px solid #ff6b6b;
+        }
+
+        .preview-card h3 {
+            color: #1a237e;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .preview-section {
+            margin-bottom: 20px;
+        }
+
+        .preview-section strong {
+            color: #1a237e;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+
+        .preview-section p {
+            color: #555;
+            margin-bottom: 10px;
+            line-height: 1.7;
+        }
+
+        /* PLAYGROUND SECTION */
+        .playground-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .playground-panel {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .playground-header {
+            background: linear-gradient(135deg, #1a237e 0%, #f5650a 100%);
+            color: white;
+            padding: 15px 20px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .playground-header button {
+            background: #ffed4e;
+            color: #333;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.3s ease;
+        }
+
+        .playground-header button:hover {
+            background: #ffd700;
+            transform: scale(1.05);
+        }
+
+        .editor {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            min-height: 400px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .editor textarea {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            border: none;
+            width: 100%;
+            height: 100%;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            padding: 0;
+            resize: none;
+        }
+
+        .preview-output {
+            background: #f5f5f5;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            min-height: 200px;
+            max-height: 300px;
+            overflow-y: auto;
+            border-top: 1px solid #ddd;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .preview-output iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: white;
+        }
+
+        /* FEATURES LIST */
+        .features-list {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .features-list li {
+            padding: 10px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .features-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #ffed4e;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        /* QUICK TIPS */
+        .tip-box {
+            background: #f0f7ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .tip-box strong {
+            color: #1a237e;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ff9800;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .warning-box strong {
+            color: #1a237e;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 28px;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav li {
+                width: 100%;
+            }
+
+            nav a {
+                text-align: center;
+                padding: 12px 15px;
+                font-size: 12px;
+            }
+
+            .tutorial-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .menu-links {
+                grid-template-columns: 1fr;
+            }
+
+            .playground-container {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab-btn {
+                text-align: left;
+            }
+        }
+
+        /* FOOTER */
+        footer {
+            background: #1a237e;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        footer a {
+            color: #ffed4e;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* HIGHLIGHT COLORS */
+        .highlight-html {
+            color: #ffed4e;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body oncontextmenu="return false;">
+    <!-- NAVBAR -->
+    <nav id="home">
+        <ul>
+            <li><a href="LearnCoding.html">🏠 Kembali</a></li>
+            <li><a href="#pengenalan">📖 Pengenalan</a></li>
+            <li><a href="#tutorial">📚 Tutorial</a></li>
+            <li><a href="#practice">🎨 Praktik</a></li>
+            <li><a href="#playground">💻 IDE Interaktif</a></li>
+            <li><a href="#reference">📋 Referensi</a></li>
+        </ul>
+    </nav>
+
+    <!-- HEADER -->
+    <div class="header">
+        <h1>🎨 BELAJAR HTML & CSS LENGKAP</h1>
+        <p>Dari Pemula hingga Mahir - Tutorial Komprehensif, Praktik Langsung, dan Playground Interaktif</p>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+        <!-- PENGENALAN SECTION -->
+        <div class="menu-section" id="pengenalan">
+            <h2>📖 Pengenalan HTML & CSS</h2>
+            
+            <h3 style="color: #1a237e; margin-top: 20px; margin-bottom: 10px;">Apa itu HTML?</h3>
+            <p style="color: #555; line-height: 1.8; margin-bottom: 15px;">
+                HTML (HyperText Markup Language) adalah bahasa markup yang digunakan untuk membuat struktur halaman web. 
+                HTML menyediakan elemen-elemen (tags) yang mendefinisikan konten seperti judul, paragraf, gambar, link, dan banyak lagi. 
+                Setiap tag HTML memberitahu browser bagaimana menampilkan konten tersebut.
+            </p>
+
+            <h3 style="color: #1a237e; margin-top: 20px; margin-bottom: 10px;">Apa itu CSS?</h3>
+            <p style="color: #555; line-height: 1.8; margin-bottom: 15px;">
+                CSS (Cascading Style Sheets) adalah bahasa styling yang digunakan untuk mengatur tampilan dan tata letak halaman web. 
+                CSS mengontrol warna, font, ukuran, jarak, positioning, dan banyak aspek visual lainnya dari elemen HTML. 
+                Dengan CSS, Anda dapat membuat website yang menarik dan responsif.
+            </p>
+
+            <h3 style="color: #1a237e; margin-top: 20px; margin-bottom: 10px;">Mengapa HTML & CSS?</h3>
+            <ul class="features-list">
+                <li><strong>Fondasi Web</strong> - Setiap website dibangun dengan HTML dan CSS</li>
+                <li><strong>Mudah Dipelajari</strong> - Sintaks yang sederhana dan intuitif</li>
+                <li><strong>Universal</strong> - Bekerja di semua browser tanpa perlu instalasi</li>
+                <li><strong>Fleksibel</strong> - Dapat digunakan dengan teknologi lain (JavaScript, PHP, dll)</li>
+                <li><strong>SEO Friendly</strong> - Membantu search engine memahami konten</li>
+                <li><strong>Mobile Friendly</strong> - Responsive design untuk semua perangkat</li>
+            </ul>
+
+            <h3 style="color: #1a237e; margin-top: 20px; margin-bottom: 10px;">Perbedaan HTML vs CSS</h3>
+            <p style="color: #555; line-height: 1.8;">
+                <strong>HTML</strong> menangani <strong>STRUKTUR</strong> - membuat tulang punggung halaman web. <br>
+                <strong>CSS</strong> menangani <strong>TAMPILAN</strong> - memberikan gaya dan layout ke struktur HTML. <br><br>
+                <em>Analogi:</em> HTML seperti blueprint bangunan, CSS seperti cat dan dekorasi interior.
+            </p>
+
+            <h3 style="color: #1a237e; margin-top: 20px; margin-bottom: 10px;">Cara Menggunakan HTML & CSS</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                <code>
+&lt;!-- Struktur dasar HTML --&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html lang="id"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Judul Halaman&lt;/title&gt;
+    
+    &lt;!-- 1. Internal CSS --&gt;
+    &lt;style&gt;
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Halo, Dunia!&lt;/h1&gt;
+    
+    &lt;!-- 2. Inline CSS --&gt;
+    &lt;p style="color: red;"&gt;Ini adalah paragraf&lt;/p&gt;
+    
+    &lt;!-- 3. External CSS --&gt;
+    &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                </code>
+            </div>
+        </div>
+
+        <!-- TUTORIAL SECTION -->
+        <div class="menu-section" id="tutorial">
+            <h2>📚 Tutorial HTML & CSS</h2>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab(event, 'tab-html-dasar')">HTML Dasar</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tab-html-form')">Form</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tab-css-dasar')">CSS Dasar</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tab-css-layout')">Layout</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tab-css-responsive')">Responsive</button>
+            </div>
+
+            <!-- TAB 1: HTML DASAR -->
+            <div id="tab-html-dasar" class="tab-content active">
+                <div class="tutorial-grid">
+                    <!-- Struktur Dasar -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Struktur Dasar HTML</h3>
+                            <span class="tutorial-level">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Memahami struktur dasar dokumen HTML.</p>
+                            
+                            <h4>💡 Konsep</h4>
+                            <p>Setiap halaman HTML dimulai dengan DOCTYPE dan tag html.</p>
+
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+&lt;!DOCTYPE html&gt;
+&lt;html lang="id"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width"&gt;
+    &lt;title&gt;Judul Halaman&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Halo, Dunia!&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                                </code>
+                            </div>
+
+                            <div class="tip-box">
+                                <strong>💡 Tip:</strong> &lt;head&gt; berisi metadata, &lt;body&gt; berisi konten yang terlihat.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Heading & Paragraph -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Heading & Paragraph</h3>
+                            <span class="tutorial-level">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Menggunakan heading dan paragraph untuk teks.</p>
+                            
+                            <h4>💡 Konsep</h4>
+                            <p>h1-h6 untuk judul, p untuk paragraf.</p>
+
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+&lt;h1&gt;Judul Utama&lt;/h1&gt;
+&lt;h2&gt;Sub Judul&lt;/h2&gt;
+&lt;h3&gt;Sub Judul Lebih Kecil&lt;/h3&gt;
+
+&lt;p&gt;Ini adalah paragraf pertama.&lt;/p&gt;
+&lt;p&gt;Ini adalah paragraf kedua.&lt;/p&gt;
+
+&lt;!-- Teks dengan format --&gt;
+&lt;b&gt;Teks Bold&lt;/b&gt;
+&lt;i&gt;Teks Italic&lt;/i&gt;
+&lt;u&gt;Teks Underline&lt;/u&gt;
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Link & Gambar -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Link & Gambar</h3>
+                            <span class="tutorial-level">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Menambahkan link dan gambar ke halaman web.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+&lt;!-- Link --&gt;
+&lt;a href="https://google.com"&gt;Kunjungi Google&lt;/a&gt;
+&lt;a href="halaman-lain.html"&gt;Halaman Lain&lt;/a&gt;
+&lt;a href="#section"&gt;Link ke Section&lt;/a&gt;
+
+&lt;!-- Gambar --&gt;
+&lt;img src="photo.jpg" alt="Deskripsi Foto"&gt;
+&lt;img src="image.png" alt="Gambar" width="200" height="150"&gt;
+
+&lt;!-- Gambar dengan Link --&gt;
+&lt;a href="https://google.com"&gt;
+    &lt;img src="logo.png" alt="Logo"&gt;
+&lt;/a&gt;
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- List -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>List (Daftar)</h3>
+                            <span class="tutorial-level">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Membuat daftar berurutan dan tidak berurutan.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+&lt;!-- Unordered List (Bullet) --&gt;
+&lt;ul&gt;
+    &lt;li&gt;Item Pertama&lt;/li&gt;
+    &lt;li&gt;Item Kedua&lt;/li&gt;
+    &lt;li&gt;Item Ketiga&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- Ordered List (Nomor) --&gt;
+&lt;ol&gt;
+    &lt;li&gt;Langkah Pertama&lt;/li&gt;
+    &lt;li&gt;Langkah Kedua&lt;/li&gt;
+    &lt;li&gt;Langkah Ketiga&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;!-- Nested List --&gt;
+&lt;ul&gt;
+    &lt;li&gt;Olahraga
+        &lt;ul&gt;
+            &lt;li&gt;Sepak Bola&lt;/li&gt;
+            &lt;li&gt;Basket&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Table -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Tabel</h3>
+                            <span class="tutorial-level">Menengah</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Membuat tabel untuk menampilkan data.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+&lt;table&gt;
+    &lt;tr&gt;
+        &lt;th&gt;Nama&lt;/th&gt;
+        &lt;th&gt;Usia&lt;/th&gt;
+        &lt;th&gt;Kota&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Budi&lt;/td&gt;
+        &lt;td&gt;20&lt;/td&gt;
+        &lt;td&gt;Jakarta&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td&gt;Ani&lt;/td&gt;
+        &lt;td&gt;22&lt;/td&gt;
+        &lt;td&gt;Bandung&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Semantic HTML -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Semantic HTML</h3>
+                            <span class="tutorial-level">Menengah</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Menggunakan tag HTML yang bermakna untuk struktur lebih baik.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+&lt;header&gt;
+    &lt;nav&gt;
+        &lt;a href="/"&gt;Home&lt;/a&gt;
+        &lt;a href="/about"&gt;About&lt;/a&gt;
+    &lt;/nav&gt;
+&lt;/header&gt;
+
+&lt;main&gt;
+    &lt;article&gt;
+        &lt;h1&gt;Judul Artikel&lt;/h1&gt;
+        &lt;p&gt;Isi artikel...&lt;/p&gt;
+    &lt;/article&gt;
+    
+    &lt;aside&gt;
+        &lt;h3&gt;Sidebar&lt;/h3&gt;
+    &lt;/aside&gt;
+&lt;/main&gt;
+
+&lt;footer&gt;
+    &lt;p&gt;© 2024 My Website&lt;/p&gt;
+&lt;/footer&gt;
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: FORM -->
+            <div id="tab-html-form" class="tab-content">
+                <div class="tutorial-grid">
+                    <!-- Form Dasar -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Form Dasar</h3>
+                            <span class="tutorial-level">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Membuat form untuk mengumpulkan data dari user.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+&lt;form action="/submit" method="POST"&gt;
+    &lt;label for="name"&gt;Nama:&lt;/label&gt;
+    &lt;input type="text" id="name" name="name" required&gt;
+    
+    &lt;label for="email"&gt;Email:&lt;/label&gt;
+    &lt;input type="email" id="email" name="email"&gt;
+    
+    &lt;label for="message"&gt;Pesan:&lt;/label&gt;
+    &lt;textarea id="message" name="message" rows="5"&gt;&lt;/textarea&gt;
+    
+    &lt;button type="submit"&gt;Kirim&lt;/button&gt;
+    &lt;button type="reset"&gt;Reset&lt;/button&gt;
+&lt;/form&gt;
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Input Types -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Tipe Input</h3>
+                            <span class="tutorial-level">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Mengenal berbagai tipe input form.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+&lt;input type="text" placeholder="Teks biasa"&gt;
+&lt;input type="password" placeholder="Password"&gt;
+&lt;input type="email" placeholder="Email"&gt;
+&lt;input type="number" placeholder="Nomor"&gt;
+&lt;input type="date"&gt;
+&lt;input type="time"&gt;
+&lt;input type="checkbox"&gt;
+&lt;input type="radio"&gt;
+&lt;input type="file"&gt;
+&lt;input type="color"&gt;
+&lt;input type="range" min="0" max="100"&gt;
+&lt;input type="search" placeholder="Cari..."&gt;
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Select & Textarea -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Select & Textarea</h3>
+                            <span class="tutorial-level">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Menggunakan dropdown dan text area untuk input lebih kompleks.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+&lt;!-- Select Dropdown --&gt;
+&lt;select name="country"&gt;
+    &lt;option value=""&gt;Pilih Negara&lt;/option&gt;
+    &lt;option value="id"&gt;Indonesia&lt;/option&gt;
+    &lt;option value="my"&gt;Malaysia&lt;/option&gt;
+    &lt;option value="sg"&gt;Singapura&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;!-- Textarea --&gt;
+&lt;textarea name="message" rows="4" cols="50"&gt;
+    Ketik pesan Anda di sini
+&lt;/textarea&gt;
+
+&lt;!-- Datalist --&gt;
+&lt;input list="browsers"&gt;
+&lt;datalist id="browsers"&gt;
+    &lt;option value="Chrome"&gt;
+    &lt;option value="Firefox"&gt;
+    &lt;option value="Safari"&gt;
+&lt;/datalist&gt;
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: CSS DASAR -->
+            <div id="tab-css-dasar" class="tab-content">
+                <div class="tutorial-grid">
+                    <!-- Selector -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>CSS Selectors</h3>
+                            <span class="tutorial-level">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Memahami cara memilih elemen HTML dengan CSS.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+/* Element Selector */
+p { color: blue; }
+
+/* Class Selector */
+.highlight { background: yellow; }
+
+/* ID Selector */
+#header { background: navy; }
+
+/* Attribute Selector */
+input[type="text"] { border: 1px solid gray; }
+
+/* Pseudo Selector */
+a:hover { color: red; }
+button:active { transform: scale(0.95); }
+
+/* Combinators */
+h1 + p { margin-top: 0; }  /* Adjacent */
+div > p { margin: 0; }     /* Child */
+ul li { list-style: none; } /* Descendant */
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Color & Font -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Warna & Font</h3>
+                            <span class="tutorial-level">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Mengatur warna dan jenis font teks.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+body {
+    /* Warna - berbagai format */
+    color: blue;                    /* Nama */
+    color: #ff0000;                 /* Hex */
+    color: rgb(255, 0, 0);          /* RGB */
+    color: rgba(255, 0, 0, 0.5);    /* RGBA */
+    
+    /* Font */
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    font-weight: bold;              /* atau 700 */
+    font-style: italic;
+    line-height: 1.6;
+    letter-spacing: 2px;
+    text-align: center;
+}
+
+a {
+    text-decoration: none;          /* Hapus underline */
+    text-transform: uppercase;      /* BESAR */
+    text-shadow: 2px 2px 4px gray;
+}
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Box Model -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Box Model</h3>
+                            <span class="tutorial-level">Menengah</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Memahami margin, padding, border, dan content.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+.box {
+    /* Padding - ruang di dalam */
+    padding: 20px;              /* semua sisi */
+    padding: 10px 20px;         /* atas-bawah, kiri-kanan */
+    padding-top: 10px;
+    
+    /* Border - garis pinggir */
+    border: 2px solid black;
+    border-radius: 5px;         /* sudut melengkung */
+    
+    /* Margin - ruang di luar */
+    margin: 20px;               /* semua sisi */
+    margin-bottom: 30px;
+    
+    /* Background */
+    background-color: lightgray;
+    background-image: url('bg.jpg');
+    
+    /* Width & Height */
+    width: 100%;
+    height: 200px;
+    max-width: 1200px;
+}
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Background & Border -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Background & Border</h3>
+                            <span class="tutorial-level">Menengah</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Menata background dan border elemen.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+/* Background */
+div {
+    background-color: #f0f0f0;
+    background-image: url('pattern.png');
+    background-size: cover;        /* cover, contain, 100% */
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Border */
+button {
+    border: 2px solid #333;
+    border-top: 3px solid red;
+    border-radius: 8px;            /* sudut melengkung */
+}
+
+/* Shadow */
+.card {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    text-shadow: 1px 1px 2px gray;
+}
+
+/* Gradient */
+header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: radial-gradient(circle, #667eea 0%, #764ba2 100%);
+}
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Transition & Transform -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Transition & Transform</h3>
+                            <span class="tutorial-level">Menengah</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Membuat efek animasi CSS yang halus.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+/* Transition */
+button {
+    background: blue;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background: red;
+    transform: scale(1.1);
+}
+
+/* Transform */
+.box {
+    transform: rotate(45deg);       /* putar */
+    transform: scale(1.5);          /* perbesar */
+    transform: translate(20px, 30px); /* pindah */
+    transform: skew(10deg);         /* miring */
+    transform: scaleX(2) scaleY(0.5);
+    
+    transform-origin: center;
+}
+
+/* 3D Transform */
+.card {
+    transform: rotateX(30deg) rotateY(45deg);
+    perspective: 1000px;
+}
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: CSS LAYOUT -->
+            <div id="tab-css-layout" class="tab-content">
+                <div class="tutorial-grid">
+                    <!-- Flexbox -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Flexbox</h3>
+                            <span class="tutorial-level">Menengah</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Menggunakan Flexbox untuk layout modern.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+.container {
+    display: flex;
+    justify-content: center;        /* center, space-between, space-around */
+    align-items: center;            /* center, flex-start, flex-end */
+    gap: 20px;                      /* jarak antar item */
+    flex-direction: row;            /* row, column */
+    flex-wrap: wrap;                /* wrap, nowrap */
+}
+
+.item {
+    flex: 1;                        /* besar sama */
+    flex: 2;                        /* 2x lebih besar */
+    flex-grow: 1;                   /* tumbuh */
+    flex-shrink: 1;                 /* menyusut */
+    flex-basis: 200px;              /* ukuran dasar */
+}
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Grid -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>CSS Grid</h3>
+                            <span class="tutorial-level">Menengah</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Membuat layout grid yang kompleks.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;  /* 3 kolom */
+    grid-template-columns: repeat(3, 1fr); /* sama */
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    
+    grid-template-rows: 100px auto 100px;
+    gap: 20px;
+    grid-column-gap: 20px;
+    grid-row-gap: 10px;
+}
+
+.item {
+    grid-column: 1 / 3;             /* span 2 kolom */
+    grid-row: 1 / 4;                /* span 3 baris */
+    grid-area: header;
+}
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Position -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Position</h3>
+                            <span class="tutorial-level">Menengah</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Mengatur positioning elemen di halaman.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+/* Static - default */
+.element { position: static; }
+
+/* Relative - relative ke posisi normal */
+.element {
+    position: relative;
+    top: 20px;
+    left: 30px;
+}
+
+/* Absolute - relative ke parent */
+.parent { position: relative; }
+.child {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+/* Fixed - fixed di viewport */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+/* Sticky */
+.header {
+    position: sticky;
+    top: 0;
+}
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 5: RESPONSIVE -->
+            <div id="tab-css-responsive" class="tab-content">
+                <div class="tutorial-grid">
+                    <!-- Media Query -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Media Query</h3>
+                            <span class="tutorial-level">Menengah</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Membuat desain responsif untuk berbagai ukuran layar.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+/* Desktop - Default */
+.container {
+    grid-template-columns: 1fr 2fr 1fr;
+    font-size: 16px;
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr 1fr;
+        font-size: 14px;
+    }
+    
+    .sidebar { display: none; }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .container {
+        grid-template-columns: 1fr;
+        font-size: 12px;
+    }
+    
+    h1 { font-size: 24px; }
+}
+
+/* Media Query Lainnya */
+@media print { /* Saat dicetak */ }
+@media (orientation: landscape) { /* Landscape */ }
+@media (prefers-dark-mode) { /* Dark Mode */ }
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mobile First -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Mobile First Approach</h3>
+                            <span class="tutorial-level">Menengah</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Desain untuk mobile dulu, kemudian desktop.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+/* Mobile First - Default untuk layar kecil */
+.container {
+    grid-template-columns: 1fr;
+    padding: 10px;
+}
+
+h1 { font-size: 24px; }
+
+/* Tablet dan lebih besar */
+@media (min-width: 768px) {
+    .container {
+        grid-template-columns: 1fr 2fr;
+        padding: 20px;
+    }
+    
+    h1 { font-size: 32px; }
+}
+
+/* Desktop dan lebih besar */
+@media (min-width: 1024px) {
+    .container {
+        grid-template-columns: 1fr 2fr 1fr;
+        padding: 30px;
+    }
+}
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Responsive Units -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Responsive Units</h3>
+                            <span class="tutorial-level">Menengah</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Menggunakan unit yang fleksibel.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+/* Absolute Units */
+width: 100px;           /* pixel */
+
+/* Relative Units */
+width: 50%;             /* persen */
+width: 2em;             /* relative ke font-size parent */
+width: 2rem;            /* relative ke font-size root */
+width: 50vw;            /* 50% viewport width */
+width: 50vh;            /* 50% viewport height */
+width: 1vmin;           /* 1% dari sisi lebih kecil */
+width: 1vmax;           /* 1% dari sisi lebih besar */
+
+/* Rekomendasi */
+font-size: 16px;        /* base size */
+h1 { font-size: 2rem; } /* 32px */
+p { margin: 1rem; }     /* 16px */
+button { padding: 0.5rem 1rem; }
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRACTICE SECTION -->
+        <div class="menu-section" id="practice">
+            <h2>🎨 Praktik HTML & CSS</h2>
+
+            <div class="preview-card">
+                <h3>🏠 Project: Simple Website Layout</h3>
+                
+                <div class="preview-section">
+                    <strong>Deskripsi:</strong>
+                    <p>Buatlah website sederhana dengan header, navbar, konten utama, sidebar, dan footer.</p>
+                </div>
+
+                <div class="preview-section">
+                    <strong>Persyaratan:</strong>
+                    <ul class="features-list">
+                        <li>Header dengan judul website</li>
+                        <li>Navbar dengan menu navigasi</li>
+                        <li>Layout grid atau flexbox</li>
+                        <li>Konten utama dan sidebar</li>
+                        <li>Footer dengan informasi</li>
+                        <li>Responsive design</li>
+                        <li>Warna dan styling menarik</li>
+                    </ul>
+                </div>
+
+                <div class="preview-section">
+                    <strong>Tips:</strong>
+                    <div class="tip-box">
+                        <strong>💡 Gunakan semantic HTML:</strong> header, nav, main, article, aside, footer
+                    </div>
+                    <div class="tip-box">
+                        <strong>💡 Gunakan CSS Grid atau Flexbox:</strong> untuk layout yang lebih mudah
+                    </div>
+                    <div class="tip-box">
+                        <strong>💡 Mobile First:</strong> desain mobile dulu, kemudian desktop
+                    </div>
+                </div>
+            </div>
+
+            <div class="preview-card">
+                <h3>🎨 Project: Responsive Cards Gallery</h3>
+                
+                <div class="preview-section">
+                    <strong>Deskripsi:</strong>
+                    <p>Buatlah gallery kartu yang responsif dengan hover effects.</p>
+                </div>
+
+                <div class="preview-section">
+                    <strong>Persyaratan:</strong>
+                    <ul class="features-list">
+                        <li>Minimal 6 kartu dengan gambar dan deskripsi</li>
+                        <li>Grid layout yang responsif</li>
+                        <li>Hover effect (scale, shadow, dll)</li>
+                        <li>Bekerja di mobile, tablet, desktop</li>
+                        <li>Styling yang konsisten</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="preview-card">
+                <h3>📝 Project: Contact Form Styling</h3>
+                
+                <div class="preview-section">
+                    <strong>Deskripsi:</strong>
+                    <p>Buatlah form kontak yang menarik dengan validasi styling.</p>
+                </div>
+
+                <div class="preview-section">
+                    <strong>Persyaratan:</strong>
+                    <ul class="features-list">
+                        <li>Field nama, email, subject, pesan</li>
+                        <li>Button submit yang menarik</li>
+                        <li>Focus dan hover states</li>
+                        <li>Error styling dengan warna merah</li>
+                        <li>Success styling dengan warna hijau</li>
+                        <li>Responsive layout</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- PLAYGROUND SECTION -->
+        <div class="menu-section" id="playground">
+            <h2>💻 IDE Interaktif</h2>
+            <p style="color: #555; margin-bottom: 20px;">
+                Tulis HTML dan CSS di bawah dan lihat preview secara real-time. Playground ini membantu Anda 
+                bereksperimen dengan kode sebelum menggunakannya di project sesungguhnya.
+            </p>
+
+            <div class="playground-container">
+                <div class="playground-panel">
+                    <div class="playground-header">
+                        <span>📝 HTML & CSS Editor</span>
+                        <button onclick="resetPlayground()">Reset</button>
+                    </div>
+                    <div class="editor">
+                        <textarea id="htmlCssCode" placeholder="Tulis HTML & CSS di sini...">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;style&gt;
+body {
+    font-family: Arial, sans-serif;
+    background: #f0f0f0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+h1 {
+    color: #e8440f;
+    text-align: center;
+}
+
+p {
+    line-height: 1.6;
+    color: #555;
+}
+
+button {
+    background: #e8440f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #ff8c3a;
+    transform: scale(1.05);
+}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class="container"&gt;
+    &lt;h1&gt;🎨 Selamat Datang!&lt;/h1&gt;
+    &lt;p&gt;Ini adalah playground untuk bereksperimen dengan HTML dan CSS. Ubah kode di sebelah kiri dan lihat hasilnya di sini.&lt;/p&gt;
+    &lt;button onclick="alert('Tombol berhasil diklik!')"&gt;Klik Saya&lt;/button&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</textarea>
+                    </div>
+                </div>
+
+                <div class="playground-panel">
+                    <div class="playground-header">
+                        <span>👁️ Preview</span>
+                    </div>
+                    <div class="preview-output">
+                        <iframe id="previewFrame" sandbox="allow-scripts"></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <button onclick="runPlayground()" style="background: linear-gradient(135deg, #e8440f 0%, #f5650a 100%); color: white; padding: 12px 30px; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: 600;">▶ Jalankan Kode</button>
+            </div>
+        </div>
+
+        <!-- REFERENCE SECTION -->
+        <div class="menu-section" id="reference">
+            <h2>📋 Referensi Cepat</h2>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; border-left: 4px solid #e8440f;">
+                    <h3 style="color: #e8440f; margin-bottom: 10px;">📏 HTML Common Tags</h3>
+                    <ul style="list-style: none; color: #555; font-size: 13px; line-height: 1.8;">
+                        <li><code style="background: #e8f5e9; padding: 2px 6px; border-radius: 3px;">&lt;div&gt;</code> - Container blok</li>
+                        <li><code style="background: #e8f5e9; padding: 2px 6px; border-radius: 3px;">&lt;span&gt;</code> - Container inline</li>
+                        <li><code style="background: #e8f5e9; padding: 2px 6px; border-radius: 3px;">&lt;p&gt;</code> - Paragraf</li>
+                        <li><code style="background: #e8f5e9; padding: 2px 6px; border-radius: 3px;">&lt;a&gt;</code> - Link</li>
+                        <li><code style="background: #e8f5e9; padding: 2px 6px; border-radius: 3px;">&lt;img&gt;</code> - Gambar</li>
+                        <li><code style="background: #e8f5e9; padding: 2px 6px; border-radius: 3px;">&lt;button&gt;</code> - Tombol</li>
+                        <li><code style="background: #e8f5e9; padding: 2px 6px; border-radius: 3px;">&lt;input&gt;</code> - Input field</li>
+                        <li><code style="background: #e8f5e9; padding: 2px 6px; border-radius: 3px;">&lt;form&gt;</code> - Form</li>
+                    </ul>
+                </div>
+
+                <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; border-left: 4px solid #f5650a;">
+                    <h3 style="color: #e8440f; margin-bottom: 10px;">🎨 CSS Common Properties</h3>
+                    <ul style="list-style: none; color: #555; font-size: 13px; line-height: 1.8;">
+                        <li><code style="background: #e8f5e9; padding: 2px 6px; border-radius: 3px;">display</code> - flex, grid, block</li>
+                        <li><code style="background: #e8f5e9; padding: 2px 6px; border-radius: 3px;">color</code> - Warna teks</li>
+                        <li><code style="background: #e8f5e9; padding: 2px 6px; border-radius: 3px;">background</code> - Warna latar</li>
+                        <li><code style="background: #e8f5e9; padding: 2px 6px; border-radius: 3px;">padding</code> - Ruang dalam</li>
+                        <li><code style="background: #e8f5e9; padding: 2px 6px; border-radius: 3px;">margin</code> - Ruang luar</li>
+                        <li><code style="background: #e8f5e9; padding: 2px 6px; border-radius: 3px;">border</code> - Garis pinggir</li>
+                        <li><code style="background: #e8f5e9; padding: 2px 6px; border-radius: 3px;">width/height</code> - Ukuran</li>
+                        <li><code style="background: #e8f5e9; padding: 2px 6px; border-radius: 3px;">opacity</code> - Transparansi</li>
+                    </ul>
+                </div>
+
+                <div style="background: #f9f9f9; padding: 20px; border-radius: 8px; border-left: 4px solid #ff8c3a;">
+                    <h3 style="color: #e8440f; margin-bottom: 10px;">🔗 Resources Berguna</h3>
+                    <ul style="list-style: none; color: #555; font-size: 13px; line-height: 1.8;">
+                        <li>🌐 <a href="https://www.w3schools.com/html/" target="_blank" style="color: #e8440f; text-decoration: none;">W3Schools HTML</a></li>
+                        <li>🌐 <a href="https://www.w3schools.com/css/" target="_blank" style="color: #e8440f; text-decoration: none;">W3Schools CSS</a></li>
+                        <li>🌐 <a href="https://developer.mozilla.org/en-US/docs/Web/HTML" target="_blank" style="color: #e8440f; text-decoration: none;">MDN HTML Docs</a></li>
+                        <li>🌐 <a href="https://developer.mozilla.org/en-US/docs/Web/CSS" target="_blank" style="color: #e8440f; text-decoration: none;">MDN CSS Docs</a></li>
+                        <li>🌐 <a href="https://caniuse.com/" target="_blank" style="color: #e8440f; text-decoration: none;">CanIUse</a></li>
+                        <li>🎨 <a href="https://coolors.co/" target="_blank" style="color: #e8440f; text-decoration: none;">Color Palette</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+     <footer>
+        <p><strong>📜 Platform Belajar JavaScript Lengkap</strong></p>
+        <p>Tutorial Komprehensif, Problem Solving, dan IDE Interaktif</p>
+        <p style="margin-top: 15px; font-size: 12px; opacity: 0.8;">
+            &copy; 2026 Thertaria Project. Semua hak dilindungi.
+        </p>
+    </footer>
+
+    <script>
+        // Tab Switching
+        function switchTab(event, tabId) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const buttons = document.querySelectorAll('.tab-btn');
+            
+            tabs.forEach(tab => tab.classList.remove('active'));
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Copy to Clipboard
+        function copyToClipboard(button) {
+            const codeBlock = button.nextElementSibling;
+            const text = codeBlock.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.innerText;
+                button.innerText = '✓ Copied!';
+                setTimeout(() => {
+                    button.innerText = originalText;
+                }, 2000);
+            });
+        }
+
+        // Playground Functions
+        function runPlayground() {
+            const code = document.getElementById('htmlCssCode').value;
+            const iframe = document.getElementById('previewFrame');
+            iframe.srcdoc = code;
+        }
+
+        function resetPlayground() {
+            document.getElementById('htmlCssCode').value = `&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;style&gt;
+body {
+    font-family: Arial, sans-serif;
+    background: #f0f0f0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+h1 {
+    color: #e8440f;
+    text-align: center;
+}
+
+p {
+    line-height: 1.6;
+    color: #555;
+}
+
+button {
+    background: #e8440f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #ff8c3a;
+    transform: scale(1.05);
+}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class="container"&gt;
+    &lt;h1&gt;🎨 Selamat Datang!&lt;/h1&gt;
+    &lt;p&gt;Ini adalah playground untuk bereksperimen dengan HTML dan CSS. Ubah kode di sebelah kiri dan lihat hasilnya di sini.&lt;/p&gt;
+    &lt;button onclick="alert('Tombol berhasil diklik!')"&gt;Klik Saya&lt;/button&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;`;
+            runPlayground();
+        }
+
+        // Run playground on load
+        window.addEventListener('load', runPlayground);
+    </script>
+</body>
+
+</html>

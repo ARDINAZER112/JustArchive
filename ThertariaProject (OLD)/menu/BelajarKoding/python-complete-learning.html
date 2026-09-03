@@ -1,0 +1,2299 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belajar Python Lengkap - Tutorial & IDE Interaktif</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f0f2f5;
+        }
+
+        /* NAVBAR */
+        nav {
+            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        nav li {
+            display: inline-block;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 16px 20px;
+            display: block;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            font-size: 13px;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: #ffb300;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding-bottom: 13px;
+        }
+
+        nav a:hover::after {
+            width: 80%;
+        }
+
+        /* HEADER SECTION */
+        .header {
+            background: linear-gradient(135deg, #1a237e 0%, #283593 50%, #3f51b5 100%);
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            top: -250px;
+            right: -250px;
+        }
+
+        .header h1 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 18px;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* MAIN CONTENT */
+        .container {
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .menu-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+        }
+
+        .menu-section h2 {
+            color: #1a237e;
+            margin-bottom: 20px;
+            font-size: 24px;
+            border-bottom: 3px solid #ffb300;
+            padding-bottom: 10px;
+        }
+
+        .menu-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .menu-links a {
+            background: linear-gradient(135deg, #3f51b5 0%, #5c6bc0 100%);
+            color: white;
+            padding: 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            font-size: 14px;
+        }
+
+        .menu-links a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(63, 81, 181, 0.4);
+        }
+
+        /* TABS */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 12px 20px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            font-size: 15px;
+        }
+
+        .tab-btn.active {
+            color: #1a237e;
+            border-bottom-color: #ffb300;
+        }
+
+        .tab-btn:hover {
+            color: #1a237e;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* TUTORIAL CARDS */
+        .tutorial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .tutorial-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border-left: 5px solid #3f51b5;
+        }
+
+        .tutorial-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .tutorial-header {
+            background: linear-gradient(135deg, #1a237e 0%, #f5650a 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .tutorial-header h3 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .tutorial-level {
+            font-size: 12px;
+            opacity: 0.9;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 4px 12px;
+            border-radius: 15px;
+            display: inline-block;
+        }
+
+        .tutorial-content {
+            padding: 25px;
+        }
+
+        .tutorial-content h4 {
+            color: #1a237e;
+            font-weight: 700;
+            margin: 15px 0 10px 0;
+            font-size: 15px;
+        }
+
+        .tutorial-content p {
+            color: #555;
+            margin-bottom: 12px;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            position: relative;
+        }
+
+        .code-block code {
+            color: #f8f8f2;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ffb300;
+            color: #333;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #ffa000;
+            transform: scale(1.05);
+        }
+
+        /* PROBLEM SECTION */
+        .problem-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+            border-left: 5px solid #ff6b6b;
+        }
+
+        .problem-card h3 {
+            color: #1a237e;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .problem-section {
+            margin-bottom: 20px;
+        }
+
+        .problem-section strong {
+            color: #1a237e;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+
+        .problem-section p {
+            color: #555;
+            margin-bottom: 10px;
+            line-height: 1.7;
+        }
+
+        /* IDE SECTION */
+        .ide-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .ide-panel {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .ide-header {
+            background: linear-gradient(135deg, #1a237e 0%, #f5650a 100%);
+            color: white;
+            padding: 15px 20px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ide-header button {
+            background: #ffb300;
+            color: #333;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.3s ease;
+        }
+
+        .ide-header button:hover {
+            background: #ffa000;
+            transform: scale(1.05);
+        }
+
+        .editor {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            min-height: 400px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .editor textarea {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            border: none;
+            width: 100%;
+            height: 100%;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            padding: 0;
+            resize: none;
+        }
+
+        .output {
+            background: #1e1e1e;
+            color: #00ff00;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            min-height: 200px;
+            max-height: 300px;
+            overflow-y: auto;
+            border-top: 1px solid #333;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .output.error {
+            color: #ff6b6b;
+        }
+
+        /* FEATURES LIST */
+        .features-list {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .features-list li {
+            padding: 10px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .features-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #ffb300;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        /* QUICK TIPS */
+        .tip-box {
+            background: #f0f7ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .tip-box strong {
+            color: #1a237e;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ff9800;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .warning-box strong {
+            color: #1a237e;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 28px;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav li {
+                width: 100%;
+            }
+
+            nav a {
+                text-align: center;
+                padding: 12px 15px;
+                font-size: 12px;
+            }
+
+            .tutorial-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .menu-links {
+                grid-template-columns: 1fr;
+            }
+
+            .ide-container {
+                grid-template-columns: 1fr;
+            }
+
+            .tabs {
+                flex-direction: column;
+            }
+
+            .tab-btn {
+                text-align: left;
+            }
+        }
+
+        /* FOOTER */
+        footer {
+            background: #1a237e;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        footer a {
+            color: #ffb300;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* HIGHLIGHT COLORS */
+        .highlight-python {
+            color: #ffb300;
+            font-weight: 600;
+        }
+
+        .success {
+            color: #00ff00;
+        }
+
+        .error {
+            color: #ff6b6b;
+        }
+    </style>
+</head>
+
+<body oncontextmenu="return false;">
+    <!-- NAVBAR -->
+    <nav id="home">
+        <ul>
+            <li><a href="LearnCoding.html">🏠 Kembali</a></li>
+            <li><a href="#pengenalan">📖 Pengenalan</a></li>
+            <li><a href="#tutorial">📚 Tutorial</a></li>
+            <li><a href="#problem">🔧 Pemecahan Masalah</a></li>
+            <li><a href="#ide">💻 IDE Interaktif</a></li>
+            <li><a href="#reference">📋 Referensi</a></li>
+        </ul>
+    </nav>
+
+    <!-- HEADER -->
+    <div class="header">
+        <h1>🐍 BELAJAR PYTHON LENGKAP</h1>
+        <p>Dari Pemula hingga Mahir - Tutorial Komprehensif, Problem Solving, dan IDE Interaktif</p>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+        <!-- PENGENALAN SECTION -->
+        <div class="menu-section" id="pengenalan">
+            <h2>📖 Pengenalan Python</h2>
+            
+            <h3 style="color: #1a237e; margin-top: 20px; margin-bottom: 10px;">Apa itu Python?</h3>
+            <p style="color: #555; line-height: 1.8; margin-bottom: 15px;">
+                Python adalah bahasa pemrograman tingkat tinggi yang dibuat pada tahun 1989 oleh Guido van Rossum. 
+                Python dirancang dengan fokus pada keterbacaan kode dan kesederhanaan. Bahasa ini telah menjadi salah satu 
+                bahasa pemrograman paling populer di dunia karena kemudahan penggunaan dan fleksibilitasnya.
+            </p>
+
+            <h3 style="color: #1a237e; margin-top: 20px; margin-bottom: 10px;">Mengapa Python?</h3>
+            <ul class="features-list">
+                <li><strong>Mudah Dipelajari</strong> - Sintaks Python mirip dengan bahasa Inggris</li>
+                <li><strong>Versatile</strong> - Bisa digunakan untuk web, data science, AI, automation, dll</li>
+                <li><strong>Komunitas Besar</strong> - Ribuan library dan framework tersedia</li>
+                <li><strong>Produktivitas Tinggi</strong> - Tulis kode lebih cepat dengan lebih sedikit baris</li>
+                <li><strong>In-Demand</strong> - Salah satu bahasa paling dicari di industri tech</li>
+            </ul>
+
+            <h3 style="color: #1a237e; margin-top: 20px; margin-bottom: 10px;">Aplikasi Python</h3>
+            <p style="color: #555; line-height: 1.8;">
+                <strong>🌐 Web Development:</strong> Django, Flask, FastAPI <br>
+                <strong>📊 Data Science:</strong> NumPy, Pandas, Matplotlib <br>
+                <strong>🤖 Artificial Intelligence:</strong> TensorFlow, PyTorch, scikit-learn <br>
+                <strong>🔄 Automation:</strong> Scripting, task automation, web scraping <br>
+                <strong>🎮 Game Development:</strong> Pygame <br>
+                <strong>📱 Mobile:</strong> Kivy, BeeWare <br>
+                <strong>☁️ Cloud:</strong> AWS, Google Cloud, Azure integration
+            </p>
+
+            <h3 style="color: #1a237e; margin-top: 20px; margin-bottom: 10px;">Instalasi Python</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                <code>
+# Windows: Download dari python.org dan jalankan installer
+# Mac: brew install python3
+# Linux: sudo apt-get install python3
+
+# Verifikasi instalasi
+python --version
+# atau
+python3 --version
+                </code>
+            </div>
+        </div>
+
+        <!-- TUTORIAL SECTION -->
+        <div class="menu-section" id="tutorial">
+            <h2>📚 Tutorial Python</h2>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab(event, 'tab-dasar')">Dasar</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tab-tipe-data')">Tipe Data</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tab-kontrol')">Kontrol Alur</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tab-function')">Fungsi</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tab-struktur')">Struktur Data</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tab-oop')">OOP</button>
+            </div>
+
+            <!-- TAB 1: DASAR -->
+            <div id="tab-dasar" class="tab-content active">
+                <div class="tutorial-grid">
+                    <!-- Hello World -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Hello World</h3>
+                            <span class="tutorial-level">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Program pertama Anda dalam Python - menampilkan teks di layar.</p>
+                            
+                            <h4>💡 Konsep</h4>
+                            <p>Fungsi print() digunakan untuk menampilkan output ke layar.</p>
+
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>print("Hello, World!")</code>
+                            </div>
+
+                            <h4>📝 Output</h4>
+                            <div class="code-block" style="background: #1e1e1e; color: #00ff00;">Hello, World!</div>
+                        </div>
+                    </div>
+
+                    <!-- Variabel & Tipe Data -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Variabel</h3>
+                            <span class="tutorial-level">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Menyimpan dan menggunakan data dalam program.</p>
+                            
+                            <h4>💡 Konsep</h4>
+                            <p>Variabel adalah tempat untuk menyimpan nilai data.</p>
+
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+# Membuat variabel
+nama = "Budi"
+umur = 20
+tinggi = 175.5
+adalah_siswa = True
+
+# Menggunakan variabel
+print(nama)
+print(umur)
+                                </code>
+                            </div>
+
+                            <div class="tip-box">
+                                <strong>💡 Tip:</strong> Nama variabel harus dimulai dengan huruf atau underscore (_), 
+                                dan bisa berisi huruf, angka, atau underscore.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Operator -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Operator</h3>
+                            <span class="tutorial-level">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Melakukan operasi matematika dan perbandingan.</p>
+                            
+                            <h4>💡 Jenis Operator</h4>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+# Operator Aritmatika
+a = 10
+b = 3
+print(a + b)    # 13
+print(a - b)    # 7
+print(a * b)    # 30
+print(a / b)    # 3.33
+print(a % b)    # 1 (sisa bagi)
+print(a ** b)   # 1000 (pangkat)
+
+# Operator Perbandingan
+print(a == b)   # False
+print(a != b)   # True
+print(a > b)    # True
+print(a < b)    # False
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Input & Output -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Input & Output</h3>
+                            <span class="tutorial-level">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Menerima input dari pengguna dan menampilkan output.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+# Input dari pengguna
+nama = input("Masukkan nama: ")
+umur = int(input("Masukkan umur: "))
+
+# Output
+print(f"Nama saya adalah {nama}")
+print(f"Umur saya adalah {umur} tahun")
+
+# Output dengan format
+print("Nama: %s, Umur: %d" % (nama, umur))
+                                </code>
+                            </div>
+
+                            <div class="warning-box">
+                                <strong>⚠️ Penting:</strong> input() selalu mengembalikan string. 
+                                Gunakan int(), float(), dll untuk konversi tipe data.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- String -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>String</h3>
+                            <span class="tutorial-level">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Bekerja dengan teks dan string manipulation.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+# String basics
+text = "Halo Python"
+
+# String methods
+print(text.upper())           # HALO PYTHON
+print(text.lower())           # halo python
+print(text.replace("Python", "World"))
+print(len(text))              # 11
+print(text[0])                # H
+print(text[-1])               # n
+
+# String slicing
+print(text[0:4])              # Halo
+print(text[5:])               # Python
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Comments -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Comments</h3>
+                            <span class="tutorial-level">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Menambahkan penjelasan dalam kode.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+# Ini adalah komentar single line
+
+"""
+Ini adalah multi-line comment
+Berguna untuk dokumentasi
+"""
+
+# Program untuk menghitung luas segitiga
+alas = 5
+tinggi = 10
+luas = (alas * tinggi) / 2
+print(f"Luas: {luas}")  # Output: Luas: 25.0
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: TIPE DATA -->
+            <div id="tab-tipe-data" class="tab-content">
+                <div class="tutorial-grid">
+                    <!-- Tipe Data -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Tipe Data</h3>
+                            <span class="tutorial-level">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Memahami berbagai tipe data dalam Python.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+# Integer (Bilangan bulat)
+umur = 25
+nomor = -100
+
+# Float (Bilangan desimal)
+tinggi = 175.5
+pi = 3.14
+
+# String (Teks)
+nama = "Budi"
+
+# Boolean (True/False)
+adalah_siswa = True
+sudah_lulus = False
+
+# Melihat tipe data
+print(type(umur))           # &lt;class 'int'&gt;
+print(type(tinggi))         # &lt;class 'float'&gt;
+print(type(nama))           # &lt;class 'str'&gt;
+print(type(adalah_siswa))   # &lt;class 'bool'&gt;
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Type Conversion -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Type Conversion</h3>
+                            <span class="tutorial-level">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Mengubah dari satu tipe data ke tipe lainnya.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+# String ke Integer
+nomor_str = "123"
+nomor_int = int(nomor_str)
+
+# Integer ke String
+umur = 25
+umur_str = str(umur)
+
+# String ke Float
+harga_str = "99.99"
+harga_float = float(harga_str)
+
+# Float ke Integer
+nilai = 9.7
+nilai_int = int(nilai)  # 9
+
+# Konversi Boolean
+print(bool(1))      # True
+print(bool(0))      # False
+print(bool(""))     # False
+print(bool("text")) # True
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- List -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>List</h3>
+                            <span class="tutorial-level">Intermediate</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Menyimpan multiple items dalam satu variabel.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+# Membuat list
+fruits = ["apple", "banana", "cherry"]
+numbers = [1, 2, 3, 4, 5]
+mixed = [1, "hello", 3.14, True]
+
+# Mengakses item
+print(fruits[0])        # apple
+print(fruits[-1])       # cherry
+
+# Mengubah item
+fruits[0] = "orange"
+
+# Menambah item
+fruits.append("grape")
+fruits.insert(1, "mango")
+
+# Menghapus item
+fruits.remove("banana")
+del fruits[0]
+
+# Loop melalui list
+for fruit in fruits:
+    print(fruit)
+
+# List length
+print(len(fruits))
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dictionary -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Dictionary</h3>
+                            <span class="tutorial-level">Intermediate</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Menyimpan data dengan key-value pairs.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+# Membuat dictionary
+person = {
+    "name": "Budi",
+    "age": 25,
+    "city": "Jakarta"
+}
+
+# Mengakses item
+print(person["name"])       # Budi
+print(person.get("age"))    # 25
+
+# Mengubah item
+person["age"] = 26
+
+# Menambah item
+person["email"] = "budi@example.com"
+
+# Menghapus item
+del person["city"]
+
+# Loop melalui dictionary
+for key, value in person.items():
+    print(f"{key}: {value}")
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tuple & Set -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Tuple & Set</h3>
+                            <span class="tutorial-level">Intermediate</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Bekerja dengan Tuple dan Set.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+# Tuple (immutable)
+coordinates = (10, 20)
+colors = ("red", "green", "blue")
+
+# Mengakses tuple
+print(coordinates[0])   # 10
+print(colors[-1])       # blue
+
+# Set (unique items)
+unique_numbers = {1, 2, 3, 3, 4}
+print(unique_numbers)   # {1, 2, 3, 4}
+
+# Set operations
+set1 = {1, 2, 3}
+set2 = {3, 4, 5}
+print(set1.union(set2))         # {1, 2, 3, 4, 5}
+print(set1.intersection(set2))  # {3}
+print(set1.difference(set2))    # {1, 2}
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: KONTROL ALUR -->
+            <div id="tab-kontrol" class="tab-content">
+                <div class="tutorial-grid">
+                    <!-- If Statement -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>If Statement</h3>
+                            <span class="tutorial-level">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Membuat keputusan dalam program berdasarkan kondisi.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+# If statement
+umur = 18
+if umur >= 18:
+    print("Anda sudah dewasa")
+
+# If-else
+nilai = 75
+if nilai >= 70:
+    print("Lulus")
+else:
+    print("Tidak lulus")
+
+# If-elif-else
+score = 85
+if score >= 90:
+    print("Nilai A")
+elif score >= 80:
+    print("Nilai B")
+elif score >= 70:
+    print("Nilai C")
+else:
+    print("Nilai D")
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Logical Operators -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Logical Operators</h3>
+                            <span class="tutorial-level">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Menggabungkan multiple conditions.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+# AND operator
+umur = 20
+gaji = 5000000
+if umur >= 18 and gaji >= 1000000:
+    print("Dapat pinjaman")
+
+# OR operator
+status = "student"
+if status == "student" or status == "unemployed":
+    print("Diskon tersedia")
+
+# NOT operator
+is_busy = False
+if not is_busy:
+    print("Saya punya waktu")
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- While Loop -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>While Loop</h3>
+                            <span class="tutorial-level">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Mengulang kode selama kondisi tertentu benar.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+# While loop sederhana
+i = 1
+while i <= 5:
+    print(f"Angka {i}")
+    i += 1
+
+# While dengan break
+count = 0
+while True:
+    count += 1
+    if count == 3:
+        break
+    print(count)  # Output: 1, 2
+
+# While dengan continue
+i = 0
+while i < 5:
+    i += 1
+    if i == 3:
+        continue
+    print(i)  # Output: 1, 2, 4, 5
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- For Loop -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>For Loop</h3>
+                            <span class="tutorial-level">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Mengulang melalui sequence (list, string, dll).</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+# For loop dengan list
+fruits = ["apple", "banana", "cherry"]
+for fruit in fruits:
+    print(fruit)
+
+# For loop dengan range
+for i in range(5):
+    print(i)  # 0, 1, 2, 3, 4
+
+# For loop dengan range (start, stop, step)
+for i in range(1, 10, 2):
+    print(i)  # 1, 3, 5, 7, 9
+
+# For dengan enumerate
+fruits = ["apple", "banana", "cherry"]
+for index, fruit in enumerate(fruits):
+    print(f"{index}: {fruit}")
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Nested Loops -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Nested Loops</h3>
+                            <span class="tutorial-level">Intermediate</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Menggunakan loop dalam loop.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+# Nested for loop - Multiplication table
+for i in range(1, 4):
+    for j in range(1, 4):
+        print(f"{i} x {j} = {i*j}", end="  ")
+    print()
+
+# Nested list
+matrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+for row in matrix:
+    for cell in row:
+        print(cell, end=" ")
+    print()
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: FUNCTION -->
+            <div id="tab-function" class="tab-content">
+                <div class="tutorial-grid">
+                    <!-- Function Basics -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Function Basics</h3>
+                            <span class="tutorial-level">Intermediate</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Membuat dan menggunakan fungsi.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+# Function sederhana
+def greet():
+    print("Halo!")
+
+greet()  # Memanggil fungsi
+
+# Function dengan parameter
+def greet_user(name):
+    print(f"Halo, {name}!")
+
+greet_user("Budi")
+
+# Function dengan multiple parameters
+def add(a, b):
+    return a + b
+
+result = add(5, 3)
+print(result)  # 8
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Return Value -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Return Value</h3>
+                            <span class="tutorial-level">Intermediate</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Function yang mengembalikan nilai.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+# Function dengan return
+def calculate_area(radius):
+    pi = 3.14
+    area = pi * radius ** 2
+    return area
+
+area = calculate_area(5)
+print(f"Luas: {area}")
+
+# Multiple return values
+def get_user_info():
+    name = "Budi"
+    age = 25
+    return name, age
+
+name, age = get_user_info()
+print(f"{name}, {age} tahun")
+
+# Return di tengah function
+def check_number(num):
+    if num > 0:
+        return "Positif"
+    elif num < 0:
+        return "Negatif"
+    else:
+        return "Nol"
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Default Parameters -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Default Parameters</h3>
+                            <span class="tutorial-level">Intermediate</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Function dengan nilai parameter default.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+# Default parameter
+def greet(name="Teman"):
+    print(f"Halo, {name}!")
+
+greet()          # Halo, Teman!
+greet("Budi")    # Halo, Budi!
+
+# Multiple default parameters
+def introduce(name="Anonim", age=0):
+    print(f"Nama: {name}, Umur: {age}")
+
+introduce()                # Nama: Anonim, Umur: 0
+introduce("Budi")          # Nama: Budi, Umur: 0
+introduce("Budi", 25)      # Nama: Budi, Umur: 25
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- *args & **kwargs -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>*args & **kwargs</h3>
+                            <span class="tutorial-level">Advanced</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Function dengan flexible parameters.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+# *args - Variable number of arguments
+def sum_numbers(*args):
+    total = 0
+    for num in args:
+        total += num
+    return total
+
+print(sum_numbers(1, 2, 3, 4, 5))  # 15
+
+# **kwargs - Keyword arguments
+def print_info(**kwargs):
+    for key, value in kwargs.items():
+        print(f"{key}: {value}")
+
+print_info(name="Budi", age=25, city="Jakarta")
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lambda Functions -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Lambda Functions</h3>
+                            <span class="tutorial-level">Advanced</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Function anonymous (lambda) satu baris.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+# Lambda function sederhana
+square = lambda x: x ** 2
+print(square(5))  # 25
+
+# Lambda dengan multiple parameters
+add = lambda x, y: x + y
+print(add(3, 5))  # 8
+
+# Lambda dengan map
+numbers = [1, 2, 3, 4, 5]
+squared = list(map(lambda x: x**2, numbers))
+print(squared)  # [1, 4, 9, 16, 25]
+
+# Lambda dengan filter
+even_numbers = list(filter(lambda x: x % 2 == 0, numbers))
+print(even_numbers)  # [2, 4]
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 5: STRUKTUR DATA -->
+            <div id="tab-struktur" class="tab-content">
+                <div class="tutorial-grid">
+                    <!-- List Methods -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>List Methods</h3>
+                            <span class="tutorial-level">Intermediate</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Berbagai metode untuk manipulasi list.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+numbers = [3, 1, 4, 1, 5, 9, 2, 6]
+
+# append - Tambah item
+numbers.append(10)
+
+# insert - Tambah item di posisi tertentu
+numbers.insert(0, 100)
+
+# remove - Hapus item (value)
+numbers.remove(1)  # Hapus pertama
+
+# pop - Hapus item (index)
+last_item = numbers.pop()
+
+# sort - Urutkan
+numbers.sort()
+
+# reverse - Balik urutan
+numbers.reverse()
+
+# copy - Duplikasi
+copy_numbers = numbers.copy()
+
+# count - Hitung jumlah item
+count = numbers.count(5)
+
+# index - Cari posisi item
+index = numbers.index(4)
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- List Comprehension -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>List Comprehension</h3>
+                            <span class="tutorial-level">Intermediate</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Membuat list dengan cara yang lebih elegan.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+# List comprehension sederhana
+squares = [x**2 for x in range(1, 6)]
+print(squares)  # [1, 4, 9, 16, 25]
+
+# Dengan kondisi
+even = [x for x in range(1, 11) if x % 2 == 0]
+print(even)  # [2, 4, 6, 8, 10]
+
+# List comprehension nested
+matrix = [[i+j for j in range(3)] for i in range(3)]
+# [[0, 1, 2], [1, 2, 3], [2, 3, 4]]
+
+# String comprehension
+text = "hello"
+chars = [char.upper() for char in text]
+print(chars)  # ['H', 'E', 'L', 'L', 'O']
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- String Methods -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>String Methods</h3>
+                            <span class="tutorial-level">Intermediate</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Berbagai metode untuk manipulasi string.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+text = "Hello World"
+
+# Case conversion
+print(text.upper())        # HELLO WORLD
+print(text.lower())        # hello world
+print(text.capitalize())   # Hello world
+print(text.title())        # Hello World
+
+# Search & Replace
+print(text.find("World"))  # 6
+print(text.replace("World", "Python"))
+
+# Splitting & Joining
+words = text.split()       # ['Hello', 'World']
+joined = "-".join(words)   # Hello-World
+
+# Strip whitespace
+text = "  hello  "
+print(text.strip())        # hello
+
+# String checking
+print("hello".isalpha())   # True
+print("123".isdigit())     # True
+print("hello world".isspace())  # False
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Dictionary Methods -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Dictionary Methods</h3>
+                            <span class="tutorial-level">Intermediate</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Berbagai metode untuk manipulasi dictionary.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+person = {"name": "Budi", "age": 25, "city": "Jakarta"}
+
+# keys - Ambil semua keys
+keys = person.keys()
+
+# values - Ambil semua values
+values = person.values()
+
+# items - Ambil key-value pairs
+items = person.items()
+
+# get - Ambil value dengan default
+age = person.get("age", 0)
+
+# pop - Hapus dan return value
+city = person.pop("city")
+
+# update - Merge dictionary
+person.update({"email": "budi@example.com"})
+
+# clear - Hapus semua item
+# person.clear()
+
+# copy - Duplikasi
+copy_person = person.copy()
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 6: OOP -->
+            <div id="tab-oop" class="tab-content">
+                <div class="tutorial-grid">
+                    <!-- Class & Object -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Class & Object</h3>
+                            <span class="tutorial-level">Advanced</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Membuat class dan instantiate object.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+# Membuat class
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+    
+    def introduce(self):
+        print(f"Nama: {self.name}, Umur: {self.age}")
+
+# Membuat object
+person1 = Person("Budi", 25)
+person2 = Person("Andi", 30)
+
+# Menggunakan object
+person1.introduce()
+print(person1.name)
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Inheritance -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Inheritance</h3>
+                            <span class="tutorial-level">Advanced</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Mewarisi properties dari class lain.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+# Parent class
+class Animal:
+    def __init__(self, name):
+        self.name = name
+    
+    def speak(self):
+        print(f"{self.name} makes a sound")
+
+# Child class
+class Dog(Animal):
+    def speak(self):
+        print(f"{self.name} barks")
+
+dog = Dog("Buddy")
+dog.speak()  # Buddy barks
+
+# Multiple inheritance
+class Swimmer:
+    def swim(self):
+        print("Swimming...")
+
+class DuckDog(Dog, Swimmer):
+    pass
+
+duck_dog = DuckDog("DukBuddy")
+duck_dog.speak()
+duck_dog.swim()
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Polymorphism -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Polymorphism</h3>
+                            <span class="tutorial-level">Advanced</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Berbagai object dengan interface yang sama.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+class Cat:
+    def speak(self):
+        return "Meow"
+
+class Dog:
+    def speak(self):
+        return "Woof"
+
+# Polymorphism
+def animal_sound(animal):
+    print(animal.speak())
+
+cat = Cat()
+dog = Dog()
+
+animal_sound(cat)  # Meow
+animal_sound(dog)  # Woof
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Encapsulation -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Encapsulation</h3>
+                            <span class="tutorial-level">Advanced</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Membatasi akses ke data dan method.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+class BankAccount:
+    def __init__(self, balance):
+        self.__balance = balance  # Private
+    
+    def deposit(self, amount):
+        self.__balance += amount
+    
+    def withdraw(self, amount):
+        if amount <= self.__balance:
+            self.__balance -= amount
+    
+    def get_balance(self):  # Public method
+        return self.__balance
+
+account = BankAccount(1000)
+account.deposit(500)
+print(account.get_balance())  # 1500
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Properties & Decorators -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>@property Decorator</h3>
+                            <span class="tutorial-level">Advanced</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4>🎯 Tujuan</h4>
+                            <p>Menggunakan property dengan getter dan setter.</p>
+                            
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>
+class Circle:
+    def __init__(self, radius):
+        self._radius = radius
+    
+    @property
+    def radius(self):
+        return self._radius
+    
+    @radius.setter
+    def radius(self, value):
+        if value < 0:
+            print("Invalid radius")
+        else:
+            self._radius = value
+    
+    @property
+    def area(self):
+        return 3.14 * self._radius ** 2
+
+circle = Circle(5)
+print(circle.radius)  # 5
+print(circle.area)    # 78.5
+circle.radius = 10
+print(circle.area)    # 314.0
+                                </code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PROBLEM SOLVING SECTION -->
+        <div class="menu-section" id="problem">
+            <h2>🔧 Pemecahan Masalah Python</h2>
+            <p style="color: #555; margin-bottom: 20px; line-height: 1.8;">
+                Bagian ini berisi masalah umum yang dihadapi saat belajar Python dan cara mengatasinya.
+            </p>
+
+            <!-- Common Errors -->
+            <div class="problem-card">
+                <h3>❌ Error: SyntaxError</h3>
+                <div class="problem-section">
+                    <strong>📌 Penyebab:</strong>
+                    <p>Kesalahan penulisan kode Python - kurang tanda kurung, koma, colon, dll.</p>
+                </div>
+                <div class="problem-section">
+                    <strong>💡 Solusi:</strong>
+                    <p>Periksa baris yang ditunjukkan error dengan cermat. Pastikan semua tanda kurung, koma, dan colon sudah benar.</p>
+                </div>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                    <code>
+# ❌ SALAH
+print("Hello"  # Kurang closing parenthesis
+
+# ✅ BENAR
+print("Hello")
+                    </code>
+                </div>
+            </div>
+
+            <div class="problem-card">
+                <h3>❌ Error: NameError</h3>
+                <div class="problem-section">
+                    <strong>📌 Penyebab:</strong>
+                    <p>Variabel belum didefinisikan atau nama salah ketika digunakan.</p>
+                </div>
+                <div class="problem-section">
+                    <strong>💡 Solusi:</strong>
+                    <p>Pastikan variabel sudah didefinisikan sebelum digunakan. Perhatikan huruf besar/kecil.</p>
+                </div>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                    <code>
+# ❌ SALAH
+print(name)  # name tidak didefinisikan
+
+# ✅ BENAR
+name = "Budi"
+print(name)
+                    </code>
+                </div>
+            </div>
+
+            <div class="problem-card">
+                <h3>❌ Error: TypeError</h3>
+                <div class="problem-section">
+                    <strong>📌 Penyebab:</strong>
+                    <p>Operasi dilakukan pada tipe data yang tidak sesuai.</p>
+                </div>
+                <div class="problem-section">
+                    <strong>💡 Solusi:</strong>
+                    <p>Lakukan konversi tipe data dengan int(), str(), float(), dll sebelum operasi.</p>
+                </div>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                    <code>
+# ❌ SALAH
+umur = input("Umur: ")
+total = umur + 10  # TypeError: string + int
+
+# ✅ BENAR
+umur = int(input("Umur: "))
+total = umur + 10
+                    </code>
+                </div>
+            </div>
+
+            <div class="problem-card">
+                <h3>❌ Error: IndexError</h3>
+                <div class="problem-section">
+                    <strong>📌 Penyebab:</strong>
+                    <p>Mengakses index yang tidak ada dalam list atau string.</p>
+                </div>
+                <div class="problem-section">
+                    <strong>💡 Solusi:</strong>
+                    <p>Pastikan index berada dalam range. Gunakan len() untuk melihat panjang list/string.</p>
+                </div>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                    <code>
+# ❌ SALAH
+fruits = ["apple", "banana", "cherry"]
+print(fruits[5])  # IndexError: index out of range
+
+# ✅ BENAR
+print(fruits[0])  # apple
+print(fruits[-1]) # cherry (index negatif)
+                    </code>
+                </div>
+            </div>
+
+            <div class="problem-card">
+                <h3>❌ Error: KeyError</h3>
+                <div class="problem-section">
+                    <strong>📌 Penyebab:</strong>
+                    <p>Mengakses key yang tidak ada dalam dictionary.</p>
+                </div>
+                <div class="problem-section">
+                    <strong>💡 Solusi:</strong>
+                    <p>Gunakan .get() method atau cek key sebelumnya dengan 'in' operator.</p>
+                </div>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                    <code>
+# ❌ SALAH
+person = {"name": "Budi", "age": 25}
+print(person["email"])  # KeyError: 'email'
+
+# ✅ BENAR
+print(person.get("email", "Not available"))
+# atau
+if "email" in person:
+    print(person["email"])
+                    </code>
+                </div>
+            </div>
+
+            <div class="problem-card">
+                <h3>❌ Error: IndentationError</h3>
+                <div class="problem-section">
+                    <strong>📌 Penyebab:</strong>
+                    <p>Indentasi tidak konsisten (spasi atau tab).</p>
+                </div>
+                <div class="problem-section">
+                    <strong>💡 Solusi:</strong>
+                    <p>Gunakan konsistensi - 4 spasi atau tab. Perhatikan block code di if, for, function, dll.</p>
+                </div>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                    <code>
+# ❌ SALAH
+if x > 5:
+print("x lebih besar dari 5")  # Indentasi salah
+
+# ✅ BENAR
+if x > 5:
+    print("x lebih besar dari 5")
+                    </code>
+                </div>
+            </div>
+
+            <!-- Tips & Best Practices -->
+            <h3 style="color: #1a237e; margin-top: 30px; margin-bottom: 15px; font-size: 18px;">💡 Tips & Best Practices</h3>
+
+            <div class="problem-card" style="border-left-color: #2196F3;">
+                <h3 style="color: #2196F3;">🎯 Debug Dengan Print</h3>
+                <p style="color: #555;">Gunakan print() untuk melacak nilai variabel dan flow program Anda:</p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                    <code>
+def calculate(a, b):
+    print(f"a = {a}, b = {b}")  # Debug
+    result = a + b
+    print(f"result = {result}")  # Debug
+    return result
+                    </code>
+                </div>
+            </div>
+
+            <div class="problem-card" style="border-left-color: #4CAF50;">
+                <h3 style="color: #4CAF50;">✅ Gunakan Try-Except</h3>
+                <p style="color: #555;">Handle error dengan gracefully:</p>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                    <code>
+try:
+    umur = int(input("Umur: "))
+except ValueError:
+    print("Masukkan angka yang valid!")
+except:
+    print("Terjadi error!")
+                    </code>
+                </div>
+            </div>
+
+            <div class="problem-card" style="border-left-color: #FF9800;">
+                <h3 style="color: #FF9800;">🔍 Baca Error Message</h3>
+                <p style="color: #555;">Error message memberikan informasi berharga. Baca dengan seksama:</p>
+                <ul class="features-list">
+                    <li>Tipe error (SyntaxError, NameError, dll)</li>
+                    <li>Pesan deskriptif</li>
+                    <li>File dan line number dimana error terjadi</li>
+                </ul>
+            </div>
+
+            <div class="problem-card" style="border-left-color: #9C27B0;">
+                <h3 style="color: #9C27B0;">📚 Konsultasi Dokumentasi</h3>
+                <p style="color: #555;">Python memiliki dokumentasi lengkap. Pelajari:</p>
+                <ul class="features-list">
+                    <li>Built-in functions: help(), type(), dir()</li>
+                    <li>Official Python docs: python.org/docs</li>
+                    <li>Stack Overflow untuk masalah spesifik</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- IDE INTERAKTIF -->
+        <div class="menu-section" id="ide">
+            <h2>💻 IDE Interaktif - Coba Kode Python</h2>
+            <p style="color: #555; margin-bottom: 20px; line-height: 1.8;">
+                Tulis dan jalankan kode Python langsung di browser ini. Sempurna untuk belajar dan bereksperimen!
+            </p>
+
+            <div class="ide-container">
+                <!-- Code Editor -->
+                <div class="ide-panel">
+                    <div class="ide-header">
+                        <span>📝 Editor</span>
+                        <div style="display: flex; gap: 10px;">
+                            <button onclick="loadExample('hello')">Hello</button>
+                            <button onclick="loadExample('loop')">Loop</button>
+                            <button onclick="loadExample('function')">Function</button>
+                        </div>
+                    </div>
+                    <div class="editor">
+                        <textarea id="codeInput" placeholder="Tulis kode Python di sini...
+# Contoh:
+print('Hello, World!')
+
+name = input('Siapa nama kamu? ')
+print(f'Halo, {name}!')">print('Hello, World!')</textarea>
+                    </div>
+                </div>
+
+                <!-- Output & Controls -->
+                <div class="ide-panel">
+                    <div class="ide-header">
+                        <span>▶️ Output</span>
+                        <button onclick="runCode()">▶️ Jalankan Kode</button>
+                    </div>
+                    <div class="output" id="output">
+Output akan muncul di sini...
+                    </div>
+                    <div style="padding: 15px; background: #f0f2f5; text-align: center; border-top: 1px solid #ddd;">
+                        <button onclick="clearOutput()" style="background: #f44336; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-weight: 600;">
+                            🗑️ Hapus Output
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Examples -->
+            <div style="margin-top: 30px;">
+                <h3 style="color: #1a237e; margin-bottom: 20px; font-size: 18px;">📚 Contoh Kode Cepat</h3>
+                <div class="tutorial-grid">
+                    <button class="tutorial-card" onclick="loadExample('hello')" style="border: none; background: none; cursor: pointer; text-align: left;">
+                        <div class="tutorial-header" style="cursor: pointer;">
+                            <h3>Hello World</h3>
+                        </div>
+                        <div class="tutorial-content" style="cursor: pointer;">
+                            <p>Cetak teks sederhana</p>
+                        </div>
+                    </button>
+
+                    <button class="tutorial-card" onclick="loadExample('loop')" style="border: none; background: none; cursor: pointer; text-align: left;">
+                        <div class="tutorial-header" style="cursor: pointer;">
+                            <h3>For Loop</h3>
+                        </div>
+                        <div class="tutorial-content" style="cursor: pointer;">
+                            <p>Perulangan 1 sampai 10</p>
+                        </div>
+                    </button>
+
+                    <button class="tutorial-card" onclick="loadExample('function')" style="border: none; background: none; cursor: pointer; text-align: left;">
+                        <div class="tutorial-header" style="cursor: pointer;">
+                            <h3>Function</h3>
+                        </div>
+                        <div class="tutorial-content" style="cursor: pointer;">
+                            <p>Membuat dan memanggil function</p>
+                        </div>
+                    </button>
+
+                    <button class="tutorial-card" onclick="loadExample('list')" style="border: none; background: none; cursor: pointer; text-align: left;">
+                        <div class="tutorial-header" style="cursor: pointer;">
+                            <h3>List</h3>
+                        </div>
+                        <div class="tutorial-content" style="cursor: pointer;">
+                            <p>Bekerja dengan list Python</p>
+                        </div>
+                    </button>
+
+                    <button class="tutorial-card" onclick="loadExample('condition')" style="border: none; background: none; cursor: pointer; text-align: left;">
+                        <div class="tutorial-header" style="cursor: pointer;">
+                            <h3>If Condition</h3>
+                        </div>
+                        <div class="tutorial-content" style="cursor: pointer;">
+                            <p>Percabangan dengan if-else</p>
+                        </div>
+                    </button>
+
+                    <button class="tutorial-card" onclick="loadExample('dict')" style="border: none; background: none; cursor: pointer; text-align: left;">
+                        <div class="tutorial-header" style="cursor: pointer;">
+                            <h3>Dictionary</h3>
+                        </div>
+                        <div class="tutorial-content" style="cursor: pointer;">
+                            <p>Bekerja dengan dictionary</p>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Limitations Notice -->
+            <div class="warning-box" style="margin-top: 30px;">
+                <strong>⚠️ Catatan:</strong> IDE ini berjalan di browser dan memiliki keterbatasan. 
+                Beberapa fitur seperti file I/O dan library pihak ketiga mungkin tidak tersedia. 
+                Gunakan Python lokal untuk project yang lebih kompleks.
+            </div>
+        </div>
+
+        <!-- REFERENSI -->
+        <div class="menu-section" id="reference">
+            <h2>📋 Referensi & Resources</h2>
+
+            <h3 style="color: #1a237e; margin-top: 20px; margin-bottom: 10px;">📚 Dokumentasi</h3>
+            <ul class="features-list">
+                <li><strong>Official Python Docs:</strong> <a href="https://docs.python.org" target="_blank" style="color: #ffb300; text-decoration: none;">docs.python.org</a></li>
+                <li><strong>Python.org:</strong> <a href="https://www.python.org" target="_blank" style="color: #ffb300; text-decoration: none;">www.python.org</a></li>
+                <li><strong>Real Python:</strong> <a href="https://realpython.com" target="_blank" style="color: #ffb300; text-decoration: none;">realpython.com</a></li>
+                <li><strong>W3Schools Python:</strong> <a href="https://www.w3schools.com/python" target="_blank" style="color: #ffb300; text-decoration: none;">w3schools.com/python</a></li>
+            </ul>
+
+            <h3 style="color: #1a237e; margin-top: 20px; margin-bottom: 10px;">🛠️ Tools & IDEs</h3>
+            <ul class="features-list">
+                <li><strong>PyCharm:</strong> IDE profesional untuk Python development</li>
+                <li><strong>VS Code:</strong> Text editor ringan dengan Python extension</li>
+                <li><strong>Jupyter Notebook:</strong> Interactive notebook untuk data science</li>
+                <li><strong>Google Colab:</strong> Jupyter Notebook berbasis cloud gratis</li>
+                <li><strong>Repl.it:</strong> Online IDE untuk coding</li>
+            </ul>
+
+            <h3 style="color: #1a237e; margin-top: 20px; margin-bottom: 10px;">📦 Popular Libraries</h3>
+            <ul class="features-list">
+                <li><strong>NumPy:</strong> Komputasi numerik dan array operations</li>
+                <li><strong>Pandas:</strong> Data manipulation dan analysis</li>
+                <li><strong>Matplotlib:</strong> Data visualization</li>
+                <li><strong>Django:</strong> Web framework</li>
+                <li><strong>Flask:</strong> Micro web framework</li>
+                <li><strong>Requests:</strong> HTTP library</li>
+                <li><strong>BeautifulSoup:</strong> Web scraping</li>
+                <li><strong>TensorFlow/PyTorch:</strong> Machine learning</li>
+            </ul>
+
+            <h3 style="color: #1a237e; margin-top: 20px; margin-bottom: 10px;">🎓 Learning Resources</h3>
+            <ul class="features-list">
+                <li><strong>Codecademy:</strong> Interactive Python courses</li>
+                <li><strong>Udemy:</strong> Comprehensive Python courses</li>
+                <li><strong>freeCodeCamp:</strong> Free Python tutorials on YouTube</li>
+                <li><strong>DataCamp:</strong> Python untuk data science</li>
+                <li><strong>Kaggle:</strong> Data science competitions dan datasets</li>
+            </ul>
+
+            <h3 style="color: #1a237e; margin-top: 20px; margin-bottom: 10px;">🤝 Community</h3>
+            <ul class="features-list">
+                <li><strong>Stack Overflow:</strong> Tanya jawab untuk masalah coding</li>
+                <li><strong>Reddit r/learnprogramming:</strong> Komunitas learners</li>
+                <li><strong>GitHub:</strong> Baca dan kontribusi ke open source projects</li>
+                <li><strong>Python Discord Communities:</strong> Real-time chat dengan developers</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p><strong>🐍 Platform Belajar Python Lengkap</strong></p>
+        <p>Tutorial Komprehensif, Problem Solving, dan IDE Interaktif</p>
+        <p style="margin-top: 15px; font-size: 12px; opacity: 0.8;">
+            &copy; 2026 Thertaria Project. Semua hak dilindungi.
+        </p>
+    </footer>
+
+    <script>
+        // Smooth scroll untuk semua anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Tab switching
+        function switchTab(event, tabName) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // Show the current tab
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Copy to clipboard
+        function copyToClipboard(btn) {
+            const code = btn.nextElementSibling.textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const originalText = btn.textContent;
+                btn.textContent = '✓ Copied!';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 2000);
+            });
+        }
+
+        // IDE Functions
+        const examples = {
+            hello: `print('Hello, World!')
+print('Selamat datang di Python!')
+
+name = input('Siapa nama kamu? ')
+print(f'Halo, {name}!')`,
+            loop: `# Cetak angka 1 sampai 10
+for i in range(1, 11):
+    print(f'Angka: {i}')`,
+            function: `def greet(name):
+    return f'Halo, {name}!'
+
+result = greet('Budi')
+print(result)`,
+            list: `# Membuat list
+fruits = ['apple', 'banana', 'cherry']
+
+# Menampilkan list
+print('Daftar buah:')
+for fruit in fruits:
+    print(f'- {fruit}')
+
+# Menambah item
+fruits.append('grape')
+print(f'Total buah: {len(fruits)}')`,
+            condition: `# Program untuk menentukan kategori nilai
+nilai = 85
+
+if nilai >= 90:
+    print('Grade: A')
+elif nilai >= 80:
+    print('Grade: B')
+elif nilai >= 70:
+    print('Grade: C')
+else:
+    print('Grade: D')`,
+            dict: `# Membuat dictionary
+person = {
+    'name': 'Budi',
+    'age': 25,
+    'city': 'Jakarta'
+}
+
+# Menampilkan data
+for key, value in person.items():
+    print(f'{key}: {value}')`
+        };
+
+        function loadExample(exampleName) {
+            document.getElementById('codeInput').value = examples[exampleName];
+            document.getElementById('codeInput').focus();
+        }
+
+        function runCode() {
+            const code = document.getElementById('codeInput').value;
+            const output = document.getElementById('output');
+            
+            if (!code.trim()) {
+                output.textContent = 'Tulis kode terlebih dahulu!';
+                output.classList.add('error');
+                return;
+            }
+
+            output.classList.remove('error');
+            output.textContent = 'Kode sedang dijalankan...\n';
+
+            // Simulate Python execution (browser limitation)
+            // This is a demonstration - real Python requires a backend
+            try {
+                // Simple eval for demonstration (NOT SAFE in production)
+                const result = eval(convertToJavaScript(code));
+                if (result) {
+                    output.textContent = result;
+                } else {
+                    output.textContent = 'Kode berhasil dijalankan (tidak ada output)';
+                }
+            } catch (error) {
+                output.textContent = `Error: ${error.message}`;
+                output.classList.add('error');
+            }
+        }
+
+        function clearOutput() {
+            document.getElementById('output').textContent = 'Output akan muncul di sini...\n';
+            document.getElementById('output').classList.remove('error');
+        }
+
+        // Simple Python to JavaScript converter (very basic, for demo only)
+        function convertToJavaScript(pythonCode) {
+            let jsCode = pythonCode;
+            
+            // Replace print() with console output capture
+            jsCode = jsCode.replace(/print\((.*?)\)/g, 'captureOutput($1)');
+            
+            // Replace f-strings with template literals (simplified)
+            jsCode = jsCode.replace(/f'([^']*?)'/g, '`$1`');
+            jsCode = jsCode.replace(/f"([^"]*)"/g, '`$1`');
+            
+            return jsCode;
+        }
+
+        let capturedOutput = [];
+
+        function captureOutput(value) {
+            capturedOutput.push(String(value));
+            document.getElementById('output').textContent = capturedOutput.join('\n');
+            return value;
+        }
+
+        // Initialize IDE example
+        loadExample('hello');
+
+        // Keyboard shortcut for running code (Ctrl+Enter)
+        document.getElementById('codeInput').addEventListener('keydown', function(event) {
+            if (event.ctrlKey && event.key === 'Enter') {
+                runCode();
+            }
+        });
+    </script>
+</body>
+</html>
