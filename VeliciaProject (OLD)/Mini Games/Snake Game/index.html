@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <!-- Character Set -->
+    <meta charset="UTF-8">
+    
+    <!-- Compatibility -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- Viewport Settings (CRITICAL for responsive) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes, maximum-scale=5.0">
+    
+    <!-- Mobile Web App Settings -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Snake Game">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#667eea">
+    
+    <!-- Search Engine & Social Media -->
+    <meta name="description" content="Snake Game - Play the classic Snake game on any device">
+    <meta name="keywords" content="snake, game, javascript, responsive, mobile">
+    <meta property="og:title" content="Snake Game">
+    <meta property="og:description" content="Classic Snake Game - Play on Desktop, Tablet, or Mobile">
+    <meta property="og:type" content="website">
+    
+    <!-- Touch Icon -->
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%23667eea' width='180' height='180'/><text x='90' y='90' font-size='80' fill='white' text-anchor='middle' dominant-baseline='middle'>🐍</text></svg>">
+    
+    <!-- Title -->
+    <title>Snake Game - WASD Controls</title>
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/style_fixed.css">
+    <link rel="stylesheet" href="style/style_layout_improved.css">
+    <link rel="stylesheet" href="style/style_universal.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75'>🐍</text></svg>">
+    
+    <!-- Preload Fonts (if using custom fonts) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Security Headers -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:;">
+    
+    <!-- Disable unnecessary features -->
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="email=no">
+</head>
+<body>
+    <div class="container">
+        <!-- GAME HEADER -->
+        <div class="game-header">
+            <h1>SNAKE GAME</h1>
+            <div class="game-stats">
+                <div class="stat">
+                    <span class="label">Score:</span>
+                    <span class="value" id="score">0</span>
+                </div>
+                <div class="stat">
+                    <span class="label">Waktu:</span>
+                    <span class="value" id="timer">00:00</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN GAME AREA -->
+        <div class="game-main">
+            <!-- LEFT SIDE: CANVAS & MOBILE CONTROLS -->
+            <div class="game-left">
+                <div class="game-board">
+                    <canvas id="gameCanvas" width="1500" height="1500" role="img" aria-label="Game Canvas"></canvas>
+                </div>
+                
+                <!-- MOBILE CONTROL BUTTONS -->
+                <div id="mobileControls" class="mobile-controls hidden">
+                    <button class="mobile-btn mobile-btn-up" data-direction="up" type="button" aria-label="Move Up">▲</button>
+                    <div class="mobile-row">
+                        <button class="mobile-btn mobile-btn-left" data-direction="left" type="button" aria-label="Move Left">◀</button>
+                        <button class="mobile-btn mobile-btn-right" data-direction="right" type="button" aria-label="Move Right">▶</button>
+                    </div>
+                    <button class="mobile-btn mobile-btn-down" data-direction="down" type="button" aria-label="Move Down">▼</button>
+                </div>
+            </div>
+
+            <!-- RIGHT SIDE: BUTTONS & INSTRUCTIONS -->
+            <div class="game-right">
+                <!-- GAME BUTTONS -->
+                <div class="game-controls">
+                    <button id="startBtn" class="btn btn-primary" type="button">Mulai Game</button>
+                    <button id="pauseBtn" class="btn btn-warning" disabled>Pause</button>
+                    <button id="resumeBtn" class="btn btn-success" disabled>Lanjut</button>
+                    <button id="resetBtn" class="btn btn-danger" type="button">Reset Game</button>
+                </div>
+
+                <!-- GAME INSTRUCTIONS (BELOW BUTTONS) -->
+                <div class="game-instruction" role="region" aria-label="Game Instructions">
+                     <p><strong>Cara Memainkannya:</strong></p>
+                    <ul>
+                        <li>
+                            <span class="info-desktop">
+                                Gunakan <strong>WASD</strong> untuk menggerakkan ular:
+                                <br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>W</strong> = Atas ▲
+                                <br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>A</strong> = Kiri ◀
+                                <br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>S</strong> = Bawah ▼
+                                <br>&nbsp;&nbsp;&nbsp;&nbsp;<strong>D</strong> = Kanan ▶
+                                <br>
+                                <strong>Atau</strong> gunakan tombol <strong>Panah (↑ ↓ ← →)</strong>
+                            </span>
+                            <span class="info-mobile">
+                                Gunakan <strong>tombol arah</strong> di bawah layar
+                            </span>
+                        </li>
+                        <li>Makan makanan merah (●) untuk +10 poin</li>
+                        <li>Jangan menabrak dinding atau tubuh sendiri!</li>
+                        <li>Tekan <strong>"Mulai Game"</strong> untuk memulai</li>
+                        <li>Tekan <strong>"Pause"</strong> untuk menghentikan sementara</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- GAME INFORMATION (BELOW ALL) -->
+        <div class="game-info" role="region" aria-label="Game Information">
+            <p><strong>Informasi Tambahan:</strong></p>
+            <ul>
+                <li>Semakin lama bermain, semakin cepat ular bergerak!</li>
+                <li>Tekan <strong>"Pause"</strong> untuk istirahat sementara</li>
+                <li>Tekan <strong>"Lanjut"</strong> untuk melanjutkan permainan</li>
+                <li>Selamat bermain dan raih skor tertinggi!</li>
+                <li>Game ini dibuat dengan HTML5 Canvas dan JavaScript</li>
+                <li>Untuk pengalaman terbaik, gunakan browser terbaru</li>
+                <li>Jika Anda mengalami masalah, coba refresh halaman atau gunakan browser lain</li>
+                <li>Game ini gratis dan dapat dimainkan tanpa koneksi internet setelah dimuat</li>
+                <li>Jika Anda menyukai game ini, bagikan dengan teman-teman Anda!</li>
+                <li>Terima kasih telah bermain Snake Game! 🐍</li>
+                <li>Jika Anda memiliki saran atau ingin melaporkan bug, silakan hubungi kami melalui media sosial atau email yang tersedia di footer</li>
+                <li>Ikuti kami di media sosial untuk update game dan konten menarik lainnya!</li>
+              
+            </ul>
+        </div>
+
+        <!-- GAME OVER MODAL -->
+        <div id="gameOverModal" class="modal hidden" role="dialog" aria-labelledby="gameOverTitle" aria-modal="true">
+            <div class="modal-content">
+                <h2 id="gameOverTitle">GAME OVER!</h2>
+                <div class="game-over-stats">
+                    <p>Final Score: <span id="finalScore">0</span></p>
+                    <p>Waktu Bermain: <span id="finalTime">00:00</span></p>
+                </div>
+                <div class="modal-buttons">
+                    <button id="playAgainBtn" class="btn btn-primary" type="button">Coba Lagi</button>
+                    <button id="closeModalBtn" class="btn btn-secondary" type="button">Tutup</button>
+                </div>
+            </div>
+        </div>
+
+          <!-- Footer (shared) -->
+     <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>Thertaria Project</h3>
+                    <p data-i18n="namespace"><li>Jangan lupa untuk memberikan rating dan ulasan jika Anda menikmati game ini!</li>
+                <li>Game ini dibuat dengan cinta oleh ARDINAZER★シ - ARCHTEN</li></p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p data-i18n="footer_copyright">&copy;Arcana Cassandra Thertariazeve 2026. All rights reserved.</p>
+                <p>Designed with <i class="fas fa-heart" style="color: var(--accent);"></i> ARDINAZER★シ - ARCHTEN</p>
+            </div>
+        </div>
+     </footer>
+    </div>
+
+
+    <!-- Main Game Scripts -->
+    <script src="script/script_universal.js" defer></script>
+    <script src="script/script_hybrid_controls.js" defer></script>
+    <script src="script/script_improved.js" defer></script>
+    
+    <!-- Fallback if script not found -->
+    <script>
+        // Check if script loaded
+        window.addEventListener('load', function() {
+            if (typeof gameState === 'undefined') {
+                console.error('Script failed to load. Please refresh the page.');
+                alert('Game script failed to load. Please refresh the page and try again.');
+            }
+        });
+    </script>
+
+    <!-- Analytics (optional) -->
+    <script>
+        // Log game initialization
+        console.log('Snake Game loaded at:', new Date().toLocaleTimeString());
+        console.log('User Agent:', navigator.userAgent);
+        console.log('Viewport Size:', window.innerWidth, 'x', window.innerHeight);
+    </script>
+</body>
+</html>

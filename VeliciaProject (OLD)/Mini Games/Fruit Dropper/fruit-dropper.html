@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <meta name="theme-color" content="#1a1a1a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Fruit Dropper</title>
+    <link rel="icon" href="asset/icon/apple.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600;700&family=Sour+Grape&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --primary: #FF6B6B;
+            --secondary: #4ECDC4;
+            --accent: #FFE66D;
+            --dark: #1a1a1a;
+            --light: #F5F6FA;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Fredoka', sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            color: var(--light);
+            position: fixed;
+            top: 0;
+            left: 0;
+            -webkit-user-select: none;
+            user-select: none;
+            touch-action: none;
+        }
+
+        .game-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: var(--dark);
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            background: var(--dark);
+        }
+
+        /* Touch Controls */
+        .touch-controls {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+            z-index: 60;
+            pointer-events: none;
+        }
+
+        .touch-controls.active {
+            display: flex;
+            pointer-events: auto;
+        }
+
+        .touch-zone {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .touch-zone::before {
+            font-size: 2rem;
+            color: rgba(78, 205, 196, 0.2);
+            font-weight: bold;
+        }
+
+        .touch-zone.left::before {
+            content: '◀';
+        }
+
+        .touch-zone.right::before {
+            content: '▶';
+        }
+
+        .touch-zone:active::before {
+            color: rgba(78, 205, 196, 0.5);
+        }
+
+        /* Menu */
+        .menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            padding: 1rem;
+            overflow-y: auto;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .menu.hidden {
+            display: none;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .menu-content {
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .menu-title {
+            font-family: 'Sour Grape', cursive;
+            font-size: clamp(2rem, 8vw, 4rem);
+            color: var(--accent);
+            text-shadow: 0 4px 20px rgba(255, 230, 109, 0.4);
+            text-align: center;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .menu-section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .menu-label {
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            font-weight: 700;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--secondary);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--light);
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: rgba(255, 230, 109, 0.15);
+            box-shadow: 0 0 20px rgba(255, 230, 109, 0.3);
+        }
+
+        .difficulty-buttons {
+            display: flex;
+            gap: 0.8rem;
+            width: 100%;
+        }
+
+        .diff-btn {
+            flex: 1;
+            padding: 0.8rem;
+            border: 2px solid var(--secondary);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--light);
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 700;
+            font-size: clamp(0.8rem, 1.5vw, 1rem);
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+
+        .diff-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(78, 205, 196, 0.3);
+        }
+
+        .diff-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-color: var(--accent);
+            color: #000;
+            box-shadow: 0 0 20px rgba(255, 230, 109, 0.5);
+        }
+
+        .color-presets {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(45px, 1fr));
+            gap: 0.8rem;
+            width: 100%;
+        }
+
+        .color-preset {
+            aspect-ratio: 1;
+            border: 3px solid var(--secondary);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .color-preset:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(78, 205, 196, 0.5);
+        }
+
+        .color-preset.active {
+            border-color: var(--accent);
+            box-shadow: 0 0 20px rgba(255, 230, 109, 0.8);
+            transform: scale(1.1);
+        }
+
+        .color-preset::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--accent);
+            font-weight: 900;
+            font-size: 1.2rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .color-preset.active::after {
+            opacity: 1;
+        }
+
+        .color-input-group {
+            display: flex;
+            gap: 0.8rem;
+            align-items: center;
+            width: 100%;
+        }
+
+        .color-input {
+            width: 50px;
+            height: 40px;
+            border: 2px solid var(--secondary);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .color-input:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 15px rgba(78, 205, 196, 0.4);
+        }
+
+        .color-hex-input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 2px solid var(--secondary);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--light);
+            font-family: 'Fredoka', sans-serif;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .color-hex-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: rgba(255, 230, 109, 0.15);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        .menu-btn {
+            flex: 1;
+            min-width: 120px;
+            padding: 1rem;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 700;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .btn-play {
+            background: linear-gradient(135deg, var(--primary), #FF8E7B);
+            color: white;
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
+        }
+
+        .btn-play:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(255, 107, 107, 0.4);
+        }
+
+        .btn-play:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: rgba(78, 205, 196, 0.2);
+            color: var(--secondary);
+            border: 2px solid var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(78, 205, 196, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .how-to-play {
+            font-size: clamp(0.8rem, 1.5vw, 0.95rem);
+            color: #BDC3C7;
+            text-align: center;
+            line-height: 1.6;
+            padding: 1rem;
+            border: 2px solid var(--secondary);
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .how-to-play strong {
+            color: var(--accent);
+        }
+
+        /* Game UI */
+        .game-ui {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1rem;
+            display: none;
+            justify-content: space-between;
+            align-items: flex-start;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
+            z-index: 50;
+            font-weight: 700;
+        }
+
+        .game-ui.active {
+            display: flex;
+        }
+
+        .game-stats {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .stat {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .stat-label {
+            font-size: clamp(0.7rem, 1.2vw, 0.8rem);
+            text-transform: uppercase;
+            color: var(--secondary);
+            letter-spacing: 1px;
+        }
+
+        .stat-value {
+            color: var(--accent);
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            font-weight: 900;
+        }
+
+        .hp-bar {
+            width: 80px;
+            height: 6px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 0.3rem;
+        }
+
+        .hp-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), #FF8E7B);
+            transition: width 0.2s;
+        }
+
+        /* Modals */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 150;
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        .modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, rgba(45, 52, 54, 0.95), rgba(52, 73, 94, 0.95));
+            padding: 2rem;
+            border-radius: 15px;
+            z-index: 200;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            animation: scaleIn 0.3s ease-out;
+            display: none;
+            width: 90%;
+            max-width: 400px;
+            border: 1px solid rgba(78, 205, 196, 0.2);
+        }
+
+        .modal.active {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        @keyframes scaleIn {
+            from { transform: translate(-50%, -50%) scale(0.7); opacity: 0; }
+            to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+
+        .modal-title {
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            font-weight: 900;
+            color: var(--accent);
+            letter-spacing: 1px;
+        }
+
+        .pause-menu .modal-title {
+            color: var(--accent);
+        }
+
+        .game-over .modal-title {
+            color: var(--primary);
+        }
+
+        .modal-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            width: 100%;
+        }
+
+        .modal-btn {
+            padding: 0.8rem 1rem;
+            border: 2px solid var(--secondary);
+            border-radius: 8px;
+            background: rgba(78, 205, 196, 0.1);
+            color: var(--secondary);
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 700;
+            font-size: clamp(0.8rem, 1.5vw, 1rem);
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+
+        .modal-btn:hover {
+            background: rgba(78, 205, 196, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .modal-stats {
+            text-align: left;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            border-left: 3px solid var(--secondary);
+        }
+
+        .stat-line {
+            display: flex;
+            justify-content: space-between;
+            margin: 0.5rem 0;
+            font-size: clamp(0.85rem, 1.5vw, 1rem);
+        }
+
+        .stat-line strong {
+            color: var(--secondary);
+        }
+
+        .stat-line span {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .leaderboard-list {
+            max-height: 300px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            text-align: left;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem;
+            background: rgba(78, 205, 196, 0.1);
+            border-left: 3px solid var(--secondary);
+            border-radius: 6px;
+            font-size: clamp(0.8rem, 1.3vw, 0.95rem);
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .leaderboard-rank {
+            color: var(--accent);
+            font-weight: 900;
+            min-width: 25px;
+        }
+
+        .leaderboard-name {
+            flex: 1;
+            color: var(--light);
+            min-width: 80px;
+        }
+
+        .leaderboard-score {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .leaderboard-difficulty {
+            font-size: 0.7rem;
+            color: var(--secondary);
+            background: rgba(78, 205, 196, 0.2);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .close-btn {
+            align-self: flex-end;
+            padding: 0.6rem 1rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: clamp(0.75rem, 1.2vw, 0.9rem);
+            transition: all 0.3s;
+        }
+
+        .close-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+        }
+
+        .empty-leaderboard {
+            text-align: center;
+            color: #95A5A6;
+            padding: 1.5rem;
+            font-style: italic;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .button-group {
+                gap: 0.6rem;
+            }
+
+            .game-stats {
+                gap: 1rem;
+            }
+
+            .modal {
+                padding: 1.5rem;
+            }
+        }
+
+        @media (max-height: 600px) {
+            .menu-content {
+                gap: 1rem;
+            }
+
+            .how-to-play {
+                font-size: 0.8rem;
+                padding: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container" id="gameContainer">
+        <canvas id="gameCanvas"></canvas>
+        
+        <!-- Touch Controls -->
+        <div class="touch-controls" id="touchControls">
+            <div class="touch-zone left" id="touchLeft"></div>
+            <div class="touch-zone right" id="touchRight"></div>
+        </div>
+        
+        <!-- Menu -->
+        <div class="menu" id="menu">
+            <div class="menu-content">
+                <h1 class="menu-title">FRUIT DROP</h1>
+                <div class="menu-section">
+                    <label class="menu-label">Player Name</label>
+                    <input type="text" id="playerName" class="input-field" placeholder="Enter your name..." maxlength="20">
+                </div>
+
+                <div class="menu-section">
+                    <label class="menu-label">Difficulty</label>
+                    <div class="difficulty-buttons">
+                        <button class="diff-btn active" data-difficulty="easy">Easy</button>
+                        <button class="diff-btn" data-difficulty="medium">Medium</button>
+                        <button class="diff-btn" data-difficulty="hard">Hard</button>
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <label class="menu-label">Background Color</label>
+                    <div class="color-presets" id="colorPresets"></div>
+                    <label class="menu-label" style="margin-top: 0.5rem;">Custom Color</label>
+                    <div class="color-input-group">
+                        <input type="color" id="bgColorPicker" class="color-input" value="#1a1a1a">
+                        <input type="text" id="bgColorHex" class="color-hex-input" placeholder="#1A1A1A" maxlength="7">
+                    </div>
+                </div>
+
+                <div class="menu-section">
+                    <div class="how-to-play">
+                        <strong>HOW TO PLAY:</strong><br>
+                        🍎 Catch apples & avocados = +1 point<br>
+                        ⭐ Golden apples = +3 points & +1 HP<br>
+                        🗑️ Trash = -5 points<br>
+                        💣 Bombs = Game Over<br>
+                        <strong>Keys:</strong> A/D or ← → | ESC to pause
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button class="menu-btn btn-secondary" id="leaderboardBtn">📊 Leaderboard</button>
+                    <button class="menu-btn btn-play" id="playBtn">PLAY</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game UI -->
+        <div class="game-ui" id="gameUI">
+            <div class="game-stats">
+                <div class="stat">
+                    <span class="stat-label">Player</span>
+                    <span class="stat-value" id="playerDisplay">-</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">Score</span>
+                    <span class="stat-value" id="scoreDisplay">0</span>
+                </div>
+            </div>
+            <div class="stat">
+                <span class="stat-label">HP</span>
+                <div class="hp-bar">
+                    <div class="hp-fill" id="hpFill"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Overlays & Modals -->
+        <div class="overlay" id="overlay"></div>
+
+        <div class="modal pause-menu" id="pauseMenu">
+            <div class="modal-title">PAUSED</div>
+            <div class="modal-buttons">
+                <button class="modal-btn" id="continueBtn">Continue</button>
+                <button class="modal-btn" id="restartFromPauseBtn">Restart</button>
+                <button class="modal-btn" id="quitFromPauseBtn">Quit</button>
+            </div>
+        </div>
+
+        <div class="modal game-over" id="gameOverScreen">
+            <div class="modal-title">GAME OVER</div>
+            <div class="modal-stats">
+                <div class="stat-line">
+                    <strong>Player:</strong>
+                    <span id="finalName">-</span>
+                </div>
+                <div class="stat-line">
+                    <strong>Score:</strong>
+                    <span id="finalScore">0</span>
+                </div>
+                <div class="stat-line">
+                    <strong>Difficulty:</strong>
+                    <span id="finalDifficulty">Easy</span>
+                </div>
+            </div>
+            <div class="modal-buttons">
+                <button class="modal-btn" id="restartBtn">Restart</button>
+                <button class="modal-btn" id="quitBtn">Quit</button>
+            </div>
+        </div>
+
+        <div class="modal" id="leaderboardDisplay">
+            <div class="modal-title">🏆 LEADERBOARD</div>
+            <div class="leaderboard-list" id="leaderboardList"></div>
+            <button class="close-btn" id="closeLeaderboardBtn">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // Game Constants
+        const GAME_WIDTH = window.innerWidth;
+        const GAME_HEIGHT = window.innerHeight;
+        const BASKET_WIDTH = Math.max(60, Math.min(GAME_WIDTH, GAME_HEIGHT) * 0.12);
+        const BASKET_HEIGHT = Math.max(50, Math.min(GAME_WIDTH, GAME_HEIGHT) * 0.08);
+        const FRUIT_SIZE = Math.max(35, Math.min(GAME_WIDTH, GAME_HEIGHT) * 0.05);
+
+        // Game State
+        const gameState = {
+            isPlaying: false,
+            isPaused: false,
+            playerName: '',
+            difficulty: 'easy',
+            score: 0,
+            hp: 3,
+            maxHP: 3,
+            backgroundColor: '#1a1a1a',
+            gameTime: 0,
+            spawnRate: 3000,
+            fallSpeed: 1,
+            fruits: [],
+            basket: { x: GAME_WIDTH / 2 - BASKET_WIDTH / 2, y: GAME_HEIGHT - 100 },
+            keys: {}
+        };
+
+        let gameLoopId = null;
+        let imagesLoaded = false;
+        let imagesLoadedCount = 0;
+
+        const difficultySettings = {
+            easy: { spawnRate: 3000, fallSpeed: 2, maxHP: 15 },
+            medium: { spawnRate: 2000, fallSpeed: 3, maxHP: 10 },
+            hard: { spawnRate: 1000, fallSpeed: 4, maxHP: 5 }
+        };
+
+        // DOM
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const menu = document.getElementById('menu');
+        const gameUI = document.getElementById('gameUI');
+        const playerNameInput = document.getElementById('playerName');
+        const playBtn = document.getElementById('playBtn');
+        const touchControls = document.getElementById('touchControls');
+        const touchLeft = document.getElementById('touchLeft');
+        const touchRight = document.getElementById('touchRight');
+
+        // Images
+        const images = {};
+        const imageNames = ['apple', 'avocado', 'basket', 'bomb', 'golden_apple', 'trash'];
+
+        // Load Images
+        function loadImages() {
+            imagesLoadedCount = 0;
+            imageNames.forEach(name => {
+                images[name] = new Image();
+                images[name].src = `asset/${name}.png`;
+                images[name].onload = () => {
+                    imagesLoadedCount++;
+                    if (imagesLoadedCount === imageNames.length) {
+                        imagesLoaded = true;
+                    }
+                };
+                images[name].onerror = () => {
+                    imagesLoadedCount++;
+                    console.warn(`Failed to load: ${name}`);
+                };
+            });
+        }
+
+        // Fruit Types
+        const fruitTypes = {
+            apple: { points: 1, hp: 0, image: 'apple' },
+            avocado: { points: 1, hp: 0, image: 'avocado' },
+            golden_apple: { points: 3, hp: 1, image: 'golden_apple' },
+            trash: { points: -5, hp: 0, image: 'trash' },
+            bomb: { points: 0, hp: -99999, image: 'bomb' }
+        };
+
+        // Color Presets
+        const COLOR_PRESETS = [
+            { name: 'Dark', color: '#1a1a1a' },
+            { name: 'Deep Blue', color: '#0a1428' },
+            { name: 'Purple', color: '#2a0845' },
+            { name: 'Green', color: '#0d3b1a' },
+            { name: 'Red', color: '#5a0a0a' },
+            { name: 'Navy', color: '#000d33' },
+            { name: 'Teal', color: '#001a14' },
+            { name: 'Gray', color: '#0f0f0f' }
+        ];
+
+        // Resize Canvas
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Initialize Color Presets
+        function initializeColorPresets() {
+            const container = document.getElementById('colorPresets');
+            container.innerHTML = '';
+            COLOR_PRESETS.forEach(preset => {
+                const btn = document.createElement('button');
+                btn.className = 'color-preset' + (preset.color === gameState.backgroundColor ? ' active' : '');
+                btn.style.backgroundColor = preset.color;
+                btn.title = preset.name;
+                btn.onclick = () => selectColorPreset(preset.color, btn);
+                container.appendChild(btn);
+            });
+        }
+
+        function selectColorPreset(color, btn) {
+            document.querySelectorAll('.color-preset').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            gameState.backgroundColor = color;
+            document.getElementById('bgColorPicker').value = color;
+            document.getElementById('bgColorHex').value = color.toUpperCase();
+        }
+
+        // Color Picker Events
+        document.getElementById('bgColorPicker').addEventListener('input', (e) => {
+            gameState.backgroundColor = e.target.value;
+            document.getElementById('bgColorHex').value = e.target.value.toUpperCase();
+            document.querySelectorAll('.color-preset').forEach(b => b.classList.remove('active'));
+        });
+
+        document.getElementById('bgColorHex').addEventListener('input', (e) => {
+            let val = e.target.value.trim();
+            if (!val.startsWith('#')) val = '#' + val;
+            if (/^#[0-9A-F]{6}$/i.test(val)) {
+                gameState.backgroundColor = val;
+                document.getElementById('bgColorPicker').value = val;
+                document.querySelectorAll('.color-preset').forEach(b => b.classList.remove('active'));
+            }
+        });
+
+        // Difficulty
+        document.querySelectorAll('.diff-btn').forEach(btn => {
+            btn.onclick = (e) => {
+                document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                gameState.difficulty = e.target.dataset.difficulty;
+            };
+        });
+
+        // Button Events
+        playBtn.onclick = startGame;
+        document.getElementById('leaderboardBtn').onclick = showLeaderboard;
+        document.getElementById('continueBtn').onclick = () => {
+            gameState.isPaused = false;
+            document.getElementById('pauseMenu').classList.remove('active');
+            document.getElementById('overlay').classList.remove('active');
+            gameLoop();
+        };
+        document.getElementById('restartFromPauseBtn').onclick = () => {
+            document.getElementById('pauseMenu').classList.remove('active');
+            document.getElementById('overlay').classList.remove('active');
+            restartGame();
+        };
+        document.getElementById('quitFromPauseBtn').onclick = () => {
+            document.getElementById('pauseMenu').classList.remove('active');
+            document.getElementById('overlay').classList.remove('active');
+            quitGame();
+        };
+        document.getElementById('restartBtn').onclick = restartGame;
+        document.getElementById('quitBtn').onclick = quitGame;
+        document.getElementById('closeLeaderboardBtn').onclick = () => {
+            document.getElementById('leaderboardDisplay').classList.remove('active');
+            document.getElementById('overlay').classList.remove('active');
+        };
+
+        // Keyboard
+        document.addEventListener('keydown', (e) => {
+            gameState.keys[e.key.toLowerCase()] = true;
+            if (e.key === 'Escape' && gameState.isPlaying && !gameState.isPaused) {
+                gameState.isPaused = true;
+                document.getElementById('pauseMenu').classList.add('active');
+                document.getElementById('overlay').classList.add('active');
+            }
+        });
+
+        document.addEventListener('keyup', (e) => {
+            gameState.keys[e.key.toLowerCase()] = false;
+        });
+
+        // Touch
+        function enableTouchControls() {
+            if ('ontouchstart' in window) {
+                touchControls.classList.add('active');
+            }
+        }
+
+        touchLeft.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            gameState.keys['a'] = true;
+        }, { passive: false });
+
+        touchLeft.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            gameState.keys['a'] = false;
+        }, { passive: false });
+
+        touchRight.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            gameState.keys['d'] = true;
+        }, { passive: false });
+
+        touchRight.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            gameState.keys['d'] = false;
+        }, { passive: false });
+
+        // Game Functions
+        function startGame() {
+            const name = playerNameInput.value.trim();
+            if (!name) {
+                alert('Enter a name!');
+                return;
+            }
+
+            gameState.playerName = name;
+            const settings = difficultySettings[gameState.difficulty];
+            gameState.spawnRate = settings.spawnRate;
+            gameState.fallSpeed = settings.fallSpeed;
+            gameState.maxHP = settings.maxHP;
+            gameState.hp = settings.maxHP;
+            gameState.score = 0;
+            gameState.isPlaying = true;
+            gameState.isPaused = false;
+            gameState.fruits = [];
+            gameState.gameTime = 0;
+
+            menu.classList.add('hidden');
+            gameUI.classList.add('active');
+            document.getElementById('playerDisplay').textContent = name;
+
+            gameLoop();
+        }
+
+        function restartGame() {
+            if (gameLoopId) cancelAnimationFrame(gameLoopId);
+            gameState.isPlaying = false;
+            gameState.isPaused = false;
+            document.getElementById('gameOverScreen').classList.remove('active');
+            document.getElementById('overlay').classList.remove('active');
+            gameState.fruits = [];
+            startGame();
+        }
+
+        function quitGame() {
+            if (gameLoopId) cancelAnimationFrame(gameLoopId);
+            gameState.isPlaying = false;
+            gameState.isPaused = false;
+            document.getElementById('gameOverScreen').classList.remove('active');
+            document.getElementById('leaderboardDisplay').classList.remove('active');
+            document.getElementById('overlay').classList.remove('active');
+            menu.classList.remove('hidden');
+            gameUI.classList.remove('active');
+            gameState.fruits = [];
+        }
+
+        function endGame() {
+            gameState.isPlaying = false;
+            const difficulty = gameState.difficulty.charAt(0).toUpperCase() + gameState.difficulty.slice(1);
+            saveScore(gameState.playerName, gameState.score, gameState.difficulty);
+
+            document.getElementById('finalName').textContent = gameState.playerName;
+            document.getElementById('finalScore').textContent = gameState.score;
+            document.getElementById('finalDifficulty').textContent = difficulty;
+
+            document.getElementById('gameOverScreen').classList.add('active');
+            document.getElementById('overlay').classList.add('active');
+        }
+
+        function saveScore(name, score, difficulty) {
+            const scores = JSON.parse(localStorage.getItem('fruitDropperScores')) || [];
+            scores.push({ name, score, difficulty, date: new Date().toLocaleDateString() });
+            localStorage.setItem('fruitDropperScores', JSON.stringify(scores));
+        }
+
+        function showLeaderboard() {
+            const scores = JSON.parse(localStorage.getItem('fruitDropperScores')) || [];
+            const sorted = scores.sort((a, b) => b.score - a.score).slice(0, 10);
+
+            const list = document.getElementById('leaderboardList');
+            list.innerHTML = '';
+
+            if (sorted.length === 0) {
+                list.innerHTML = '<div class="empty-leaderboard">No scores yet. Be first!</div>';
+            } else {
+                sorted.forEach((entry, i) => {
+                    const item = document.createElement('div');
+                    item.className = 'leaderboard-item';
+                    item.innerHTML = `
+                        <span class="leaderboard-rank">#${i + 1}</span>
+                        <span class="leaderboard-name">${entry.name}</span>
+                        <span class="leaderboard-score">${entry.score}</span>
+                        <span class="leaderboard-difficulty">${entry.difficulty}</span>
+                    `;
+                    list.appendChild(item);
+                });
+            }
+
+            document.getElementById('leaderboardDisplay').classList.add('active');
+            document.getElementById('overlay').classList.add('active');
+        }
+
+        function spawnFruit() {
+            const types = ['apple', 'avocado', 'golden_apple', 'trash', 'bomb'];
+            const weights = [30, 30, 15, 20, 5];
+            const total = weights.reduce((a, b) => a + b);
+            let rand = Math.random() * total;
+            let cum = 0;
+            let type = 'apple';
+
+            for (let i = 0; i < types.length; i++) {
+                cum += weights[i];
+                if (rand <= cum) {
+                    type = types[i];
+                    break;
+                }
+            }
+
+            gameState.fruits.push({
+                type: type,
+                x: Math.random() * (GAME_WIDTH - FRUIT_SIZE),
+                y: -FRUIT_SIZE,
+                width: FRUIT_SIZE,
+                height: FRUIT_SIZE
+            });
+        }
+
+        function updateGame() {
+            const speed = GAME_WIDTH * 0.01;
+            if (gameState.keys['a'] && gameState.basket.x > 0) {
+                gameState.basket.x -= speed;
+            }
+            if (gameState.keys['d'] && gameState.basket.x < GAME_WIDTH - BASKET_WIDTH) {
+                gameState.basket.x += speed;
+            }
+
+            for (let i = gameState.fruits.length - 1; i >= 0; i--) {
+                const fruit = gameState.fruits[i];
+                fruit.y += gameState.fallSpeed;
+
+                if (checkCollision(fruit)) {
+                    const data = fruitTypes[fruit.type];
+                    gameState.score += data.points;
+                    gameState.hp += data.hp;
+
+                    if (gameState.hp <= 0) {
+                        gameState.hp = 0;
+                        endGame();
+                        return;
+                    }
+
+                    gameState.fruits.splice(i, 1);
+                } else if (fruit.y > GAME_HEIGHT) {
+                    gameState.hp -= 1;
+                    gameState.fruits.splice(i, 1);
+
+                    if (gameState.hp <= 0) {
+                        gameState.hp = 0;
+                        endGame();
+                        return;
+                    }
+                }
+            }
+
+            document.getElementById('scoreDisplay').textContent = gameState.score;
+            const hpPct = (gameState.hp / gameState.maxHP) * 100;
+            document.getElementById('hpFill').style.width = hpPct + '%';
+
+            gameState.gameTime += 16;
+            if (gameState.gameTime % gameState.spawnRate < 16) {
+                spawnFruit();
+            }
+        }
+
+        function checkCollision(fruit) {
+            return (
+                fruit.x < gameState.basket.x + BASKET_WIDTH &&
+                fruit.x + fruit.width > gameState.basket.x &&
+                fruit.y < gameState.basket.y + BASKET_HEIGHT &&
+                fruit.y + fruit.height > gameState.basket.y
+            );
+        }
+
+        function drawGame() {
+            ctx.fillStyle = gameState.backgroundColor;
+            ctx.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+
+            // Draw fruits
+            gameState.fruits.forEach(fruit => {
+                const img = images[fruitTypes[fruit.type].image];
+                if (img && img.complete && img.naturalWidth > 0) {
+                    ctx.drawImage(img, fruit.x, fruit.y, fruit.width, fruit.height);
+                }
+            });
+
+            // Draw basket
+            if (images.basket && images.basket.complete && images.basket.naturalWidth > 0) {
+                ctx.drawImage(images.basket, gameState.basket.x, gameState.basket.y, BASKET_WIDTH, BASKET_HEIGHT);
+            }
+        }
+
+        function gameLoop() {
+            if (gameState.isPaused || !gameState.isPlaying) {
+                if (!gameState.isPaused && !gameState.isPlaying) return;
+                if (gameState.isPaused) gameLoopId = requestAnimationFrame(gameLoop);
+                return;
+            }
+
+            updateGame();
+            drawGame();
+            gameLoopId = requestAnimationFrame(gameLoop);
+        }
+
+        // Initialize
+        window.addEventListener('load', () => {
+            loadImages();
+            initializeColorPresets();
+            enableTouchControls();
+            
+            ctx.fillStyle = gameState.backgroundColor;
+            ctx.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
+        });
+    </script>
+</body>
+</html>
