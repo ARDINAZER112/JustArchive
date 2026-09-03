@@ -1,0 +1,8 @@
+/* Your CSS styles here */
+/* Contoh mengubah background jadi gambar */
+.bp-widget-widget,
+.bpw-chat-container {
+    background-image: url('https://www.luxinesid.my.id/asset/img/poster.gif') !important;
+    background-size: cover !important;
+    background-position: center !important;
+}

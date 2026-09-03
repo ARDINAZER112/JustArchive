@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="Tutorial Java Lengkap - Playground Interaktif dan Referensi Cepat">
+    <meta name="theme-color" content="#1a237e">
+    <title>Belajar Java Lengkap - Tutorial & Playground Interaktif</title>
+    <link rel="stylesheet" href="style/java.css">
+    <link rel="icon" href="asset/Arcana Therzevena.png" type="image/x-icon">
+</head>
+
+<body oncontextmenu="return false;">
+    <!-- NAVBAR -->
+    <nav>
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle navigation menu">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+        <ul id="navMenu">
+            <li><a href="#pengenalan" data-lang-en="📖 Introduction" data-lang-id="📖 Pengenalan">📖 Pengenalan</a></li>
+            <li><a href="#tutorial" data-lang-en="📚 Tutorial" data-lang-id="📚 Tutorial">📚 Tutorial</a></li>
+            <li><a href="#practice" data-lang-en="🎨 Practice" data-lang-id="🎨 Praktik">🎨 Praktik</a></li>
+            <li><a href="#playground" data-lang-en="💻 IDE" data-lang-id="💻 IDE">💻 IDE</a></li>
+            <li><a href="#reference" data-lang-en="📋 Reference" data-lang-id="📋 Referensi">📋 Referensi</a></li>
+        </ul>
+        <div class="nav-controls">
+            <button class="settings-btn" id="settingsBtn" aria-label="Open settings">⚙️</button>
+        </div>
+    </nav>
+
+    <!-- SETTINGS PANEL -->
+    <div class="settings-overlay" id="settingsOverlay"></div>
+    <div class="settings-panel" id="settingsPanel">
+        <div class="settings-header">
+            <h2>⚙️ Pengaturan</h2>
+            <button class="close-settings" id="closeSettings" aria-label="Close settings">✕</button>
+        </div>
+        <div class="settings-content">
+            <!-- Dark Mode Toggle -->
+            <div class="settings-group">
+                <label>🌙 Mode Gelap</label>
+                <div class="toggle-group">
+                    <div class="toggle-switch" id="darkModeToggle"></div>
+                    <span id="darkModeLabel" data-lang-en="Off" data-lang-id="Nonaktif"></span>
+                </div>
+            </div>
+
+            <!-- Language Selection -->
+            <div class="settings-group">
+                <label for="languageSelect" data-lang-en="🌐 Language" data-lang-id="🌐 Bahasa">🌐 Bahasa</label>
+                <select id="languageSelect">
+                    <option value="id">Bahasa Indonesia</option>
+                    <option value="en">English</option>
+                </select>
+            </div>
+
+            <!-- Font Size -->
+            <div class="settings-group">
+                <label data-lang-en="📝 Font Size" data-lang-id="📝 Ukuran Font">📝 Ukuran Font</label>
+                <div class="font-size-options">
+                    <button class="font-size-btn" data-size="small">A-</button>
+                    <button class="font-size-btn active" data-size="normal">A</button>
+                    <button class="font-size-btn" data-size="large">A+</button>
+                    <button class="font-size-btn" data-size="extra-large">A++</button>
+                </div>
+            </div>
+
+            <!-- Theme Color -->
+            <div class="settings-group">
+                <label data-lang-en="🎨 Theme Color" data-lang-id="🎨 Warna Tema">🎨 Warna Tema</label>
+                <div class="color-palette">
+                    <div class="color-option active" data-theme="blue" style="background: linear-gradient(135deg, #1a237e, #283593);" title="Blue"></div>
+                    <div class="color-option" data-theme="purple" style="background: linear-gradient(135deg, #4a148c, #6a1b9a);" title="Purple"></div>
+                    <div class="color-option" data-theme="teal" style="background: linear-gradient(135deg, #004d40, #00695c);" title="Teal"></div>
+                    <div class="color-option" data-theme="red" style="background: linear-gradient(135deg, #b71c1c, #d32f2f);" title="Red"></div>
+                    <div class="color-option" data-theme="green" style="background: linear-gradient(135deg, #1b5e20, #2e7d32);" title="Green"></div>
+                    <div class="color-option" data-theme="orange" style="background: linear-gradient(135deg, #e65100, #ff6f00);" title="Orange"></div>
+                </div>
+            </div>
+
+            <!-- Code Theme -->
+            <div class="settings-group">
+                <label data-lang-en="💻 IDE Theme" data-lang-id="💻 Tema IDE">💻 Tema IDE/Kode</label>
+                <div class="code-theme-options">
+                    <button class="theme-btn active" data-code-theme="monokai">Monokai</button>
+                    <button class="theme-btn" data-code-theme="github-light">GitHub Light</button>
+                    <button class="theme-btn" data-code-theme="github-dark">GitHub Dark</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="settings-footer">
+            <button class="reset-btn" id="resetBtn" data-lang-en="🔄 Reset All Setting" data-lang-id="🔄Reset Semua Pengaturan">🔄 Reset Semua Pengaturan</button>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <div class="header">
+        <h1 data-lang-en="☕ LEARN JAVA COMPLETE" data-lang-id="☕ BELAJAR JAVA LENGKAP">☕ BELAJAR JAVA LENGKAP</h1>
+        <p data-lang-en="From Beginner to Expert - Comprehensive Tutorial, Direct Practice, and Interactive IDE" data-lang-id="Dari Pemula hingga Mahir - Tutorial Komprehensif, Praktik Langsung, dan Playground Interaktif">Dari Pemula hingga Mahir - Tutorial Komprehensif, Praktik Langsung, dan Playground Interaktif</p>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+        <!-- PENGENALAN SECTION -->
+        <div class="menu-section" id="pengenalan">
+            <h2 data-lang-en="📖 Introduction to Java" data-lang-id="📖 Pengenalan Java">📖 Pengenalan Java</h2>
+            
+            <h3 data-lang-en="What is Java?" data-lang-id="Apa itu Java?">Apa itu Java?</h3>
+            <p data-lang-en="Java is an object-oriented programming language developed by Sun Microsystems in 1995. Java is designed to run on various platforms with the 'Write Once, Run Anywhere' (WORA) philosophy. Java uses the Java Virtual Machine (JVM) to execute compiled bytecode." data-lang-id="Java adalah bahasa pemrograman berbasis objek (OOP) yang dikembangkan oleh Sun Microsystems pada tahun 1995. Java dirancang untuk berjalan di berbagai platform dengan filosofi 'Write Once, Run Anywhere' (WORA). Java menggunakan Java Virtual Machine (JVM) untuk mengeksekusi bytecode yang telah dikompilasi.">Java adalah bahasa pemrograman berbasis objek (OOP) yang dikembangkan oleh Sun Microsystems pada tahun 1995. Java dirancang untuk berjalan di berbagai platform dengan filosofi "Write Once, Run Anywhere" (WORA). Java menggunakan Java Virtual Machine (JVM) untuk mengeksekusi bytecode yang telah dikompilasi.</p>
+
+            <h3 data-lang-en="Why Learn Java?" data-lang-id="Mengapa Belajar Java?">Mengapa Belajar Java?</h3>
+            <ul class="features-list">
+                <li data-lang-en="Popular & High Demand - Java is the most sought-after language in industry" data-lang-id="Populer & Permintaan Tinggi - Java adalah bahasa paling dicari di industri"><strong data-lang-en="Popular & High Demand" data-lang-id="Populer & Permintaan Tinggi">Populer & Permintaan Tinggi</strong> - <span data-lang-en="Java is the most sought-after language in industry" data-lang-id="Java adalah bahasa paling dicari di industri">Java adalah bahasa paling dicari di industri</span></li>
+                <li data-lang-en="Platform Independent - Runs on all operating systems" data-lang-id="Platform Independen - Berjalan di semua sistem operasi"><strong data-lang-en="Platform Independent" data-lang-id="Platform Independen">Platform Independen</strong> - <span data-lang-en="Runs on all operating systems" data-lang-id="Berjalan di semua sistem operasi">Berjalan di semua sistem operasi</span></li>
+                <li data-lang-en="Object-Oriented - Fundamental OOP concepts for software development" data-lang-id="Object-Oriented - Konsep OOP fundamental untuk pengembangan software"><strong data-lang-en="Object-Oriented" data-lang-id="Object-Oriented">Object-Oriented</strong> - <span data-lang-en="Fundamental OOP concepts for software development" data-lang-id="Konsep OOP fundamental untuk pengembangan software">Konsep OOP fundamental untuk pengembangan software</span></li>
+                <li data-lang-en="Safe & Stable - Used by Fortune 500 companies" data-lang-id="Aman & Stabil - Digunakan oleh perusahaan Fortune 500"><strong data-lang-en="Safe & Stable" data-lang-id="Aman & Stabil">Aman & Stabil</strong> - <span data-lang-en="Used by Fortune 500 companies" data-lang-id="Digunakan oleh perusahaan Fortune 500">Digunakan oleh perusahaan Fortune 500</span></li>
+                <li data-lang-en="Rich Ecosystem - Thousands of libraries and frameworks available" data-lang-id="Rich Ecosystem - Ribuan library dan framework tersedia"><strong data-lang-en="Rich Ecosystem" data-lang-id="Rich Ecosystem">Rich Ecosystem</strong> - <span data-lang-en="Thousands of libraries and frameworks available" data-lang-id="Ribuan library dan framework tersedia">Ribuan library dan framework tersedia</span></li>
+                <li data-lang-en="Scalable - Suitable for large enterprise applications" data-lang-id="Scalable - Cocok untuk aplikasi enterprise besar"><strong data-lang-en="Scalable" data-lang-id="Scalable">Scalable</strong> - <span data-lang-en="Suitable for large enterprise applications" data-lang-id="Cocok untuk aplikasi enterprise besar">Cocok untuk aplikasi enterprise besar</span></li>
+            </ul>
+
+            <h3 data-lang-en="Java Characteristics" data-lang-id="Karakteristik Java">Karakteristik Java</h3>
+            <ul class="features-list">
+                <li data-lang-en="Simple - Syntax similar to C++ but simpler" data-lang-id="Simple - Sintaks yang mirip dengan C++ tapi lebih sederhana"><strong data-lang-en="Simple" data-lang-id="Simple">Simple</strong> - <span data-lang-en="Syntax similar to C++ but simpler" data-lang-id="Sintaks yang mirip dengan C++ tapi lebih sederhana">Sintaks yang mirip dengan C++ tapi lebih sederhana</span></li>
+                <li data-lang-en="Secure - Built-in security features" data-lang-id="Secure - Fitur keamanan built-in"><strong data-lang-en="Secure" data-lang-id="Secure">Secure</strong> - <span data-lang-en="Built-in security features" data-lang-id="Fitur keamanan built-in">Fitur keamanan built-in</span></li>
+                <li data-lang-en="Robust - Good error handling" data-lang-id="Robust - Penanganan error yang baik"><strong data-lang-en="Robust" data-lang-id="Robust">Robust</strong> - <span data-lang-en="Good error handling" data-lang-id="Penanganan error yang baik">Penanganan error yang baik</span></li>
+                <li data-lang-en="Multithreading - Supports concurrent programming" data-lang-id="Multithreading - Mendukung concurrent programming"><strong data-lang-en="Multithreading" data-lang-id="Multithreading">Multithreading</strong> - <span data-lang-en="Supports concurrent programming" data-lang-id="Mendukung concurrent programming">Mendukung concurrent programming</span></li>
+                <li data-lang-en="Dynamic - Dynamic class loading" data-lang-id="Dynamic - Loading class yang dinamis"><strong data-lang-en="Dynamic" data-lang-id="Dynamic">Dynamic</strong> - <span data-lang-en="Dynamic class loading" data-lang-id="Loading class yang dinamis">Loading class yang dinamis</span></li>
+                <li data-lang-en="Portable - Write once, run anywhere" data-lang-id="Portable - Write once, run anywhere"><strong data-lang-en="Portable" data-lang-id="Portable">Portable</strong> - <span data-lang-en="Write once, run anywhere" data-lang-id="Write once, run anywhere">Write once, run anywhere</span></li>
+            </ul>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                <code>public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Halo, Dunia!");
+    }
+}</code>
+            </div>
+        </div>
+
+        <!-- TUTORIAL SECTION -->
+        <div class="menu-section" id="tutorial">
+            <h2 data-lang-en="📚 Java Tutorial" data-lang-id="📚 Tutorial Java">📚 Tutorial Java</h2>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab(event, 'tab-basic')" data-lang-en="Basic" data-lang-id="Dasar">Dasar</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tab-oop')" data-lang-en="OOP" data-lang-id="OOP">OOP</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tab-collection')" data-lang-en="Collection" data-lang-id="Collection">Collection</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tab-exception')" data-lang-en="Exception" data-lang-id="Exception">Exception</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tab-advanced')" data-lang-en="Advanced" data-lang-id="Advanced">Advanced</button>
+            </div>
+
+            <!-- TAB 1: DASAR -->
+            <div id="tab-basic" class="tab-content active">
+                <div class="tutorial-grid">
+                    <!-- Variables & Data Types -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="Variables & Data Types" data-lang-id="Variables & Tipe Data">Variables & Tipe Data</h3>
+                            <span class="tutorial-level" data-lang-en="Beginner" data-lang-id="Pemula">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Understand variables and data types in Java." data-lang-id="Memahami variabel dan tipe data di Java.">Memahami variabel dan tipe data di Java.</p>
+
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>int umur = 25;
+double tinggi = 175.5;
+boolean aktif = true;
+String nama = "Budi";
+char huruf = 'A';
+
+// Konversi Tipe
+int angka = (int) 10.5;
+String str = String.valueOf(100);</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Operators -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="Operators" data-lang-id="Operators">Operators</h3>
+                            <span class="tutorial-level" data-lang-en="Beginner" data-lang-id="Pemula">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Use various operators in Java." data-lang-id="Menggunakan berbagai operator di Java.">Menggunakan berbagai operator di Java.</p>
+
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>int a = 10, b = 5;
+
+// Aritmatik
+int hasil = a + b;
+hasil = a - b;
+hasil = a * b;
+hasil = a / b;
+hasil = a % b;
+
+// Perbandingan
+boolean cek = a > b;
+cek = a == b;
+
+// Logika
+cek = true && false;
+cek = true || false;
+cek = !true;</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Control Flow -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="Control Flow" data-lang-id="Control Flow">Control Flow</h3>
+                            <span class="tutorial-level" data-lang-en="Beginner" data-lang-id="Pemula">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Control program flow with if, switch, and loops." data-lang-id="Kontrol alur program dengan if, switch, dan loop.">Kontrol alur program dengan if, switch, dan loop.</p>
+
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>// If-Else
+if (umur >= 18) {
+    System.out.println("Dewasa");
+} else {
+    System.out.println("Anak-anak");
+}
+
+// For Loop
+for (int i = 0; i < 5; i++) {
+    System.out.println(i);
+}
+
+// While Loop
+int x = 0;
+while (x < 5) {
+    System.out.println(x);
+    x++;
+}</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Arrays -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="Arrays" data-lang-id="Arrays">Arrays</h3>
+                            <span class="tutorial-level" data-lang-en="Beginner" data-lang-id="Pemula">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Work with arrays and multi-dimensional arrays." data-lang-id="Bekerja dengan array dan multi-dimensi.">Bekerja dengan array dan multi-dimensi.</p>
+
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>// Array 1D
+int[] numbers = {1, 2, 3, 4, 5};
+String[] nama = new String[3];
+nama[0] = "Budi";
+
+// Array 2D
+int[][] matrix = {{1,2}, {3,4}};
+matrix[0][1] = 5;
+
+// Iterasi
+for (int num : numbers) {
+    System.out.println(num);
+}</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Methods -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="Methods" data-lang-id="Methods">Methods</h3>
+                            <span class="tutorial-level" data-lang-en="Intermediate" data-lang-id="Menengah">Menengah</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Create and use methods in Java." data-lang-id="Membuat dan menggunakan method.">Membuat dan menggunakan method.</p>
+
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>public class Calculator {
+    // Method dengan return value
+    public int tambah(int a, int b) {
+        return a + b;
+    }
+    
+    // Method tanpa return
+    public void cetakPesan() {
+        System.out.println("Halo!");
+    }
+    
+    // Method dengan parameter banyak
+    public double rata2(int... angka) {
+        int sum = 0;
+        for (int n : angka) sum += n;
+        return sum / angka.length;
+    }
+}</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- String -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="String" data-lang-id="String">String</h3>
+                            <span class="tutorial-level" data-lang-en="Intermediate" data-lang-id="Menengah">Menengah</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="String manipulation in Java." data-lang-id="Manipulasi String di Java.">Manipulasi String di Java.</p>
+
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>String text = "Hello World";
+
+// Method String
+int len = text.length();
+String upper = text.toUpperCase();
+String lower = text.toLowerCase();
+boolean contains = text.contains("Hello");
+String[] parts = text.split(" ");
+String replaced = text.replace("World", "Java");
+
+// String Builder
+StringBuilder sb = new StringBuilder();
+sb.append("Halo");
+sb.append(" ");
+sb.append("Dunia");
+String hasil = sb.toString();</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: OOP -->
+            <div id="tab-oop" class="tab-content">
+                <div class="tutorial-grid">
+                    <!-- Class & Object -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="Class & Object" data-lang-id="Class & Object">Class & Object</h3>
+                            <span class="tutorial-level" data-lang-en="Intermediate" data-lang-id="Menengah">Menengah</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Create classes and objects in Java." data-lang-id="Membuat class dan object di Java.">Membuat class dan object di Java.</p>
+
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>public class Kendaraan {
+    // Atribut
+    private String merek;
+    private int tahun;
+    
+    // Constructor
+    public Kendaraan(String merek, int tahun) {
+        this.merek = merek;
+        this.tahun = tahun;
+    }
+    
+    // Getter
+    public String getMerek() {
+        return merek;
+    }
+    
+    public void info() {
+        System.out.println(merek + " " + tahun);
+    }
+}
+
+// Penggunaan
+Kendaraan mobil = new Kendaraan("Toyota", 2020);
+mobil.info();</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Inheritance -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="Inheritance" data-lang-id="Inheritance">Inheritance</h3>
+                            <span class="tutorial-level" data-lang-en="Intermediate" data-lang-id="Menengah">Menengah</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Class inheritance in Java." data-lang-id="Pewarisan class di Java.">Pewarisan class di Java.</p>
+
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>// Parent Class
+public class Hewan {
+    public void suara() {
+        System.out.println("Suara hewan");
+    }
+}
+
+// Child Class
+public class Kucing extends Hewan {
+    @Override
+    public void suara() {
+        System.out.println("Meow");
+    }
+}
+
+// Penggunaan
+Kucing cat = new Kucing();
+cat.suara();
+
+// Polymorphism
+Hewan h = new Kucing();
+h.suara();</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Encapsulation -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="Encapsulation" data-lang-id="Encapsulation">Encapsulation</h3>
+                            <span class="tutorial-level" data-lang-en="Intermediate" data-lang-id="Menengah">Menengah</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Hide implementation details with access modifiers." data-lang-id="Menyembunyikan detail implementasi dengan access modifiers.">Menyembunyikan detail implementasi dengan access modifiers.</p>
+
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>public class BankAccount {
+    private double balance;
+    private String accountNumber;
+    
+    public BankAccount(String account) {
+        this.accountNumber = account;
+        this.balance = 0;
+    }
+    
+    // Public Method
+    public void deposit(double amount) {
+        if (amount > 0) {
+            balance += amount;
+        }
+    }
+    
+    public double getBalance() {
+        return balance;
+    }
+}
+
+BankAccount account = new BankAccount("1234");
+account.deposit(100000);
+System.out.println(account.getBalance());</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Abstraction -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="Abstraction" data-lang-id="Abstraction">Abstraction</h3>
+                            <span class="tutorial-level" data-lang-en="Intermediate" data-lang-id="Menengah">Menengah</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Use abstract classes and interfaces." data-lang-id="Menggunakan abstract class dan interface.">Menggunakan abstract class dan interface.</p>
+
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>// Abstract Class
+public abstract class Bentuk {
+    abstract double hitungLuas();
+    
+    public void cetak() {
+        System.out.println("Luas: " + hitungLuas());
+    }
+}
+
+// Implementation
+public class Persegi extends Bentuk {
+    private double sisi;
+    
+    public Persegi(double sisi) {
+        this.sisi = sisi;
+    }
+    
+    @Override
+    double hitungLuas() {
+        return sisi * sisi;
+    }
+}
+
+Bentuk shape = new Persegi(5);
+shape.cetak();</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Interface -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="Interface" data-lang-id="Interface">Interface</h3>
+                            <span class="tutorial-level" data-lang-en="Advanced" data-lang-id="Lanjut">Lanjut</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Use interfaces for method contracts." data-lang-id="Menggunakan interface untuk kontrak method.">Menggunakan interface untuk kontrak method.</p>
+
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>public interface Drawable {
+    void draw();
+}
+
+public interface Moveable {
+    void move();
+}
+
+public class Circle implements Drawable, Moveable {
+    @Override
+    public void draw() {
+        System.out.println("Menggambar lingkaran");
+    }
+    
+    @Override
+    public void move() {
+        System.out.println("Menggerakkan lingkaran");
+    }
+}
+
+Circle c = new Circle();
+c.draw();
+c.move();</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: COLLECTION -->
+            <div id="tab-collection" class="tab-content">
+                <div class="tutorial-grid">
+                    <!-- ArrayList -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="ArrayList" data-lang-id="ArrayList">ArrayList</h3>
+                            <span class="tutorial-level" data-lang-en="Intermediate" data-lang-id="Menengah">Menengah</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Use ArrayList for dynamic arrays." data-lang-id="Menggunakan ArrayList untuk dynamic array.">Menggunakan ArrayList untuk dynamic array.</p>
+
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>import java.util.ArrayList;
+
+ArrayList<String> list = new ArrayList<>();
+
+// Add element
+list.add("Apel");
+list.add("Mangga");
+list.add("Jeruk");
+
+// Akses element
+String first = list.get(0);
+list.set(1, "Nanas");
+
+// Hapus element
+list.remove(0);
+
+// Iterasi
+for (String buah : list) {
+    System.out.println(buah);
+}
+
+// Size
+int size = list.size();</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- HashMap -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="HashMap" data-lang-id="HashMap">HashMap</h3>
+                            <span class="tutorial-level" data-lang-en="Intermediate" data-lang-id="Menengah">Menengah</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Use HashMap for key-value pairs." data-lang-id="Menggunakan HashMap untuk key-value pairs.">Menggunakan HashMap untuk key-value pairs.</p>
+
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>import java.util.HashMap;
+
+HashMap<String, Integer> map = new HashMap<>();
+
+// Add element
+map.put("Budi", 85);
+map.put("Andi", 90);
+map.put("Citra", 88);
+
+// Get element
+int nilai = map.get("Budi");
+
+// Cek key
+if (map.containsKey("Andi")) {
+    System.out.println("Ada");
+}
+
+// Iterasi
+for (String key : map.keySet()) {
+    System.out.println(key + ": " + map.get(key));
+}</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- HashSet -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="HashSet" data-lang-id="HashSet">HashSet</h3>
+                            <span class="tutorial-level" data-lang-en="Intermediate" data-lang-id="Menengah">Menengah</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Use HashSet for unique values." data-lang-id="Menggunakan HashSet untuk unique values.">Menggunakan HashSet untuk unique values.</p>
+
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>import java.util.HashSet;
+
+HashSet<Integer> set = new HashSet<>();
+
+// Add element
+set.add(10);
+set.add(20);
+set.add(30);
+set.add(10); // Duplikat tidak ditambah
+
+// Size
+System.out.println(set.size()); // 3
+
+// Cek element
+if (set.contains(20)) {
+    System.out.println("Ada");
+}
+
+// Hapus
+set.remove(20);
+
+// Iterasi
+for (int num : set) {
+    System.out.println(num);
+}</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: EXCEPTION -->
+            <div id="tab-exception" class="tab-content">
+                <div class="tutorial-grid">
+                    <!-- Try-Catch -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="Try-Catch" data-lang-id="Try-Catch">Try-Catch</h3>
+                            <span class="tutorial-level" data-lang-en="Intermediate" data-lang-id="Menengah">Menengah</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Handle exceptions with try-catch." data-lang-id="Menangani exception dengan try-catch.">Menangani exception dengan try-catch.</p>
+
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>try {
+    int[] numbers = {1, 2, 3};
+    System.out.println(numbers[5]); // Error
+} catch (ArrayIndexOutOfBoundsException e) {
+    System.out.println("Index di luar batas!");
+    e.printStackTrace();
+} catch (Exception e) {
+    System.out.println("Error terjadi");
+} finally {
+    System.out.println("Selalu dijalankan");
+}</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Throw Exception -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="Throw Exception" data-lang-id="Throw Exception">Throw Exception</h3>
+                            <span class="tutorial-level" data-lang-en="Advanced" data-lang-id="Lanjut">Lanjut</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Throw your own exceptions." data-lang-id="Melempar exception sendiri.">Melempar exception sendiri.</p>
+
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>public void validasiUmur(int umur) 
+        throws IllegalArgumentException {
+    if (umur < 0) {
+        throw new IllegalArgumentException(
+            "Umur tidak boleh negatif");
+    }
+    System.out.println("Umur valid: " + umur);
+}
+
+public static void main(String[] args) {
+    try {
+        validasiUmur(-5);
+    } catch (IllegalArgumentException e) {
+        System.out.println(e.getMessage());
+    }
+}</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 5: ADVANCED -->
+            <div id="tab-advanced" class="tab-content">
+                <div class="tutorial-grid">
+                    <!-- Generics -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="Generics" data-lang-id="Generics">Generics</h3>
+                            <span class="tutorial-level" data-lang-en="Advanced" data-lang-id="Lanjut">Lanjut</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Use Generics for type-safe code." data-lang-id="Menggunakan Generics untuk type-safe code.">Menggunakan Generics untuk type-safe code.</p>
+
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>public class Container<T> {
+    private T value;
+    
+    public void setValue(T val) {
+        this.value = val;
+    }
+    
+    public T getValue() {
+        return value;
+    }
+}
+
+// Penggunaan
+Container<String> strContainer = 
+    new Container<>();
+strContainer.setValue("Hello");
+String result = strContainer.getValue();
+
+Container<Integer> intContainer = 
+    new Container<>();
+intContainer.setValue(42);</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Lambda -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="Lambda Expression" data-lang-id="Lambda Expression">Lambda Expression</h3>
+                            <span class="tutorial-level" data-lang-en="Advanced" data-lang-id="Lanjut">Lanjut</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Write concise code with lambda." data-lang-id="Menulis code yang singkat dengan lambda.">Menulis code yang singkat dengan lambda.</p>
+
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code">@FunctionalInterface
+public interface Operasi {
+    int calculate(int a, int b);
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // Lambda Expression
+        Operasi tambah = (a, b) -> a + b;
+        Operasi kurang = (a, b) -> a - b;
+        
+        System.out.println(tambah.calculate(5, 3));
+        System.out.println(kurang.calculate(5, 3));
+    }
+}</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stream API -->
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="Stream API" data-lang-id="Stream API">Stream API</h3>
+                            <span class="tutorial-level" data-lang-en="Advanced" data-lang-id="Lanjut">Lanjut</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Process data with Stream API." data-lang-id="Processing data dengan Stream.">Processing data dengan Stream.</p>
+
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>import java.util.Arrays;
+import java.util.List;
+
+List<Integer> numbers = 
+    Arrays.asList(1, 2, 3, 4, 5);
+
+// Filter & Map
+numbers.stream()
+    .filter(n -> n > 2)
+    .map(n -> n * 2)
+    .forEach(System.out::println);
+
+// Reduce
+int sum = numbers.stream()
+    .reduce(0, (a, b) -> a + b);
+System.out.println("Sum: " + sum);</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRACTICE SECTION -->
+        <div class="menu-section" id="practice">
+            <h2 data-lang-en="🎨 Practice Java" data-lang-id="🎨 Praktik Java">🎨 Praktik Java</h2>
+
+            <div class="preview-card">
+                <h3 data-lang-en="💰 Project: Simple Banking System" data-lang-id="💰 Project: Sistem Bank Sederhana">💰 Project: Sistem Bank Sederhana</h3>
+                
+                <div class="preview-section">
+                    <strong data-lang-en="Description:" data-lang-id="Deskripsi:">Deskripsi:</strong>
+                    <p data-lang-en="Create a banking system with deposit, withdraw, and balance check features." data-lang-id="Buatlah sistem bank dengan fitur deposit, withdraw, dan cek saldo.">Buatlah sistem bank dengan fitur deposit, withdraw, dan cek saldo.</p>
+                </div>
+
+                <div class="preview-section">
+                    <strong data-lang-en="Requirements:" data-lang-id="Persyaratan:">Persyaratan:</strong>
+                    <ul class="features-list">
+                        <li data-lang-en="BankAccount class with balance attribute" data-lang-id="Class BankAccount dengan atribut balance">Class BankAccount dengan atribut balance</li>
+                        <li data-lang-en="deposit() and withdraw() methods" data-lang-id="Method deposit() dan withdraw()">Method deposit() dan withdraw()</li>
+                        <li data-lang-en="Input validation" data-lang-id="Validasi input">Validasi input</li>
+                        <li data-lang-en="Exception handling" data-lang-id="Exception handling">Exception handling</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="preview-card">
+                <h3 data-lang-en="📚 Project: Library Management System" data-lang-id="📚 Project: Sistem Manajemen Perpustakaan">📚 Project: Sistem Manajemen Perpustakaan</h3>
+                
+                <div class="preview-section">
+                    <strong data-lang-en="Description:" data-lang-id="Deskripsi:">Deskripsi:</strong>
+                    <p data-lang-en="System to manage books and library members." data-lang-id="Sistem untuk mengelola buku dan peminjam perpustakaan.">Sistem untuk mengelola buku dan peminjam perpustakaan.</p>
+                </div>
+
+                <div class="preview-section">
+                    <strong data-lang-en="Requirements:" data-lang-id="Persyaratan:">Persyaratan:</strong>
+                    <ul class="features-list">
+                        <li data-lang-en="Book and Member classes" data-lang-id="Class Book dan Member">Class Book dan Member</li>
+                        <li data-lang-en="ArrayList for data storage" data-lang-id="ArrayList untuk menyimpan data">ArrayList untuk menyimpan data</li>
+                        <li data-lang-en="add, remove, search methods" data-lang-id="Method add, remove, search">Method add, remove, search</li>
+                        <li data-lang-en="Encapsulation with getter/setter" data-lang-id="Encapsulation dengan getter/setter">Encapsulation dengan getter/setter</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- PLAYGROUND SECTION -->
+        <div class="menu-section" id="playground">
+            <h2 data-lang-en="💻 Interactive IDE" data-lang-id="💻 IDE Interaktif">💻 IDE Interaktif</h2>
+            <p style="color: var(--text-light); margin-bottom: 20px;" data-lang-en="Write Java code below and see output in real-time." data-lang-id="Tulis kode Java di bawah dan lihat output secara real-time.">Tulis kode Java di bawah dan lihat output secara real-time.</p>
+
+            <div class="playground-container">
+                <div class="playground-panel">
+                    <div class="playground-header">
+                        <span data-lang-en="📝 Java Code Editor" data-lang-id="📝 Java Code Editor">📝 Java Code Editor</span>
+                        <button onclick="resetPlayground()" data-lang-en="Reset" data-lang-id="Reset">Reset</button>
+                    </div>
+                    <div class="editor">
+                        <textarea id="javaCode" placeholder="Tulis kode Java di sini...">public class Main {
+    public static void main(String[] args) {
+        // Variables
+        String nama = "Budi";
+        int umur = 25;
+        double tinggi = 175.5;
+        
+        // Output
+        System.out.println("Nama: " + nama);
+        System.out.println("Umur: " + umur);
+        System.out.println("Tinggi: " + tinggi + " cm");
+        
+        // Kalkulasi
+        int tahunLahir = 2024 - umur;
+        System.out.println("Tahun Lahir: " + tahunLahir);
+        
+        // Conditional
+        if (umur >= 18) {
+            System.out.println("Status: Dewasa");
+        } else {
+            System.out.println("Status: Anak-anak");
+        }
+        
+        // Loop
+        System.out.println("\nAngka 1-5:");
+        for (int i = 1; i <= 5; i++) {
+            System.out.println("Angka: " + i);
+        }
+        
+        // Array
+        String[] buah = {"Apel", "Mangga", "Jeruk"};
+        System.out.println("\nBuah-buahan:");
+        for (String b : buah) {
+            System.out.println("- " + b);
+        }
+    }
+}</textarea>
+                    </div>
+                </div>
+
+                <div class="playground-panel">
+                    <div class="playground-header">
+                        <span data-lang-en="📤 Output" data-lang-id="📤 Output">📤 Output</span>
+                    </div>
+                    <div class="preview-output" id="output">
+Klik "Jalankan Kode" untuk melihat output...
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <button onclick="simulateJavaOutput()" style="background: linear-gradient(135deg, var(--accent-orange-dark) 0%, var(--accent-orange) 100%); color: white; padding: 12px 30px; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; font-weight: 600; transition: all 0.3s ease;" data-lang-en="▶ Run Code" data-lang-id="▶ Jalankan Kode">▶ Jalankan Kode</button>
+            </div>
+
+            <div class="tip-box" style="margin-top: 30px;">
+                <strong data-lang-en="💡 Note:" data-lang-id="💡 Catatan:">💡 Catatan:</strong> <span data-lang-en="This is a Java output simulator. To run Java code actually, you need to install JDK (Java Development Kit) and Java compiler on your computer." data-lang-id="Ini adalah simulator output Java. Untuk menjalankan Java sebenarnya, Anda perlu menginstal JDK (Java Development Kit) dan compiler Java di komputer Anda.">Ini adalah simulator output Java. Untuk menjalankan Java sebenarnya, Anda perlu menginstal JDK (Java Development Kit) dan compiler Java di komputer Anda.</span>
+            </div>
+        </div>
+
+        <!-- REFERENCE SECTION -->
+        <div class="menu-section" id="reference">
+            <h2 data-lang-en="📋 Quick Reference" data-lang-id="📋 Referensi Cepat">📋 Referensi Cepat</h2>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                <div style="background: var(--bg-light); padding: 20px; border-radius: 8px; border-left: 4px solid var(--accent-orange-dark); transition: all 0.3s ease;">
+                    <h3 style="color: var(--accent-orange-dark); margin-bottom: 10px;">📊 Primitive Data Types</h3>
+                    <ul style="list-style: none; color: var(--text-light); font-size: 0.875rem; line-height: 1.8;">
+                        <li><code style="background: #000000; padding: 2px 6px; border-radius: 3px;">int</code> - Integers</li>
+                        <li><code style="background: #000000; padding: 2px 6px; border-radius: 3px;">double</code> - Decimal Numbers</li>
+                        <li><code style="background: #000000; padding: 2px 6px; border-radius: 3px;">boolean</code> - True/False</li>
+                        <li><code style="background: #000000; padding: 2px 6px; border-radius: 3px;">char</code> - Single Character</li>
+                        <li><code style="background: #000000; padding: 2px 6px; border-radius: 3px;">String</code> - Text</li>
+                    </ul>
+                </div>
+
+                <div style="background: var(--bg-light); padding: 20px; border-radius: 8px; border-left: 4px solid var(--accent-orange); transition: all 0.3s ease;">
+                    <h3 style="color: var(--accent-orange); margin-bottom: 10px;">🔄 Access Modifiers</h3>
+                    <ul style="list-style: none; color: var(--text-light); font-size: 0.875rem; line-height: 1.8;">
+                        <li><code style="background: #000000; padding: 2px 6px; border-radius: 3px;">public</code> - All Access</li>
+                        <li><code style="background: #000000; padding: 2px 6px; border-radius: 3px;">private</code> - Class Only</li>
+                        <li><code style="background: #000000; padding: 2px 6px; border-radius: 3px;">protected</code> - Package & child</li>
+                        <li><code style="background: #000000; padding: 2px 6px; border-radius: 3px;">default</code> - Package only</li>
+                    </ul>
+                </div>
+
+                <div style="background: var(--bg-light); padding: 20px; border-radius: 8px; border-left: 4px solid #ff9800; transition: all 0.3s ease;">
+                    <h3 style="color: #ff9800; margin-bottom: 10px;">🔗 Common Methods</h3>
+                    <ul style="list-style: none; color: var(--text-light); font-size: 0.875rem; line-height: 1.8;">
+                        <li><code style="background: #000000; padding: 2px 6px; border-radius: 3px;">toString()</code> - String representation</li>
+                        <li><code style="background: #000000; padding: 2px 6px; border-radius: 3px;">equals()</code> - Comparison</li>
+                        <li><code style="background: #000000; padding: 2px 6px; border-radius: 3px;">hashCode()</code> - Hash value</li>
+                        <li><code style="background: #000000; padding: 2px 6px; border-radius: 3px;">clone()</code> - Object duplication</li>
+                    </ul>
+                </div>
+            </div>
+            <h3 data-lang-en="📚 Documentation" data-lang-id="📚 Dokumentasi">📚 Dokumentasi</h3>
+            <ul class="features-list">
+                <li><strong>Oracle Help Center:</strong> <a href="https://docs.oracle.com/en/java/" target="_blank">oracle.com</a></li>
+                <li><strong>Dokumentasi API Java:</strong> <a href="https://docs.oracle.com/en/java/javase/21/docs/api/index.html" target="_blank">oracle.com/java</a></li>
+                <li><strong>Tutorial Java:</strong> <a href="https://docs.oracle.com/javase/tutorial/index.html" target="_blank">oracle.com/tutorial</a></li>
+                <li><strong>W3Schools:</strong> <a href="https://www.w3schools.com/java/java_ref_reference.asp" target="_blank">w3schools.com/java</a></li>
+                <li><strong>Dev.java:</strong> <a href="https://dev.java/learn/" target="_blank">dev.java</a></li>
+            </ul>
+
+            <h3 data-lang-en="🛠️ Tools & IDEs" data-lang-id="🛠️ Alat & IDE">🛠️ Tools & IDEs</h3>
+            <ul class="features-list">
+                <li><strong>IntelliJ IDEA (JetBrains):</strong> <p data-lang-en="industry standard for professional developers, offering smart code completion, refactoring, and deep integration with Spring Boot"
+                                                                    data-lang-id="Standar industri untuk pengembang profesional, menawarkan penyelesaian kode cerdas, refactoring, dan integrasi mendalam dengan Spring Boot."></p></li>
+                <li><strong>Visual Studio Code (VS Code):</strong> <p data-lang-en="A lightweight, customizable editor favored for smaller projects, microservices, and rapid development." 
+                                                                        data-lang-id=" Editor ringan dan dapat disesuaikan yang disukai untuk proyek-proyek kecil, layanan mikro, dan pengembangan cepat."></p></li>
+                <li><strong>Eclipse:</strong> <p data-lang-en="A long-standing, open-source, and highly extensible IDE with a massive plugin ecosystem."
+                                                data-lang-id=" Sebuah IDE sumber terbuka yang sudah lama ada dan sangat mudah diperluas dengan ekosistem plugin yang sangat besar."></p></li>
+                <li><strong>Apache NetBeans:</strong> <p data-lang-en="An open-source, user-friendly IDE with strong support for Java EE and GUI design." 
+                                                        data-lang-id="Sebuah IDE sumber terbuka yang ramah pengguna dengan dukungan kuat untuk Java EE dan desain GUI."></p></li>
+                <li><strong>Android Studio:</strong> <p data-lang-en="The official IDE for Android development, built on IntelliJ IDEA."
+                                                        data-lang-id=" IDE resmi untuk pengembangan Android, dibangun di atas IntelliJ IDEA."></p></li>
+                <li><strong>Educational IDEs (BlueJ/Greenfoot):</strong> <p data-lang-en=" Designed for beginners to visualize object-oriented concepts. "
+                                                                        data-lang-id="Dirancang untuk pemula agar dapat memvisualisasikan konsep berorientasi objek."></p></li>
+            </ul>
+
+           <!--- <h3 data-lang-en="📦 Popular Libraries" data-lang-id="Variabel dan Tipe Referensi">Variabel dan Tipe Referensi</h3>
+            <ul class="features-list">
+                <li><strong>NumPy:</strong> Numerical computing</li>
+                <li><strong>Pandas:</strong> Data analysis</li>
+                <li><strong>Django:</strong> Web framework</li>
+                <li><strong>Flask:</strong> Micro framework</li>
+            </ul>--->
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p><strong data-lang-en="☕ Java Complete Learning Platform" data-lang-id="☕ Platform Belajar Java Lengkap">☕ Platform Belajar Java Lengkap</strong></p>
+        <p data-lang-en="Learn Java Easily and Enjoyably" data-lang-id="Belajar Java dengan Mudah dan Menyenangkan">Belajar Java dengan Mudah dan Menyenangkan</p>
+        <p style="margin-top: 15px; font-size: 0.75rem; opacity: 0.8;">
+            &copy; 2026 Thertaria Project. <span data-lang-en="All rights reserved." data-lang-id="Semua hak dilindungi.">Semua hak dilindungi.</span>
+        </p>
+    </footer>
+
+    <script src="script/java.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerbang Penulis - Web Novel</title>
+    <style>
+        /* CSS Dasar untuk tampilan yang bersih dan responsif */
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: #f0f2f5; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            margin: 0; 
+        }
+        .kotak-auth { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1); 
+            width: 320px; 
+        }
+        h2 { 
+            text-align: center; 
+            color: #333; 
+            margin-bottom: 20px;
+        }
+        input { 
+            width: 100%; 
+            padding: 12px; 
+            margin-bottom: 15px; 
+            border: 1px solid #ccc; 
+            border-radius: 6px; 
+            box-sizing: border-box; 
+            font-size: 14px;
+        }
+        input:focus {
+            border-color: #4a90e2;
+            outline: none;
+        }
+        button { 
+            width: 100%; 
+            padding: 12px; 
+            background-color: #4a90e2; 
+            color: white; 
+            border: none; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        button:hover { 
+            background-color: #357abd; 
+        }
+        .teks-alih { 
+            text-align: center; 
+            margin-top: 15px; 
+            font-size: 14px; 
+            color: #4a90e2; 
+            cursor: pointer; 
+        }
+        .teks-alih:hover {
+            text-decoration: underline;
+        }
+        /* Class ini digunakan oleh JavaScript untuk menyembunyikan elemen */
+        .sembunyi { 
+            display: none; 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="kotak-auth">
+        
+        <div id="area-login">
+            <h2>Masuk</h2>
+            <form action="/api/login" method="POST">
+                <input type="email" name="email" placeholder="Alamat Email" required>
+                <input type="password" name="password" placeholder="Kata Sandi" required>
+                <button type="submit">Masuk</button>
+            </form>
+            <div class="teks-alih" onclick="tukarForm()">Belum punya akun? Daftar di sini</div>
+        </div>
+
+        <div id="area-register" class="sembunyi">
+            <h2>Daftar Akun Baru</h2>
+            <form action="/api/register" method="POST">
+                <input type="email" name="email" placeholder="Alamat Email" required>
+                <input type="text" name="username" placeholder="Username (Tanpa Spasi)" required pattern="^\S+$" title="Username tidak boleh menggunakan spasi">
+                <input type="text" name="nama_penulis" placeholder="Nama Penulis (Nama Pena)" required>
+                <input type="password" name="password" placeholder="Kata Sandi" required>
+                <button type="submit">Buat Akun</button>
+            </form>
+            <div class="teks-alih" onclick="tukarForm()">Sudah punya akun? Masuk di sini</div>
+        </div>
+
+    </div>
+
+    <script>
+        function tukarForm() {
+            const areaLogin = document.getElementById('area-login');
+            const areaRegister = document.getElementById('area-register');
+            
+            // Toggle class 'sembunyi' pada kedua div
+            areaLogin.classList.toggle('sembunyi');
+            areaRegister.classList.toggle('sembunyi');
+        }
+    </script>
+
+</body>
+</html>

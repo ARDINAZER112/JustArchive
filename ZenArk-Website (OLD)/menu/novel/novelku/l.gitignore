@@ -1,0 +1,15 @@
+# Abaikan folder node_modules
+node_modules/
+
+# Abaikan file log
+*.log
+
+# Abaikan file konfigurasi lokal
+.env
+.DS_Store
+
+# Abaikan folder hasil build
+#/build
+#/dist
+/sql
+

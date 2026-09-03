@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="Tutorial HTML & CSS Lengkap - Playground Interaktif">
+    <meta name="theme-color" content="#1a237e">
+    <title>Belajar HTML & CSS Lengkap</title>
+    <link rel="stylesheet" href="style/html&css.css">
+    <link rel="icon" href="asset/Arcana Therzevena.png" type="image/x-icon">
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <nav>
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle menu">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+        <ul id="navMenu">
+            <li><a href="#intro" data-lang-en="📖 Introduction" data-lang-id="📖 Pengenalan">📖 Pengenalan</a></li>
+            <li><a href="#tutorial" data-lang-en="📚 Tutorial" data-lang-id="📚 Tutorial">📚 Tutorial</a></li>
+            <li><a href="#practice" data-lang-en="🎨 Practice" data-lang-id="🎨 Praktik">🎨 Praktik</a></li>
+            <li><a href="#playground" data-lang-en="💻 IDE" data-lang-id="💻 IDE">💻 IDE</a></li>
+            <li><a href="#reference" data-lang-en="📋 Reference" data-lang-id="📋 Referensi">📋 Referensi</a></li>
+        </ul>
+        <div class="nav-controls">
+            <button class="settings-btn" id="settingsBtn" aria-label="Settings">⚙️</button>
+        </div>
+    </nav>
+
+    <!-- SETTINGS PANEL -->
+    <div class="settings-overlay" id="settingsOverlay"></div>
+    <div class="settings-panel" id="settingsPanel">
+        <div class="settings-header">
+            <h2 data-lang-en="⚙️ Settings" data-lang-id="⚙️ Pengaturan">⚙️ Pengaturan</h2>
+            <button class="close-settings" id="closeSettings">✕</button>
+        </div>
+        <div class="settings-content">
+            <div class="settings-group">
+                <label data-lang-en="🌙 Dark Mode" data-lang-id="🌙 Mode Gelap">🌙 Mode Gelap</label>
+                <div class="toggle-group">
+                    <div class="toggle-switch" id="darkModeToggle"></div>
+                    <span id="darkModeLabel" data-lang-en="Off" data-lang-id="Nonaktif"></span>
+                </div>
+            </div>
+
+            <div class="settings-group">
+                <label for="languageSelect" data-lang-en="🌐 Language" data-lang-id="🌐 Bahasa">🌐 Bahasa</label>
+                <select id="languageSelect">
+                    <option value="id">Bahasa Indonesia</option>
+                    <option value="en">English</option>
+                </select>
+            </div>
+
+            <div class="settings-group">
+                <label data-lang-en="📝 Font Size" data-lang-id="📝 Ukuran Font">📝 Ukuran Font</label>
+                <div class="font-size-options">
+                    <button class="font-size-btn" data-size="small">A-</button>
+                    <button class="font-size-btn active" data-size="normal">A</button>
+                    <button class="font-size-btn" data-size="large">A+</button>
+                    <button class="font-size-btn" data-size="extra-large">A++</button>
+                </div>
+            </div>
+
+            <div class="settings-group">
+                <label data-lang-en="🎨 Theme Color" data-lang-id="🎨 Warna Tema">🎨 Warna Tema</label>
+                <div class="color-palette">
+                    <div class="color-option active" data-theme="blue" style="background: linear-gradient(135deg, #1a237e, #283593);"></div>
+                    <div class="color-option" data-theme="purple" style="background: linear-gradient(135deg, #4a148c, #6a1b9a);"></div>
+                    <div class="color-option" data-theme="teal" style="background: linear-gradient(135deg, #004d40, #00695c);"></div>
+                    <div class="color-option" data-theme="red" style="background: linear-gradient(135deg, #b71c1c, #d32f2f);"></div>
+                    <div class="color-option" data-theme="green" style="background: linear-gradient(135deg, #1b5e20, #2e7d32);"></div>
+                    <div class="color-option" data-theme="orange" style="background: linear-gradient(135deg, #e65100, #ff6f00);"></div>
+                </div>
+            </div>
+
+            <div class="settings-group">
+                <label data-lang-en="💻 Code Theme" data-lang-id="💻 Tema Kode">💻 Tema Kode</label>
+                <div class="code-theme-options">
+                    <button class="theme-btn active" data-code-theme="monokai">Monokai</button>
+                    <button class="theme-btn" data-code-theme="github-light">Light</button>
+                    <button class="theme-btn" data-code-theme="github-dark">Dark</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="settings-footer">
+            <button class="reset-btn" id="resetBtn" data-lang-en="🔄 Reset" data-lang-id="🔄 Reset">🔄 Reset</button>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <div class="header">
+        <h1 data-lang-en="🎨 LEARN HTML & CSS" data-lang-id="🎨 BELAJAR HTML & CSS">🎨 BELAJAR HTML & CSS</h1>
+        <p data-lang-en="From Beginner to Expert - Interactive Tutorial & Live IDE" data-lang-id="Dari Pemula hingga Mahir - Tutorial Interaktif & IDE Live">Dari Pemula hingga Mahir - Tutorial Interaktif & IDE Live</p>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+        <!-- INTRO -->
+        <div class="menu-section" id="intro">
+            <h2 data-lang-en="📖 Introduction to HTML & CSS" data-lang-id="📖 Pengenalan HTML & CSS">📖 Pengenalan HTML & CSS</h2>
+            
+            <h3 data-lang-en="What is HTML?" data-lang-id="Apa itu HTML?">Apa itu HTML?</h3>
+            <p data-lang-en="HTML is a markup language that structures web page content with tags and elements." data-lang-id="HTML adalah bahasa markup yang menyusun konten halaman web dengan tag dan elemen.">HTML adalah bahasa markup yang menyusun konten halaman web dengan tag dan elemen.</p>
+
+            <h3 data-lang-en="What is CSS?" data-lang-id="Apa itu CSS?">Apa itu CSS?</h3>
+            <p data-lang-en="CSS is a styling language that controls appearance, colors, fonts, and layout of HTML elements." data-lang-id="CSS adalah bahasa styling yang mengatur tampilan, warna, font, dan tata letak elemen HTML.">CSS adalah bahasa styling yang mengatur tampilan, warna, font, dan tata letak elemen HTML.</p>
+
+            <h3 data-lang-en="Why Learn HTML & CSS?" data-lang-id="Mengapa Belajar HTML & CSS?">Mengapa Belajar HTML & CSS?</h3>
+            <ul class="features-list">
+                <li data-lang-en="Foundation of all websites" data-lang-id="Fondasi dari semua website">Fondasi dari semua website</li>
+                <li data-lang-en="Easy to learn and universal" data-lang-id="Mudah dipelajari dan universal">Mudah dipelajari dan universal</li>
+                <li data-lang-en="Works in all browsers without installation" data-lang-id="Bekerja di semua browser tanpa instalasi">Bekerja di semua browser tanpa instalasi</li>
+                <li data-lang-en="Essential for web development" data-lang-id="Penting untuk pengembangan web">Penting untuk pengembangan web</li>
+            </ul>
+        </div>
+
+        <!-- TUTORIAL -->
+        <div class="menu-section" id="tutorial">
+            <h2 data-lang-en="📚 HTML & CSS Tutorial" data-lang-id="📚 Tutorial HTML & CSS">📚 Tutorial HTML & CSS</h2>
+
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab(event, 'tab1')" data-lang-en="HTML" data-lang-id="HTML">HTML</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tab2')" data-lang-en="CSS" data-lang-id="CSS">CSS</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tab3')" data-lang-en="Layout" data-lang-id="Layout">Layout</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tab4')" data-lang-en="Responsive" data-lang-id="Responsive">Responsive</button>
+            </div>
+
+            <div id="tab1" class="tab-content active">
+                <div class="tutorial-grid">
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="Basic Structure" data-lang-id="Struktur Dasar">Struktur Dasar</h3>
+                            <span class="tutorial-level" data-lang-en="Beginner" data-lang-id="Pemula">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Understand basic HTML structure." data-lang-id="Memahami struktur dasar HTML.">Memahami struktur dasar HTML.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)" data-lang-en="Copy" data-lang-id="Copy">Copy</button>
+                                <code>&lt;!DOCTYPE html&gt;
+&lt;html lang="id"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Judul&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Halo!&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="Headings & Text" data-lang-id="Heading & Text">Heading & Text</h3>
+                            <span class="tutorial-level" data-lang-en="Beginner" data-lang-id="Pemula">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Create headings and paragraphs." data-lang-id="Membuat heading dan paragraf.">Membuat heading dan paragraf.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>&lt;h1&gt;Judul&lt;/h1&gt;
+&lt;h2&gt;Sub Judul&lt;/h2&gt;
+&lt;p&gt;Paragraf teks&lt;/p&gt;
+&lt;b&gt;Bold&lt;/b&gt;
+&lt;i&gt;Italic&lt;/i&gt;</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="Links & Images" data-lang-id="Link & Gambar">Link & Gambar</h3>
+                            <span class="tutorial-level" data-lang-en="Beginner" data-lang-id="Pemula">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Add links and images." data-lang-id="Menambah link dan gambar.">Menambah link dan gambar.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>&lt;a href="url"&gt;Link&lt;/a&gt;
+&lt;img src="photo.jpg" 
+     alt="Deskripsi"&gt;</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab2" class="tab-content">
+                <div class="tutorial-grid">
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="Colors & Fonts" data-lang-id="Warna & Font">Warna & Font</h3>
+                            <span class="tutorial-level" data-lang-en="Beginner" data-lang-id="Pemula">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Style colors and fonts." data-lang-id="Styling warna dan font.">Styling warna dan font.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>body {
+    color: blue;
+    font-family: Arial;
+    font-size: 16px;
+}</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="Box Model" data-lang-id="Box Model">Box Model</h3>
+                            <span class="tutorial-level" data-lang-en="Intermediate" data-lang-id="Menengah">Menengah</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Margin, padding, border." data-lang-id="Margin, padding, border.">Margin, padding, border.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>.box {
+    padding: 20px;
+    margin: 10px;
+    border: 2px solid #333;
+}</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="Transitions" data-lang-id="Transitions">Transitions</h3>
+                            <span class="tutorial-level" data-lang-en="Intermediate" data-lang-id="Menengah">Menengah</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Smooth animations." data-lang-id="Animasi halus.">Animasi halus.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>button {
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.1);
+}</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab3" class="tab-content">
+                <div class="tutorial-grid">
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Flexbox</h3>
+                            <span class="tutorial-level" data-lang-en="Intermediate" data-lang-id="Menengah">Menengah</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Layout with Flexbox." data-lang-id="Layout dengan Flexbox.">Layout dengan Flexbox.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>CSS Grid</h3>
+                            <span class="tutorial-level" data-lang-en="Intermediate" data-lang-id="Menengah">Menengah</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Grid layout." data-lang-id="Layout grid.">Layout grid.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>.grid {
+    display: grid;
+    grid-template-columns: 
+        repeat(3, 1fr);
+    gap: 20px;
+}</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab4" class="tab-content">
+                <div class="tutorial-grid">
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="Media Queries" data-lang-id="Media Queries">Media Queries</h3>
+                            <span class="tutorial-level" data-lang-en="Intermediate" data-lang-id="Menengah">Menengah</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Responsive design." data-lang-id="Design responsif.">Design responsif.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>/* Tablet */
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+}</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="Mobile First" data-lang-id="Mobile First">Mobile First</h3>
+                            <span class="tutorial-level" data-lang-en="Intermediate" data-lang-id="Menengah">Menengah</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Design mobile first." data-lang-id="Design mobile dulu.">Design mobile dulu.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>/* Desktop */
+@media (min-width: 1024px) {
+    .container {
+        grid-template-columns: 
+            1fr 2fr 1fr;
+    }
+}</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PRACTICE -->
+        <div class="menu-section" id="practice">
+            <h2 data-lang-en="🎨 Practice" data-lang-id="🎨 Praktik">🎨 Praktik</h2>
+            <p data-lang-en="Create a responsive website with header, navbar, grid layout, and footer. Use semantic HTML and modern CSS for professional and mobile-friendly design." data-lang-id="Buat website responsif dengan header, navbar, layout grid, dan footer. Gunakan semantic HTML dan CSS modern untuk design profesional dan mobile-friendly.">Buat website responsif dengan header, navbar, layout grid, dan footer. Gunakan semantic HTML dan CSS modern untuk design profesional dan mobile-friendly.</p>
+        </div>
+
+        <!-- PLAYGROUND -->
+        <div class="menu-section" id="playground">
+            <h2 data-lang-en="💻 Interactive IDE" data-lang-id="💻 IDE Interaktif">💻 IDE Interaktif</h2>
+
+            <div class="playground-container">
+                <div class="playground-panel">
+                    <div class="playground-header">
+                        <span data-lang-en="📝 HTML & CSS" data-lang-id="📝 HTML & CSS">📝 HTML & CSS</span>
+                        <button onclick="resetPlayground()" data-lang-en="Reset" data-lang-id="Reset">Reset</button>
+                    </div>
+                    <div class="editor">
+                        <textarea id="codeEditor" placeholder="Tulis kode di sini...">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;style&gt;
+body {
+    font-family: Arial;
+    margin: 0;
+    background: #f0f0f0;
+}
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+h1 {
+    color: #1a237e;
+    text-align: center;
+}
+button {
+    background: #ff8c3a;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+button:hover {
+    background: #e8440f;
+    transform: scale(1.05);
+}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div class="container"&gt;
+    &lt;h1&gt;🎨 Hello World!&lt;/h1&gt;
+    &lt;p&gt;Edit kode di sebelah kiri&lt;/p&gt;
+    &lt;button onclick="alert('Berhasil!')"&gt;Klik!&lt;/button&gt;
+&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</textarea>
+                    </div>
+                </div>
+
+                <div class="playground-panel">
+                    <div class="playground-header">
+                        <span data-lang-en="👁️ Preview" data-lang-id="👁️ Preview">👁️ Preview</span>
+                    </div>
+                    <div class="preview-output">
+                        <iframe id="preview" sandbox="allow-scripts"></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <button onclick="runCode()" style="background: linear-gradient(135deg, #e8440f, #ff8c3a); color: white; padding: 12px 30px; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; font-weight: 600;" data-lang-en="▶ Run Code" data-lang-id="▶ Jalankan Kode">▶ Jalankan Kode</button>
+            </div>
+        </div>
+
+        <!-- REFERENCE -->
+        <div class="menu-section" id="reference">
+            <h2 data-lang-en="📋 Quick Reference" data-lang-id="📋 Referensi Cepat">📋 Referensi Cepat</h2>
+            <p data-lang-en="Common HTML tags and CSS properties for quick lookup." data-lang-id="Tag HTML umum dan properti CSS untuk referensi cepat.">Tag HTML umum dan properti CSS untuk referensi cepat.</p>
+            <h3 data-lang-en="📚 Reference HTML" data-lang-id="📚 Referensi HTML">📚 Referensi HTML</h3>
+            <ul class="features-list">
+                <li><strong>HTML Reference.io:</strong><a href="https://htmlreference.io/"> HTML Reference.io</a></li>
+                <li><strong>MDN Web Docs:</strong><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Reference"> HTML MDN Web Docs</a></li>
+                <li><strong>W3Schools:</strong> <a href="https://www.w3schools.com/tags"> W3Schools HTML</a></li>
+            </ul>
+
+            <h3 data-lang-en="🛠️ Reference CSS" data-lang-id="🛠️ Referensi CSS">🛠️ Referensi CSS</h3>
+            <ul class="features-list">
+                <li><strong>MDN Web Docs:</strong><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Reference"></a> CSS MDN Web Docs</li>
+                <li><strong>W3Schools:</strong><a href="https://www.w3schools.com/cssref/index.php"></a> W3Schools CSS</li>
+                <li><strong>CSS Reference.io:</strong><a href="https://cssreference.io/"></a>CSS Reference.io</li>
+            </ul>
+
+            <h3 data-lang-en="Key Concepts and Tutorials" data-lang-id="Konsep dan Tutorial Utama">Key Concepts and Tutorials</h3>
+            <ul class="features-list">
+                <li><strong>HTML&CSS:</strong><a href="https://www.w3schools.com/htmlcss/default.asp"> W3Schools.com</a></li>
+                <li><strong>Linking CSS to HTML:</strong><p data-lang-en="You can add CSS to HTML using inline styles, internal &lt;style&gt; tags, or, most commonly, an external stylesheet linked via the &lt;link rel=&quot;stylesheet&quot; href=&quot;...&quot;&gt; tag within the &lt;head&gt; section of your HTML document." 
+                                                            data-lang-id="Anda dapat menambahkan CSS ke HTML menggunakan gaya sebaris (inline styles), tag &lt;style&gt; internal, atau, yang paling umum, stylesheet eksternal yang dihubungkan melalui tag &lt;link rel=&quot;stylesheet&quot; href=&quot;...&quot;&gt; di dalam bagian &lt;head&gt; dokumen HTML Anda.">kosong</p></li>
+                <li><strong>Google HTML/CSS Style Guide:</strong><p data-lang-en="Provides formatting and style rules for improving code quality and collaboration on projects" data-lang-id="Menyediakan aturan pemformatan dan gaya untuk meningkatkan kualitas kode dan kolaborasi dalam proyek."></p></li>
+                <li><strong>Practice Environment:</strong><p data-lang-en="Use online code editors like Codepen.io to practice and experiment with HTML and CSS directly in your browser." data-lang-id="Gunakan editor kode online seperti Codepen.io untuk berlatih dan bereksperimen dengan HTML dan CSS langsung di browser Anda."></p><a href="https://codepen.io/">Codepen.io</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p><strong data-lang-en="🎨 Learn HTML & CSS" data-lang-id="🎨 Belajar HTML & CSS">🎨 Belajar HTML & CSS</strong></p>
+        <p data-lang-en="Learn web development easily" data-lang-id="Belajar pengembangan web dengan mudah">Belajar pengembangan web dengan mudah</p>
+        <p style="margin-top: 15px; font-size: 0.75rem; opacity: 0.8;">
+            &copy; 2026 Thertaria Project
+        </p>
+    </footer>
+
+   <script src="script/html&css.js"></script>
+</body>
+</html>
