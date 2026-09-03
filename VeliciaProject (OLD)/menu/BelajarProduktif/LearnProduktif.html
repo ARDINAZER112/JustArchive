@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="Platform Pembelajaran Produktivitas - Tips, Tutorial, Motivasi Belajar Produktif">
+    <meta name="theme-color" content="#1a237e">
+    <title>Belajar Produktif - Platform Pembelajaran Produktivitas</title>
+    <style>
+        :root {
+            /* Colors */
+            --primary-color: #1a237e;
+            --primary-dark: #283593;
+            --primary-light: #3f51b5;
+            --accent-color: #ffb300;
+            --accent-orange: #ff9800;
+            
+            /* Light Mode */
+            --bg-light: #f0f2f5;
+            --bg-white: #ffffff;
+            --text-dark: #333333;
+            --text-light: #555555;
+            --border-color: #e0e0e0;
+            
+            /* Spacing */
+            --spacing-small: 15px;
+            --spacing-medium: 20px;
+            --spacing-large: 30px;
+            
+            /* Font Size */
+            --font-base: 16px;
+            --font-small: 14px;
+            --font-tiny: 12px;
+        }
+
+        html[data-theme="dark"] {
+            --bg-light: #1a1a1a;
+            --bg-white: #2d2d2d;
+            --text-dark: #e0e0e0;
+            --text-light: #b0b0b0;
+            --border-color: #404040;
+        }
+
+        html[data-font-size="small"] {
+            --font-base: 14px;
+        }
+
+        html[data-font-size="large"] {
+            --font-base: 18px;
+        }
+
+        html[data-font-size="extra-large"] {
+            --font-base: 20px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: var(--font-base);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--bg-light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* ==================== NAVBAR ==================== */
+        nav {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+            min-height: 70px;
+            transition: all 0.3s ease;
+            gap: 10px;
+        }
+
+        .nav-logo {
+            color: white;
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-decoration: none;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0;
+            flex: 1;
+            transition: all 0.3s ease;
+        }
+
+        nav li {
+            display: inline-block;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 14px 20px;
+            display: block;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            font-size: 0.9375rem;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+
+        nav a:hover::after {
+            width: 70%;
+        }
+
+        /* ==================== HAMBURGER & SETTINGS BTN ==================== */
+        .nav-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .hamburger-btn {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 8px;
+            color: white;
+            z-index: 1001;
+        }
+
+        .hamburger-line {
+            width: 25px;
+            height: 2.5px;
+            background: white;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger-btn.active .hamburger-line:nth-child(1) {
+            transform: rotate(45deg) translate(9px, 8px);
+        }
+
+        .hamburger-btn.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger-btn.active .hamburger-line:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -7px);
+        }
+
+        .settings-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 8px 12px;
+            transition: all 0.3s ease;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .settings-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: rotate(20deg);
+        }
+
+        /* ==================== HEADER ==================== */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 50%, var(--primary-light) 100%);
+            color: white;
+            padding: 80px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            top: -200px;
+            right: -200px;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            word-wrap: break-word;
+        }
+
+        .header p {
+            font-size: 1.125rem;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+            line-height: 1.6;
+            word-wrap: break-word;
+        }
+
+        /* ==================== MAIN CONTENT ==================== */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            flex-grow: 1;
+            transition: all 0.3s ease;
+        }
+
+        .menu-section {
+            background: var(--bg-white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 10px;
+            word-wrap: break-word;
+            transition: color 0.3s ease;
+        }
+
+        .menu-section p {
+            color: var(--text-light);
+            transition: color 0.3s ease;
+            word-wrap: break-word;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-top: 15px;
+            padding: 0;
+        }
+
+        .features-list li {
+            padding: 10px 0;
+            padding-left: 25px;
+            position: relative;
+            color: var(--text-light);
+            transition: color 0.3s ease;
+            word-wrap: break-word;
+        }
+
+        .features-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        /* ==================== SETTINGS PANEL ==================== */
+        .settings-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: none;
+            z-index: 1999;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .settings-overlay.active {
+            display: block;
+        }
+
+        .settings-panel {
+            position: fixed;
+            right: 0;
+            top: 0;
+            width: 100%;
+            max-width: 400px;
+            height: 100vh;
+            background: var(--bg-white);
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
+            overflow-y: auto;
+            z-index: 2000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .settings-panel.active {
+            transform: translateX(0);
+        }
+
+        .settings-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+            transition: background 0.3s ease;
+        }
+
+        .settings-header h2 {
+            margin: 0;
+            font-size: 1.25rem;
+            color: white;
+        }
+
+        .close-settings {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .close-settings:hover {
+            transform: rotate(90deg);
+        }
+
+        .settings-content {
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        .settings-group {
+            margin-bottom: 25px;
+        }
+
+        .settings-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.9375rem;
+            transition: color 0.3s ease;
+        }
+
+        .settings-group select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            font-size: 0.9375rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .settings-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(26, 35, 126, 0.1);
+        }
+
+        .toggle-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 50px;
+            height: 28px;
+            background-color: #ccc;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .toggle-switch.active {
+            background-color: var(--accent-color);
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background-color: white;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: left 0.3s ease;
+        }
+
+        .toggle-switch.active::after {
+            left: 24px;
+        }
+
+        .font-size-options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .font-size-btn {
+            flex: 1;
+            min-width: 70px;
+            padding: 10px;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .font-size-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .font-size-btn:hover {
+            border-color: var(--primary-color);
+        }
+
+        .color-palette {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .color-option {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 8px;
+            border: 3px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .color-option:hover {
+            transform: scale(1.05);
+        }
+
+        .color-option.active {
+            border-color: var(--text-dark);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .layout-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .layout-btn {
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .layout-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .layout-btn:hover {
+            border-color: var(--primary-color);
+        }
+
+        .settings-footer {
+            padding: 20px;
+            border-top: 2px solid var(--border-color);
+            flex-shrink: 0;
+        }
+
+        .reset-btn {
+            width: 100%;
+            padding: 12px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9375rem;
+        }
+
+        .reset-btn:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* ==================== FOOTER ==================== */
+        footer {
+            background: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+            transition: background 0.3s ease;
+        }
+
+        footer p {
+            margin: 5px 0;
+            word-wrap: break-word;
+        }
+
+        footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* ==================== RESPONSIVE STYLES ==================== */
+        @media (max-width: 1024px) {
+            nav {
+                padding: 0 20px;
+            }
+
+            nav a {
+                padding: 12px 16px;
+                font-size: 0.875rem;
+            }
+
+            .header {
+                padding: 60px 20px;
+            }
+
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+            .header p {
+                font-size: 1rem;
+            }
+
+            .container {
+                padding: 0 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: row;
+                padding: 0 15px;
+                min-height: 60px;
+                gap: 10px;
+            }
+
+            .nav-logo {
+                font-size: 1rem;
+                flex-shrink: 0;
+            }
+
+            nav ul {
+                display: none;
+                flex-direction: column;
+                position: fixed;
+                top: 60px;
+                left: 0;
+                right: 0;
+                width: 100%;
+                background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+                max-width: none;
+                flex: none;
+                border-top: 1px solid rgba(255, 255, 255, 0.1);
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+                z-index: 999;
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            nav li {
+                width: 100%;
+            }
+
+            nav a {
+                text-align: left;
+                padding: 14px 20px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                font-size: 0.875rem;
+            }
+
+            .hamburger-btn {
+                display: flex;
+                flex-shrink: 0;
+            }
+
+            .header {
+                padding: 60px 20px;
+                min-height: 350px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+                margin-bottom: 15px;
+            }
+
+            .header p {
+                font-size: 0.9375rem;
+            }
+
+            .menu-section {
+                padding: 20px;
+            }
+
+            .container {
+                padding: 0 15px;
+                margin: 25px auto;
+            }
+
+            .settings-panel {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                padding: 0 12px;
+                min-height: 55px;
+            }
+
+            .nav-logo {
+                font-size: 0.875rem;
+                display: none;
+            }
+
+            nav ul {
+                top: 55px;
+            }
+
+            nav a {
+                padding: 12px 16px;
+                font-size: 0.8125rem;
+            }
+
+            .hamburger-btn {
+                padding: 6px;
+            }
+
+            .hamburger-line {
+                width: 22px;
+                height: 2px;
+            }
+
+            .settings-btn {
+                width: 36px;
+                height: 36px;
+                font-size: 1.25rem;
+            }
+
+            .header {
+                padding: 50px 15px;
+                min-height: 300px;
+            }
+
+            .header h1 {
+                font-size: 1.625rem;
+                margin-bottom: 10px;
+                text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+            }
+
+            .header p {
+                font-size: 0.8125rem;
+            }
+
+            .header::before {
+                width: 400px;
+                height: 400px;
+                top: -150px;
+                right: -150px;
+            }
+
+            .menu-section {
+                padding: 15px;
+            }
+
+            .container {
+                padding: 0 10px;
+                margin: 20px auto;
+            }
+
+            .menu-section h2 {
+                font-size: 1.25rem;
+            }
+
+            .settings-content {
+                padding: 15px;
+            }
+
+            .color-palette {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 320px) {
+            nav {
+                padding: 0 8px;
+            }
+
+            .header h1 {
+                font-size: 1.25rem;
+            }
+
+            .header p {
+                font-size: 0.75rem;
+            }
+
+            .menu-section {
+                padding: 12px;
+            }
+
+            .container {
+                padding: 0 8px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
+        @media print {
+            nav,
+            footer,
+            .hamburger-btn,
+            .settings-btn,
+            .settings-overlay,
+            .settings-panel {
+                display: none;
+            }
+
+            .header {
+                page-break-after: avoid;
+            }
+
+            .menu-section {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body oncontextmenu="return false;">
+    <!-- NAVBAR -->
+    <nav>
+        <a class="nav-logo" href="#" onclick="window.history.back(); return false;">💡 Produktif</a>
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle navigation menu">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+        <ul id="navMenu">
+            <li><a href="#produktif" data-lang-en="How to Stay Productive" data-lang-id="💡 Cara Produktif">💡 Cara Produktif</a></li>
+            <li><a href="#teknik" data-lang-en="Techniques" data-lang-id="🎯 Teknik">🎯 Teknik</a></li>
+            <li><a href="#positif-negatif" data-lang-en="Positive & Negative" data-lang-id="⚖️ Positif & Negatif">⚖️ Positif & Negatif</a></li>
+            <li><a href="#hindari" data-lang-en="Avoid Being Unproductive" data-lang-id="🚫 Hindari">🚫 Hindari</a></li>
+            <li><a href="#strategi" data-lang-en="Learning Strategy" data-lang-id="📊 Strategi">📊 Strategi</a></li>
+            <li><a href="#tutorial" data-lang-en="Tutorial" data-lang-id="📚 Tutorial">📚 Tutorial</a></li>
+            <li><a href="#manfaat" data-lang-en="Benefits" data-lang-id="🌟 Manfaat">🌟 Manfaat</a></li>
+            <li><a href="#tools" data-lang-en="Tools" data-lang-id="🛠️ Tools">🛠️ Tools</a></li>
+        </ul>
+        <div class="nav-controls">
+            <button class="settings-btn" id="settingsBtn" aria-label="Open settings">⚙️</button>
+        </div>
+    </nav>
+
+    <!-- SETTINGS PANEL -->
+    <div class="settings-overlay" id="settingsOverlay"></div>
+    <div class="settings-panel" id="settingsPanel">
+        <div class="settings-header">
+            <h2>⚙️ Pengaturan</h2>
+            <button class="close-settings" id="closeSettings" aria-label="Close settings">✕</button>
+        </div>
+        <div class="settings-content">
+            <!-- Dark Mode Toggle -->
+            <div class="settings-group">
+                <label>🌙 Mode Gelap</label>
+                <div class="toggle-group">
+                    <div class="toggle-switch" id="darkModeToggle"></div>
+                    <span id="darkModeLabel">Nonaktif</span>
+                </div>
+            </div>
+
+            <!-- Language Selection -->
+            <div class="settings-group">
+                <label for="languageSelect">🌐 Bahasa</label>
+                <select id="languageSelect">
+                    <option value="id">Bahasa Indonesia</option>
+                    <option value="en">English</option>
+                </select>
+            </div>
+
+            <!-- Font Size -->
+            <div class="settings-group">
+                <label>📝 Ukuran Font</label>
+                <div class="font-size-options">
+                    <button class="font-size-btn" data-size="small">A-</button>
+                    <button class="font-size-btn active" data-size="normal">A</button>
+                    <button class="font-size-btn" data-size="large">A+</button>
+                    <button class="font-size-btn" data-size="extra-large">A++</button>
+                </div>
+            </div>
+
+            <!-- Theme Color -->
+            <div class="settings-group">
+                <label>🎨 Warna Tema</label>
+                <div class="color-palette">
+                    <div class="color-option active" data-theme="blue" style="background: linear-gradient(135deg, #1a237e, #283593);" title="Blue"></div>
+                    <div class="color-option" data-theme="purple" style="background: linear-gradient(135deg, #4a148c, #6a1b9a);" title="Purple"></div>
+                    <div class="color-option" data-theme="teal" style="background: linear-gradient(135deg, #004d40, #00695c);" title="Teal"></div>
+                    <div class="color-option" data-theme="red" style="background: linear-gradient(135deg, #b71c1c, #d32f2f);" title="Red"></div>
+                    <div class="color-option" data-theme="green" style="background: linear-gradient(135deg, #1b5e20, #2e7d32);" title="Green"></div>
+                    <div class="color-option" data-theme="orange" style="background: linear-gradient(135deg, #e65100, #ff6f00);" title="Orange"></div>
+                </div>
+            </div>
+
+            <!-- Layout Mode -->
+            <div class="settings-group">
+                <label>📐 Mode Layout</label>
+                <div class="layout-options">
+                    <button class="layout-btn active" data-layout="normal">Normal</button>
+                    <button class="layout-btn" data-layout="compact">Compact</button>
+                </div>
+            </div>
+
+            <!-- Animation Toggle -->
+            <div class="settings-group">
+                <label>✨ Efek Animasi</label>
+                <div class="toggle-group">
+                    <div class="toggle-switch active" id="animationToggle"></div>
+                    <span id="animationLabel">Aktif</span>
+                </div>
+            </div>
+
+            <!-- Sidebar Toggle -->
+            <div class="settings-group">
+                <label>📋 Sidebar Navigation</label>
+                <div class="toggle-group">
+                    <div class="toggle-switch active" id="sidebarToggle"></div>
+                    <span id="sidebarLabel">Aktif</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="settings-footer">
+            <button class="reset-btn" id="resetBtn">🔄 Reset Semua Pengaturan</button>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="header-content">
+            <h1 id="header-title" data-lang-en="💡 PRODUCTIVE LEARNING" data-lang-id="💡 BELAJAR PRODUKTIF">💡 BELAJAR PRODUKTIF</h1>
+            <p data-lang-en="Tips, tutorials, and motivation to stay productive in learning and daily life" data-lang-id="Tips, tutorial, dan motivasi agar tetap produktif dalam belajar dan kehidupan sehari-hari">Tips, tutorial, dan motivasi agar tetap produktif dalam belajar dan kehidupan sehari-hari</p>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+        <!-- Cara Agar Tetap Produktif -->
+        <div class="menu-section" id="produktif">
+            <h2 data-lang-en="💡 How to Stay Productive" data-lang-id="💡 Cara Agar Tetap Produktif">💡 Cara Agar Tetap Produktif</h2>
+            <p data-lang-en="Productivity is a skill that can be learned and improved. Here are fundamental ways to stay productive:" data-lang-id="Produktivitas adalah keterampilan yang dapat dipelajari dan ditingkatkan. Berikut adalah cara-cara fundamental untuk tetap produktif:">Produktivitas adalah keterampilan yang dapat dipelajari dan ditingkatkan. Berikut adalah cara-cara fundamental untuk tetap produktif:</p>
+            <ul class="features-list">
+                <li data-lang-en="Set Clear Goals: Write down daily, weekly, and monthly goals specifically and measurably" data-lang-id="Tentukan Tujuan Jelas: Tuliskan tujuan harian, mingguan, dan bulanan dengan spesifik dan terukur"><strong>Tentukan Tujuan Jelas:</strong> Tuliskan tujuan harian, mingguan, dan bulanan dengan spesifik dan terukur</li>
+                <li data-lang-en="Create a Regular Schedule: Allocate specific time for each task and stick to the schedule" data-lang-id="Buat Jadwal Teratur: Alokasikan waktu spesifik untuk setiap tugas dan patuhi jadwal tersebut"><strong>Buat Jadwal Teratur:</strong> Alokasikan waktu spesifik untuk setiap tugas dan patuhi jadwal tersebut</li>
+                <li data-lang-en="Prioritize with Matrix: Separate tasks into urgent-important categories" data-lang-id="Prioritaskan dengan Matrix: Pisahkan tugas ke dalam kategori urgent-important"><strong>Prioritaskan dengan Matrix:</strong> Pisahkan tugas ke dalam kategori urgent-important</li>
+                <li data-lang-en="Avoid Multitasking: Focus on one task until completion for maximum results" data-lang-id="Hindari Multitasking: Fokus pada satu tugas sampai selesai untuk hasil maksimal"><strong>Hindari Multitasking:</strong> Fokus pada satu tugas sampai selesai untuk hasil maksimal</li>
+                <li data-lang-en="Get Enough Rest: Sleep 7-8 hours, eat healthy, and exercise regularly" data-lang-id="Istirahat yang Cukup: Tidur 7-8 jam, makan sehat, dan olahraga rutin"><strong>Istirahat yang Cukup:</strong> Tidur 7-8 jam, makan sehat, dan olahraga rutin</li>
+                <li data-lang-en="Pomodoro Technique: Work 25 minutes focused, rest 5 minutes, repeat 4x then rest 15-30 minutes" data-lang-id="Teknik Pomodoro: Bekerja 25 menit fokus, istirahat 5 menit, ulangi 4x lalu istirahat panjang 15-30 menit"><strong>Teknik Pomodoro:</strong> Bekerja 25 menit fokus, istirahat 5 menit, ulangi 4x lalu istirahat panjang 15-30 menit</li>
+                <li data-lang-en="Weekly Evaluation: Review achievements and improve strategy every end of week" data-lang-id="Evaluasi Mingguan: Tinjau pencapaian dan perbaiki strategi setiap akhir minggu"><strong>Evaluasi Mingguan:</strong> Tinjau pencapaian dan perbaiki strategi setiap akhir minggu</li>
+                <li data-lang-en="Supporting Environment: Create a comfortable, clean, and distraction-free learning space" data-lang-id="Environment yang Mendukung: Ciptakan ruang belajar yang nyaman, bersih, dan bebas distraksi"><strong>Environment yang Mendukung:</strong> Ciptakan ruang belajar yang nyaman, bersih, dan bebas distraksi</li>
+            </ul>
+        </div>
+
+        <!-- Teknik Produktivitas -->
+        <div class="menu-section" id="teknik">
+            <h2 data-lang-en="🎯 Techniques & Productivity Methodologies" data-lang-id="🎯 Teknik & Metodologi Produktivitas">🎯 Teknik & Metodologi Produktivitas</h2>
+            <p data-lang-en="There are various proven techniques to increase productivity:" data-lang-id="Ada berbagai teknik yang terbukti meningkatkan produktivitas:"><strong>Ada berbagai teknik yang terbukti meningkatkan produktivitas:</strong></p>
+            <ul class="features-list">
+                <li data-lang-en="Pomodoro Technique: 25-minute work sessions with 5-minute breaks, very effective for focus" data-lang-id="Pomodoro Technique: Sesi kerja 25 menit dengan istirahat 5 menit, sangat efektif untuk fokus"><strong>Pomodoro Technique:</strong> Sesi kerja 25 menit dengan istirahat 5 menit, sangat efektif untuk fokus</li>
+                <li data-lang-en="Time Blocking: Divide day into time blocks for specific activities" data-lang-id="Time Blocking: Membagi hari menjadi blok waktu untuk aktivitas spesifik"><strong>Time Blocking:</strong> Membagi hari menjadi blok waktu untuk aktivitas spesifik</li>
+                <li data-lang-en="Getting Things Done (GTD): Capture, clarify, organize, reflect, and engage with tasks" data-lang-id="Getting Things Done (GTD): Capture, clarify, organize, reflect, dan engage dengan tugas"><strong>Getting Things Done (GTD):</strong> Capture, clarify, organize, reflect, dan engage dengan tugas</li>
+                <li data-lang-en="Pareto Principle: 80% results from 20% effort, focus on important things" data-lang-id="Pareto Principle: 80% hasil berasal dari 20% effort, fokus pada hal penting"><strong>Pareto Principle:</strong> 80% hasil berasal dari 20% effort, fokus pada hal penting</li>
+                <li data-lang-en="Ivy Lee Method: Write 6 most important tasks each morning and work by priority" data-lang-id="Ivy Lee Method: Tulis 6 tugas terpenting setiap pagi dan kerjakan sesuai prioritas"><strong>Ivy Lee Method:</strong> Tulis 6 tugas terpenting setiap pagi dan kerjakan sesuai prioritas</li>
+                <li data-lang-en="Batch Processing: Group similar tasks and do them together for efficiency" data-lang-id="Batch Processing: Kelompokkan tugas sejenis dan lakukan sekaligus untuk efisiensi"><strong>Batch Processing:</strong> Kelompokkan tugas sejenis dan lakukan sekaligus untuk efisiensi</li>
+                <li data-lang-en="Deep Work: Work with full focus without distractions for high-quality results" data-lang-id="Deep Work: Bekerja dengan fokus penuh tanpa distraksi untuk hasil berkualitas tinggi"><strong>Deep Work:</strong> Bekerja dengan fokus penuh tanpa distraksi untuk hasil berkualitas tinggi</li>
+            </ul>
+        </div>
+
+        <!-- Nilai Positif dan Negatif Produktif -->
+        <div class="menu-section" id="positif-negatif">
+            <h2 data-lang-en="⚖️ Positive & Negative Values of Productivity" data-lang-id="⚖️ Nilai Positif & Negatif Produktif">⚖️ Nilai Positif & Negatif Produktif</h2>
+            <p data-lang-en="Understanding both sides of productivity is very important for life balance:" data-lang-id="Memahami dua sisi produktivitas sangat penting untuk keseimbangan hidup:"><strong>Memahami dua sisi produktivitas sangat penting untuk keseimbangan hidup:</strong></p>
+            <ul class="features-list">
+                <li data-lang-en="POSITIVE VALUES: Improve work quality and academic achievement, achieve goals faster, build sustainable positive habits, increase confidence" data-lang-id="NILAI POSITIF: Meningkatkan kualitas hasil kerja dan prestasi akademik, mencapai tujuan lebih cepat, membangun kebiasaan positif berkelanjutan"><strong style="color: #27ae60;">✓ NILAI POSITIF:</strong> Meningkatkan kualitas hasil kerja, mencapai tujuan lebih cepat, membangun kebiasaan positif</li>
+                <li data-lang-en="NEGATIVE VALUES (if excessive): Burnout, lack of rest, excessive stress, loss of motivation, damaged relationships" data-lang-id="NILAI NEGATIF (jika berlebihan): Burnout, kurang istirahat, stres berlebihan, kehilangan motivasi, hubungan sosial terganggu"><strong style="color: #e74c3c;">✗ NILAI NEGATIF (jika berlebihan):</strong> Burnout, kurang istirahat, stres berlebihan, kehilangan motivasi</li>
+            </ul>
+            <p style="color: #e74c3c; margin-top: 15px; padding: 15px; background: var(--bg-light); border-radius: 6px;"><strong>⚠️ Kunci:</strong> Produktivitas yang sehat adalah produktivitas yang seimbang. Jangan mengorbankan kesehatan untuk hasil kerja.</p>
+        </div>
+
+        <!-- Strategi Belajar Efektif -->
+        <div class="menu-section" id="strategi">
+            <h2 data-lang-en="📊 Effective & Efficient Learning Strategies" data-lang-id="📊 Strategi Belajar yang Efektif & Efisien">📊 Strategi Belajar yang Efektif & Efisien</h2>
+            <p data-lang-en="The right way to learn produces better understanding:" data-lang-id="Cara belajar yang tepat menghasilkan pemahaman yang lebih baik:"><strong>Cara belajar yang tepat menghasilkan pemahaman yang lebih baik:</strong></p>
+            <ul class="features-list">
+                <li data-lang-en="Spaced Repetition: Repeat material in increasingly long intervals for long-term memory" data-lang-id="Spaced Repetition: Ulangi materi dalam interval yang semakin lama untuk mempertahankan ingatan jangka panjang"><strong>Spaced Repetition:</strong> Ulangi materi dalam interval yang semakin lama untuk mempertahankan ingatan jangka panjang</li>
+                <li data-lang-en="Active Recall: Try to remember material without looking at notes, more effective than just reading" data-lang-id="Active Recall: Coba ingat materi tanpa melihat catatan, lebih efektif dari sekadar membaca"><strong>Active Recall:</strong> Coba ingat materi tanpa melihat catatan, lebih efektif dari sekadar membaca</li>
+                <li data-lang-en="Teach Others: Teach what you've learned to deepen understanding" data-lang-id="Teach Others: Ajarkan apa yang sudah dipelajari untuk memperdalam pemahaman"><strong>Teach Others:</strong> Ajarkan apa yang sudah dipelajari untuk memperdalam pemahaman</li>
+                <li data-lang-en="Mind Mapping: Visualize concepts with diagrams to understand relationships between topics" data-lang-id="Mind Mapping: Visualisasikan konsep dengan diagram untuk memahami hubungan antar topik"><strong>Mind Mapping:</strong> Visualisasikan konsep dengan diagram untuk memahami hubungan antar topik</li>
+                <li data-lang-en="Interleaving: Alternate different topics in learning sessions" data-lang-id="Interleaving: Selingi berbagai topik dalam sesi belajar"><strong>Interleaving:</strong> Selingi berbagai topik dalam sesi belajar</li>
+                <li data-lang-en="Practice Problems: Practice problems are the best way to deeply understand concepts" data-lang-id="Practice Problems: Praktik soal adalah cara terbaik untuk memahami konsep dengan mendalam"><strong>Practice Problems:</strong> Praktik soal adalah cara terbaik untuk memahami konsep dengan mendalam</li>
+                <li data-lang-en="Effective Notes: Write briefly, don't copy-paste, use symbols and colors" data-lang-id="Catatan Efektif: Tulis ringkas, jangan copy paste, gunakan simbol dan warna"><strong>Catatan Efektif:</strong> Tulis ringkas, jangan copy paste, gunakan simbol dan warna</li>
+                <li data-lang-en="Consistency: Learning a little each day is more effective than learning a lot once" data-lang-id="Konsistensi: Belajar sedikit setiap hari lebih efektif daripada belajar banyak sekali"><strong>Konsistensi:</strong> Belajar sedikit setiap hari lebih efektif daripada belajar banyak sekali</li>
+            </ul>
+        </div>
+
+        <!-- Cara Menghindari Tidak Produktif -->
+        <div class="menu-section" id="hindari">
+            <h2 data-lang-en="🚫 How to Avoid Unproductivity" data-lang-id="🚫 Cara Menghindari Penyakit Tidak Produktif">🚫 Cara Menghindari Penyakit Tidak Produktif</h2>
+            <p data-lang-en="Procrastination and unproductive habits are enemies of productivity. Here's how to overcome them:" data-lang-id="Prokrastinasi dan kebiasaan tidak produktif adalah musuh produktivitas. Berikut cara mengatasinya:"><strong>Prokrastinasi dan kebiasaan tidak produktif adalah musuh produktivitas. Berikut cara mengatasinya:</strong></p>
+            <ul class="features-list">
+                <li data-lang-en="Overcome Procrastination: Start with 2 minutes of work, momentum will help you continue" data-lang-id="Atasi Prokrastinasi: Mulai dengan 2 menit kerja, momentum akan membantu Anda melanjutkan"><strong>Atasi Prokrastinasi:</strong> Mulai dengan 2 menit kerja, momentum akan membantu Anda melanjutkan</li>
+                <li data-lang-en="Remove Digital Distractions: Turn off notifications, use website blockers for social media" data-lang-id="Hapus Distraksi Digital: Matikan notifikasi, gunakan website blocker untuk media sosial"><strong>Hapus Distraksi Digital:</strong> Matikan notifikasi, gunakan website blocker untuk media sosial</li>
+                <li data-lang-en="Set Time Boundaries: Determine specific time for gadgets, not all day" data-lang-id="Buat Batasan Waktu: Tentukan waktu pasti untuk gadget, bukan sepanjang hari"><strong>Buat Batasan Waktu:</strong> Tentukan waktu pasti untuk gadget, bukan sepanjang hari</li>
+                <li data-lang-en="Improve Environment: Clean workspace, turn off TV, minimize noise" data-lang-id="Perbaiki Lingkungan: Bersihkan meja kerja, matikan TV, minimalkan kebisingan"><strong>Perbaiki Lingkungan:</strong> Bersihkan meja kerja, matikan TV, minimalkan kebisingan</li>
+                <li data-lang-en="Manage Perfectionism: Finish first, perfect later - don't get stuck chasing perfection" data-lang-id="Kelola Perfeksionisme: Selesaikan dulu, perfectkan nanti - jangan terjebak chasing perfection"><strong>Kelola Perfeksionisme:</strong> Selesaikan dulu, perfectkan nanti - jangan terjebak chasing perfection</li>
+                <li data-lang-en="Sleep Enough: Lack of sleep reduces focus by 40%, prioritize quality sleep" data-lang-id="Tidur Cukup: Kurang tidur mengurangi fokus hingga 40%, prioritaskan tidur berkualitas"><strong>Tidur Cukup:</strong> Kurang tidur mengurangi fokus hingga 40%, prioritaskan tidur berkualitas</li>
+                <li data-lang-en="Leave Doom Scrolling: Set alarms to remind you to get off social media" data-lang-id="Lepas dari Doom Scrolling: Atur alarm untuk mengingatkan keluar dari media sosial"><strong>Lepas dari Doom Scrolling:</strong> Atur alarm untuk mengingatkan keluar dari media sosial</li>
+                <li data-lang-en="Build Early Momentum: Start with easy tasks to build momentum before difficult tasks" data-lang-id="Capai Awal Momentum: Mulai dengan tugas mudah untuk bangun momentum sebelum tugas sulit"><strong>Capai Awal Momentum:</strong> Mulai dengan tugas mudah untuk bangun momentum sebelum tugas sulit</li>
+            </ul>
+        </div>
+
+        <!-- Tutorial Praktis -->
+        <div class="menu-section" id="tutorial">
+            <h2 data-lang-en="📚 Practical Tutorial: Daily Implementation" data-lang-id="📚 Tutorial Praktis: Implementasi Harian">📚 Tutorial Praktis: Implementasi Harian</h2>
+            <p data-lang-en="Step-by-step guide to apply productivity in daily life:" data-lang-id="Panduan langkah demi langkah untuk menerapkan produktivitas dalam kehidupan sehari-hari:"><strong>Panduan langkah demi langkah untuk menerapkan produktivitas dalam kehidupan sehari-hari:</strong></p>
+            <ul class="features-list">
+                <li data-lang-en="Morning (6:00-7:00): Wake up early, light exercise, shower, healthy breakfast" data-lang-id="Pagi (6:00-7:00): Bangun pagi, olahraga ringan, mandi, sarapan sehat"><strong>Pagi (6:00-7:00):</strong> Bangun pagi, olahraga ringan, mandi, sarapan sehat</li>
+                <li data-lang-en="Planning (7:00-7:30): Write 3-5 priority tasks for today with deadline" data-lang-id="Perencanaan (7:00-7:30): Tulis 3-5 tugas prioritas hari ini dengan deadline"><strong>Perencanaan (7:00-7:30):</strong> Tulis 3-5 tugas prioritas hari ini dengan deadline</li>
+                <li data-lang-en="Focus (7:30-9:00): Use Pomodoro technique (25 min work, 5 min rest)" data-lang-id="Fokus (7:30-9:00): Gunakan teknik Pomodoro (25 menit kerja, 5 menit istirahat)"><strong>Fokus (7:30-9:00):</strong> Gunakan teknik Pomodoro (25 menit kerja, 5 menit istirahat)</li>
+                <li data-lang-en="Morning Review (9:00-9:15): Check progress, record results, prepare next task" data-lang-id="Evaluasi Pagi (9:00-9:15): Cek progress, catat hasil kerja, siapkan tugas berikutnya"><strong>Evaluasi Pagi (9:00-9:15):</strong> Cek progress, catat hasil kerja, siapkan tugas berikutnya</li>
+                <li data-lang-en="Productive Work (9:15-12:00): Continue with Pomodoro, avoid gadget distractions" data-lang-id="Kerja Produktif (9:15-12:00): Lanjut dengan Pomodoro, hindari distraksi gadget"><strong>Kerja Produktif (9:15-12:00):</strong> Lanjut dengan Pomodoro, hindari distraksi gadget</li>
+                <li data-lang-en="Lunch Break (12:00-13:00): Healthy lunch, short walk" data-lang-id="Istirahat Siang (12:00-13:00): Makan siang yang bergizi, berjalan-jalan sebentar"><strong>Istirahat Siang (12:00-13:00):</strong> Makan siang yang bergizi, berjalan-jalan sebentar</li>
+                <li data-lang-en="Afternoon Session (13:00-17:00): Continue tasks, more flexible, lighter tasks allowed" data-lang-id="Sesi Sore (13:00-17:00): Lanjut tugas, lebih fleksibel, boleh tugas yang lebih santai"><strong>Sesi Sore (13:00-17:00):</strong> Lanjut tugas, lebih fleksibel, boleh tugas yang lebih santai</li>
+                <li data-lang-en="Evening Review (17:00-17:15): Record today's achievements, plan tomorrow" data-lang-id="Evaluasi Malam (17:00-17:15): Catat pencapaian hari ini, rencanakan besok"><strong>Evaluasi Malam (17:00-17:15):</strong> Catat pencapaian hari ini, rencanakan besok</li>
+                <li data-lang-en="Rest Time (17:15-22:00): Family, hobbies, relax before bed" data-lang-id="Istirahat (17:15-22:00): Keluarga, hobi, santai, relaksasi sebelum tidur"><strong>Istirahat (17:15-22:00):</strong> Keluarga, hobi, santai, relaksasi sebelum tidur</li>
+                <li data-lang-en="Weekly Reflection (Sunday): Review all achievements, learn from failures, plan next week" data-lang-id="Refleksi Mingguan (Minggu): Tinjau semua pencapaian, pelajari kegagalan, buat plan minggu depan"><strong>Refleksi Mingguan (Minggu):</strong> Tinjau semua pencapaian, pelajari kegagalan, buat plan minggu depan</li>
+            </ul>
+        </div>
+
+        <!-- Manfaat Produktif -->
+        <div class="menu-section" id="manfaat">
+            <h2 data-lang-en="🌟 Long-term Benefits of Productivity" data-lang-id="🌟 Manfaat Jangka Panjang Produktivitas">🌟 Manfaat Jangka Panjang Produktivitas</h2>
+            <p data-lang-en="High productivity level brings many advantages:" data-lang-id="Tingkat produktivitas tinggi membawa banyak keuntungan:"><strong>Tingkat produktivitas tinggi membawa banyak keuntungan:</strong></p>
+            <ul class="features-list">
+                <li data-lang-en="Academics & Career: Better grades, faster promotions, more competitive in job market" data-lang-id="Akademik & Karir: Nilai lebih baik, promosi lebih cepat, lebih kompetitif di pasar kerja"><strong>Akademik & Karir:</strong> Nilai lebih baik, promosi lebih cepat, lebih kompetitif di pasar kerja</li>
+                <li data-lang-en="Personal Development: More time to learn new skills and develop yourself" data-lang-id="Personal Development: Lebih banyak waktu untuk belajar skill baru dan pengembangan diri"><strong>Personal Development:</strong> Lebih banyak waktu untuk belajar skill baru dan pengembangan diri</li>
+                <li data-lang-en="Mental Health: Reduce anxiety and depression, especially from procrastination" data-lang-id="Kesehatan Mental: Mengurangi kecemasan, depresi terutama yang disebabkan penundaan"><strong>Kesehatan Mental:</strong> Mengurangi kecemasan, depresi terutama yang disebabkan penundaan</li>
+                <li data-lang-en="Confidence: Every achievement builds self-esteem and motivation" data-lang-id="Kepercayaan Diri: Setiap pencapaian membangun self-esteem dan motivasi"><strong>Kepercayaan Diri:</strong> Setiap pencapaian membangun self-esteem dan motivasi</li>
+                <li data-lang-en="Work-Life Balance: Efficiently means more time for family and hobbies" data-lang-id="Work-Life Balance: Dengan efisien berarti lebih banyak waktu untuk keluarga dan hobi"><strong>Work-Life Balance:</strong> Dengan efisien berarti lebih banyak waktu untuk keluarga dan hobi</li>
+                <li data-lang-en="Physical Health: Better structured means better sleep, eating, and exercise" data-lang-id="Kesehatan Fisik: Lebih terstruktur berarti lebih baik menjaga tidur, makan, dan olahraga"><strong>Kesehatan Fisik:</strong> Lebih terstruktur berarti lebih baik menjaga tidur, makan, dan olahraga</li>
+                <li data-lang-en="Social Relations: Stakeholders appreciate you for being reliable and punctual" data-lang-id="Relasi Sosial: Stakeholder lebih menghargai Anda karena reliable dan tepat waktu"><strong>Relasi Sosial:</strong> Stakeholder lebih menghargai Anda karena reliable dan tepat waktu</li>
+                <li data-lang-en="Financial: Productive = better results = higher income potential" data-lang-id="Financial: Produktif = hasil lebih baik = penghasilan potensial lebih tinggi"><strong>Financial:</strong> Produktif = hasil lebih baik = penghasilan potensial lebih tinggi</li>
+                <li data-lang-en="Leadership: Productive people are often chosen as leaders and influencers" data-lang-id="Kepemimpinan: Orang produktif sering dipilih sebagai pemimpin dan influencer"><strong>Kepemimpinan:</strong> Orang produktif sering dipilih sebagai pemimpin dan influencer</li>
+            </ul>
+        </div>
+
+        <!-- Tools & Aplikasi -->
+        <div class="menu-section" id="tools">
+            <h2 data-lang-en="🛠️ Tools & Applications for Productivity" data-lang-id="🛠️ Tools & Aplikasi Pendukung Produktivitas">🛠️ Tools & Aplikasi Pendukung Produktivitas</h2>
+            <p data-lang-en="The right technology can ease the implementation of productivity:" data-lang-id="Teknologi yang tepat dapat mempermudah implementasi produktivitas:"><strong>Teknologi yang tepat dapat mempermudah implementasi produktivitas:</strong></p>
+            <ul class="features-list">
+                <li data-lang-en="Task Management: Todoist, Microsoft To Do, Notion, Asana" data-lang-id="Manajemen Tugas: Todoist, Microsoft To Do, Notion, Asana"><strong>Manajemen Tugas:</strong> Todoist, Microsoft To Do, Notion, Asana</li>
+                <li data-lang-en="Pomodoro Timer: Focus Keep, Marinara Timer, Be Focused" data-lang-id="Pomodoro Timer: Focus Keep, Marinara Timer, Be Focused"><strong>Pomodoro Timer:</strong> Focus Keep, Marinara Timer, Be Focused</li>
+                <li data-lang-en="Time Tracking: Toggl Track, Clockify, RescueTime" data-lang-id="Time Tracking: Toggl Track, Clockify, RescueTime"><strong>Time Tracking:</strong> Toggl Track, Clockify, RescueTime</li>
+                <li data-lang-en="Note Taking: Notion, Obsidian, OneNote, Joplin" data-lang-id="Note Taking: Notion, Obsidian, OneNote, Joplin"><strong>Note Taking:</strong> Notion, Obsidian, OneNote, Joplin</li>
+                <li data-lang-en="Calendar & Scheduling: Google Calendar, Fantastical, Calendly" data-lang-id="Kalender & Scheduling: Google Calendar, Fantastical, Calendly"><strong>Kalender & Scheduling:</strong> Google Calendar, Fantastical, Calendly</li>
+                <li data-lang-en="Focus & Blocking: Forest App, Freedom, Cold Turkey" data-lang-id="Focus & Blocking: Forest App, Freedom, Cold Turkey"><strong>Focus & Blocking:</strong> Forest App, Freedom, Cold Turkey</li>
+                <li data-lang-en="Habit Tracking: Habitica, Done, Streaks" data-lang-id="Habit Tracking: Habitica, Done, Streaks"><strong>Habit Tracking:</strong> Habitica, Done, Streaks</li>
+                <li data-lang-en="Mind Mapping: MindMeister, XMind, Coggle" data-lang-id="Mind Mapping: MindMeister, XMind, Coggle"><strong>Mind Mapping:</strong> MindMeister, XMind, Coggle</li>
+                <li data-lang-en="Productivity Music: Spotify Focus Playlists, YouTube Study Music" data-lang-id="Musik Produktivitas: Spotify Focus Playlists, YouTube Study Music"><strong>Musik Produktivitas:</strong> Spotify Focus Playlists, YouTube Study Music</li>
+                <li data-lang-en="Project Management: Monday.com, Trello, ClickUp" data-lang-id="Project Management: Monday.com, Trello, ClickUp"><strong>Project Management:</strong> Monday.com, Trello, ClickUp</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p><strong>💡 Platform Belajar Produktif</strong></p>
+        <p data-lang-en="Learn Productivity Easily and Enjoyably" data-lang-id="Belajar Pemrograman dengan Mudah dan Menyenangkan">Belajar Produktif dengan Mudah dan Menyenangkan</p>
+        <p style="margin-top: 15px; font-size: 12px; opacity: 0.8;">&copy; 2026 Thertaria Project. <span data-lang-en="All rights reserved." data-lang-id="Semua hak dilindungi.">Semua hak dilindungi.</span></p>
+    </footer>
+
+    <script>
+        // ==================== SETTINGS MANAGEMENT ====================
+        const STORAGE_KEYS = {
+            THEME: 'app-theme',
+            FONT_SIZE: 'app-font-size',
+            LANGUAGE: 'app-language',
+            ANIMATION: 'app-animation',
+            LAYOUT: 'app-layout',
+            SIDEBAR: 'app-sidebar'
+        };
+
+        const THEME_COLORS = {
+            blue: {
+                primary: '#1a237e',
+                primaryDark: '#283593',
+                primaryLight: '#3f51b5',
+                accent: '#ffb300',
+                accentOrange: '#ff9800'
+            },
+            purple: {
+                primary: '#4a148c',
+                primaryDark: '#6a1b9a',
+                primaryLight: '#7b1fa2',
+                accent: '#e91e63',
+                accentOrange: '#c2185b'
+            },
+            teal: {
+                primary: '#004d40',
+                primaryDark: '#00695c',
+                primaryLight: '#00897b',
+                accent: '#00bcd4',
+                accentOrange: '#0097a7'
+            },
+            red: {
+                primary: '#b71c1c',
+                primaryDark: '#d32f2f',
+                primaryLight: '#f44336',
+                accent: '#ffb300',
+                accentOrange: '#ff5722'
+            },
+            green: {
+                primary: '#1b5e20',
+                primaryDark: '#2e7d32',
+                primaryLight: '#388e3c',
+                accent: '#ffb300',
+                accentOrange: '#4caf50'
+            },
+            orange: {
+                primary: '#e65100',
+                primaryDark: '#ff6f00',
+                primaryLight: '#fb8c00',
+                accent: '#ffb300',
+                accentOrange: '#ff9800'
+            }
+        };
+
+        function initSettings() {
+            loadSettings();
+            setupEventListeners();
+        }
+
+        function loadSettings() {
+            const theme = localStorage.getItem(STORAGE_KEYS.THEME) || 'light';
+            const fontSize = localStorage.getItem(STORAGE_KEYS.FONT_SIZE) || 'normal';
+            const language = localStorage.getItem(STORAGE_KEYS.LANGUAGE) || 'id';
+            const animation = localStorage.getItem(STORAGE_KEYS.ANIMATION) !== 'false';
+            const layout = localStorage.getItem(STORAGE_KEYS.LAYOUT) || 'normal';
+            const sidebar = localStorage.getItem(STORAGE_KEYS.SIDEBAR) !== 'false';
+            const themeColor = localStorage.getItem('app-theme-color') || 'blue';
+
+            applyTheme(theme);
+            applyFontSize(fontSize);
+            applyLanguage(language);
+            applyAnimation(animation);
+            applyLayout(layout);
+            applySidebar(sidebar);
+            applyThemeColor(themeColor);
+
+            updateSettingsUI(theme, fontSize, language, animation, layout, sidebar, themeColor);
+        }
+
+        function applyTheme(theme) {
+            const isDark = theme === 'dark';
+            document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+            document.getElementById('darkModeToggle').classList.toggle('active', isDark);
+            document.getElementById('darkModeLabel').textContent = isDark ? 'Aktif' : 'Nonaktif';
+        }
+
+        function applyFontSize(size) {
+            document.documentElement.setAttribute('data-font-size', size);
+            document.querySelectorAll('.font-size-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.size === size);
+            });
+        }
+
+        function applyLanguage(lang) {
+            document.querySelectorAll('[data-lang-en][data-lang-id]').forEach(element => {
+                element.textContent = element.getAttribute(`data-lang-${lang}`);
+            });
+            document.documentElement.setAttribute('lang', lang);
+        }
+
+        function applyAnimation(enabled) {
+            const toggle = document.getElementById('animationToggle');
+            const label = document.getElementById('animationLabel');
+            toggle.classList.toggle('active', enabled);
+            label.textContent = enabled ? 'Aktif' : 'Nonaktif';
+            
+            if (!enabled) {
+                document.documentElement.style.setProperty('--transition-duration', '0s');
+            } else {
+                document.documentElement.style.removeProperty('--transition-duration');
+            }
+        }
+
+        function applyLayout(layout) {
+            const isCompact = layout === 'compact';
+            if (isCompact) {
+                document.documentElement.style.setProperty('--spacing-large', '20px');
+                document.documentElement.style.setProperty('--spacing-medium', '15px');
+            } else {
+                document.documentElement.style.removeProperty('--spacing-large');
+                document.documentElement.style.removeProperty('--spacing-medium');
+            }
+            document.querySelectorAll('.layout-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.layout === layout);
+            });
+        }
+
+        function applySidebar(enabled) {
+            const toggle = document.getElementById('sidebarToggle');
+            const label = document.getElementById('sidebarLabel');
+            toggle.classList.toggle('active', enabled);
+            label.textContent = enabled ? 'Aktif' : 'Nonaktif';
+        }
+
+        function applyThemeColor(color) {
+            const colors = THEME_COLORS[color] || THEME_COLORS.blue;
+            const root = document.documentElement;
+            root.style.setProperty('--primary-color', colors.primary);
+            root.style.setProperty('--primary-dark', colors.primaryDark);
+            root.style.setProperty('--primary-light', colors.primaryLight);
+            root.style.setProperty('--accent-color', colors.accent);
+            root.style.setProperty('--accent-orange', colors.accentOrange);
+        }
+
+        function updateSettingsUI(theme, fontSize, language, animation, layout, sidebar, themeColor) {
+            document.getElementById('languageSelect').value = language;
+            document.querySelectorAll('.color-option').forEach(option => {
+                option.classList.toggle('active', option.dataset.theme === themeColor);
+            });
+        }
+
+        function setupEventListeners() {
+            // Dark Mode Toggle
+            document.getElementById('darkModeToggle').addEventListener('click', function() {
+                const newTheme = this.classList.contains('active') ? 'light' : 'dark';
+                localStorage.setItem(STORAGE_KEYS.THEME, newTheme);
+                applyTheme(newTheme);
+            });
+
+            // Language Select
+            document.getElementById('languageSelect').addEventListener('change', function() {
+                localStorage.setItem(STORAGE_KEYS.LANGUAGE, this.value);
+                applyLanguage(this.value);
+            });
+
+            // Font Size Buttons
+            document.querySelectorAll('.font-size-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    localStorage.setItem(STORAGE_KEYS.FONT_SIZE, this.dataset.size);
+                    applyFontSize(this.dataset.size);
+                });
+            });
+
+            // Theme Color Options
+            document.querySelectorAll('.color-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    localStorage.setItem('app-theme-color', this.dataset.theme);
+                    applyThemeColor(this.dataset.theme);
+                    document.querySelectorAll('.color-option').forEach(opt => {
+                        opt.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                });
+            });
+
+            // Layout Options
+            document.querySelectorAll('.layout-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    localStorage.setItem(STORAGE_KEYS.LAYOUT, this.dataset.layout);
+                    applyLayout(this.dataset.layout);
+                });
+            });
+
+            // Animation Toggle
+            document.getElementById('animationToggle').addEventListener('click', function() {
+                const newValue = !this.classList.contains('active');
+                localStorage.setItem(STORAGE_KEYS.ANIMATION, newValue);
+                applyAnimation(newValue);
+            });
+
+            // Sidebar Toggle
+            document.getElementById('sidebarToggle').addEventListener('click', function() {
+                const newValue = !this.classList.contains('active');
+                localStorage.setItem(STORAGE_KEYS.SIDEBAR, newValue);
+                applySidebar(newValue);
+            });
+
+            // Reset Button
+            document.getElementById('resetBtn').addEventListener('click', function() {
+                if (confirm('Apakah Anda yakin ingin mereset semua pengaturan ke default?')) {
+                    localStorage.clear();
+                    location.reload();
+                }
+            });
+
+            // Settings Panel Controls
+            document.getElementById('settingsBtn').addEventListener('click', openSettings);
+            document.getElementById('closeSettings').addEventListener('click', closeSettings);
+            document.getElementById('settingsOverlay').addEventListener('click', closeSettings);
+        }
+
+        function openSettings() {
+            document.getElementById('settingsPanel').classList.add('active');
+            document.getElementById('settingsOverlay').classList.add('active');
+        }
+
+        function closeSettings() {
+            document.getElementById('settingsPanel').classList.remove('active');
+            document.getElementById('settingsOverlay').classList.remove('active');
+        }
+
+        // ==================== HAMBURGER MENU ====================
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburgerBtn.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        document.querySelectorAll('#navMenu a').forEach(link => {
+            link.addEventListener('click', function() {
+                hamburgerBtn.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        document.addEventListener('click', function(event) {
+            const isClickInsideNav = document.querySelector('nav').contains(event.target);
+            if (!isClickInsideNav && navMenu.classList.contains('active')) {
+                hamburgerBtn.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+
+        // ==================== SMOOTH SCROLL ====================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+
+        // ==================== RESIZE HANDLER ====================
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 480) {
+                hamburgerBtn.classList.remove('active');
+                navMenu.classList.remove('active');
+            }
+        });
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', initSettings);
+    </script>
+</body>
+</html>

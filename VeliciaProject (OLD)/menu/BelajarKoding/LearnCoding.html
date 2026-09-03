@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="Platform pembelajaran koding online - Belajar Python, JavaScript, HTML, CSS, Java">
+    <meta name="theme-color" content="#1a237e">
+    <title>Belajar Koding - Platform Pembelajaran Digital</title>
+    <link rel="icon" href="asset/Arcana Therzevena.png" type="image/x-icon">
+    <!-- GUNAKAN FILE YANG SUDAH DIPERBAIKI DAN LAYOUT DITINGKATKAN -->
+    <link rel="stylesheet" href="style/learn.css">
+</head>
+
+<body oncontextmenu="return false;">
+    <!-- NAVBAR -->
+    <nav id="home">
+        <div class="nav-container">
+            <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle navigation menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+            <ul id="navMenu">
+                <li><a onclick="window.history.back()">🏠 Beranda</a></li>
+                <li><a href="#courses" onclick="handleNavClick(event)" data-lang-en="💻  Learn to Code" data-lang-id="💻 Belajar Kode">💻 Belajar Kode</a></li>
+                <li><a href="#more" onclick="handleNavClick(event)" data-lang-en="🛠️ More" data-lang-id="Lebih Banyak">🛠️ Lebih Banyak</a></li>
+                <li><a href="#resources" onclick="handleNavClick(event)" data-lang-en="📚 Resources" data-lang-id="📚 Sumber Daya">📚 Resources</a></li>
+                <li><a href="#tutorial" onclick="handleNavClick(event)" data-lang-en="📖 Tutorials" data-lang-id="📖 Tutorial">📖 Tutorial</a></li>
+            </ul>
+            <button class="settings-btn" id="settingsBtn" aria-label="Open settings">⚙️</button>
+        </div>
+    </nav>
+
+    <!-- SETTINGS PANEL -->
+    <div class="settings-overlay" id="settingsOverlay"></div>
+    <div class="settings-panel" id="settingsPanel">
+        <div class="settings-header">
+            <h2>⚙️ Pengaturan</h2>
+            <button class="close-settings" id="closeSettings" aria-label="Close settings">✕</button>
+        </div>
+        <div class="settings-content">
+            <!-- Dark Mode Toggle -->
+            <div class="settings-group">
+                <label>🌙 Mode Gelap</label>
+                <div class="toggle-group">
+                    <div class="toggle-switch" id="darkModeToggle"></div>
+                    <span id="darkModeLabel" data-lang-en="Off" data-lang-id="Nonaktif"></span>
+                </div>
+            </div>
+
+            <!-- Language Selection -->
+            <div class="settings-group">
+                <label for="languageSelect">🌐 Bahasa</label>
+                <select id="languageSelect">
+                    <option value="id">Bahasa Indonesia</option>
+                    <option value="en">English</option>
+                </select>
+            </div>
+
+            <!-- Font Size -->
+            <div class="settings-group">
+                <label>📝 Ukuran Font</label>
+                <div class="font-size-options">
+                    <button class="font-size-btn" data-size="small">A-</button>
+                    <button class="font-size-btn active" data-size="normal">A</button>
+                    <button class="font-size-btn" data-size="large">A+</button>
+                    <button class="font-size-btn" data-size="extra-large">A++</button>
+                </div>
+            </div>
+
+            <!-- Theme Color -->
+            <div class="settings-group">
+                <label>🎨 Warna Tema</label>
+                <div class="color-palette">
+                    <div class="color-option active" data-theme="blue" style="background: linear-gradient(135deg, #1a237e, #283593);"></div>
+                    <div class="color-option" data-theme="purple" style="background: linear-gradient(135deg, #4a148c, #6a1b9a);"></div>
+                    <div class="color-option" data-theme="teal" style="background: linear-gradient(135deg, #004d40, #00695c);"></div>
+                    <div class="color-option" data-theme="red" style="background: linear-gradient(135deg, #b71c1c, #d32f2f);"></div>
+                    <div class="color-option" data-theme="green" style="background: linear-gradient(135deg, #1b5e20, #2e7d32);"></div>
+                    <div class="color-option" data-theme="orange" style="background: linear-gradient(135deg, #e65100, #ff6f00);"></div>
+                </div>
+            </div>
+
+            <!-- Display Options -->
+            <div class="settings-group">
+                <label>📊 Efek Hover</label>
+                <div class="toggle-group">
+                    <div class="toggle-switch active" id="hoverEffectToggle"></div>
+                    <span id="hoverEffectLabel">Aktif</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="settings-footer">
+            <button class="reset-btn" id="resetBtn">🔄 Reset Semua Pengaturan</button>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <div class="header">
+        <h1 data-lang-id="💻 PLATFORM BELAJAR KODING" data-lang-en="💻 CODING LEARNING PLATFORM">💻 PLATFORM BELAJAR KODING</h1>
+        <p data-lang-en="Start Your Journey to Master Programming from Zero to Expert" data-lang-id="Mulai Perjalanan Anda Menguasai Pemrograman dari Nol hingga Mahir">Mulai Perjalanan Anda Menguasai Pemrograman dari Nol hingga Mahir</p>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+        <!-- QUICK LINKS -->
+        <div class="menu-section" id="courses">
+            <h2 data-lang-en="Popular Coding Learning List" data-lang-id="🎓 Daftar Pembelajaran Koding Popular">🎓 Daftar Pembelajaran Koding Popular</h2>
+            <div class="menu-links">
+                <a href="#python">🐍 Python</a>
+                <a href="#javascript">📜 JavaScript</a>
+                <a href="#html-css">🎨 HTML & CSS</a>
+                <a href="#java">☕ Java</a>
+            </div>
+        </div>
+
+        <!-- COURSE CARDS -->
+        <div class="courses-grid">
+            <!-- PYTHON COURSE -->
+            <div class="course-card" id="python">
+                <div class="course-header">
+                    <h3>🐍 Python</h3>
+                    <span class="course-level" data-lang-en="Beginner - Advanced" data-lang-id="Pemula - Tingkat Lanjut">Pemula - Tingkat Lanjut</span>
+                </div>
+                <div class="course-content">
+                    <h4 data-lang-en="Description" data-lang-id="📖 Deskripsi">📖 Deskripsi</h4>
+                    <p data-lang-en="Python is an easy-to-learn yet very powerful programming language. Ideal for beginners and professionals. Suitable for web development, data science, and automation." data-lang-id="Python adalah bahasa pemrograman yang mudah dipelajari namun sangat powerful. Ideal untuk pemula dan profesional. Cocok untuk web development, data science, dan automation.">Python adalah bahasa pemrograman yang mudah dipelajari namun sangat powerful. Ideal untuk pemula dan profesional. Cocok untuk web development, data science, dan automation.</p>
+
+                    <h4 data-lang-en="What You Will Learn" data-lang-id="🎯 Apa yang Akan Dipelajari">🎯 Apa yang Akan Dipelajari</h4>
+                    <ul class="features-list">
+                        <li data-lang-en="Python basic syntax" data-lang-id="Sintaks dasar Python">Sintaks dasar Python</li>
+                        <li data-lang-en="Variables and data types" data-lang-id="Variabel dan tipe data">Variabel dan tipe data</li>
+                        <li data-lang-en="Functions and modules" data-lang-id="Fungsi dan modul">Fungsi dan modul</li>
+                        <li data-lang-en="Object-Oriented Programming" data-lang-id="Object-Oriented Programming">Object-Oriented Programming</li>
+                        <li data-lang-en="Popular libraries (NumPy, Pandas)" data-lang-id="Library populer (NumPy, Pandas)">Library populer (NumPy, Pandas)</li>
+                    </ul>
+
+                    <div class="code-block">
+                        <code>print("Halo, Dunia!")</code>
+                    </div>
+
+                    <div class="course-stats">
+                        <div class="stat">
+                            <div class="stat-label" data-lang-en="Study Duration" data-lang-id="Durasi Belajar">Durasi Belajar</div>
+                            <div class="stat-value" data-lang-en="2 to 6 months" data-lang-id="2 hingga 6 bulan">2 hingga 6 bulan</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label" data-lang-en="Number of Libraries" data-lang-id="Jumlah Pustaka"></div>
+                            <div class="stat-value" data-lang-id="200.000+ pustaka" data-lang-en="200,000+ libraries"></div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label" data-lang-en="World Ranking" data-lang-id="Peringkat Dunia"></div>
+                            <div class="stat-value" data-lang-id="#1st, 21.81%" data-lang-en="#1st, 21.81%"></div>
+                        </div>
+                    </div>
+
+                    <div class="curriculum">
+                        <div class="curriculum-item">
+                            <span class="curriculum-title" data-lang-en="📌 Module 1: Introduction to Python" data-lang-id="📌 Modul 1: Pengenalan Python">📌 Modul 1: Pengenalan Python</span>
+                            <p data-lang-en="Setup environment, hello world, and basic concepts" data-lang-id="Setup environment, hello world, dan konsep dasar">Setup environment, hello world, dan konsep dasar</p>
+                        </div>
+                        <div class="curriculum-item">
+                            <span class="curriculum-title" data-lang-en="📌 Module 2: Data Structures" data-lang-id="📌 Modul 2: Struktur Data">📌 Modul 2: Struktur Data</span>
+                            <p data-lang-en="Lists, tuples, dictionaries, and sets" data-lang-id="List, tuple, dictionary, dan set">List, tuple, dictionary, dan set</p>
+                        </div>
+                        <div class="curriculum-item">
+                            <span class="curriculum-title" data-lang-en="📌 Module 3: Advanced Topics" data-lang-id="📌 Modul 3: Advanced Topics">📌 Modul 3: Advanced Topics</span>
+                            <p data-lang-en="Decorators, generators, and context managers" data-lang-id="Decorators, generators, dan context managers">Decorators, generators, dan context managers</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- JAVASCRIPT COURSE -->
+            <div class="course-card" id="javascript">
+                <div class="course-header">
+                    <h3>📜 JavaScript</h3>
+                    <span class="course-level" data-lang-en="Beginner - Expert" data-lang-id="Pemula - Mahir">Pemula - Mahir</span>
+                </div>
+                <div class="course-content">
+                    <h4 data-lang-en="Description" data-lang-id="📖 Deskripsi">📖 Deskripsi</h4>
+                    <p data-lang-en="JavaScript is a programming language for web development. Used to create interactive and dynamic websites. Essential skill for front-end developers." data-lang-id="JavaScript adalah bahasa pemrograman untuk web development. Digunakan untuk membuat website interaktif dan dynamic. Essential skill untuk front-end developer.">JavaScript adalah bahasa pemrograman untuk web development. Digunakan untuk membuat website interaktif dan dynamic. Essential skill untuk front-end developer.</p>
+
+                    <h4 data-lang-en="What You Will Learn" data-lang-id="🎯 Apa yang Akan Dipelajari">🎯 Apa yang Akan Dipelajari</h4>
+                    <ul class="features-list">
+                        <li data-lang-en="DOM manipulation" data-lang-id="DOM manipulation">DOM manipulation</li>
+                        <li data-lang-en="ES6+ features" data-lang-id="ES6+ features">ES6+ features</li>
+                        <li data-lang-en="Async/Await & Promises" data-lang-id="Async/Await & Promises">Async/Await & Promises</li>
+                        <li data-lang-en="React & Vue frameworks" data-lang-id="React & Vue frameworks">React & Vue frameworks</li>
+                        <li data-lang-en="RESTful API integration" data-lang-id="RESTful API integration">RESTful API integration</li>
+                    </ul>
+
+                    <div class="code-block">
+                        <code>console.log("Hello, World!");</code>
+                    </div>
+
+                    <div class="course-stats">
+                        <div class="stat">
+                            <div class="stat-label" data-lang-en="Study Duration" data-lang-id="Durasi Belajar"></div>
+                            <div class="stat-value" data-lang-id="3 hingga 12 bulan atau lebih" data-lang-en="3 to 12 Months or more">3 hingga 12 bulan atau lebih</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label" data-lang-en="Number of Libraries" data-lang-id="Jumlah Pustaka"></div>
+                            <div class="stat-value" data-lang-id="Lebih dari 3,1 juta" data-lang-en="More than 3.1 million"></div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label" data-lang-en="World Ranking" data-lang-id="Peringkat Dunia"></div>
+                            <div class="stat-value" data-lang-id="#6th, 2.92%" data-lang-en="#6th, 2.92%"></div>
+                        </div>
+                    </div>
+
+                    <div class="curriculum">
+                        <div class="curriculum-item">
+                            <span class="curriculum-title" data-lang-en="📌 Module 1: JavaScript Basics" data-lang-id="📌 Modul 1: JavaScript Basics">📌 Modul 1: JavaScript Basics</span>
+                            <p data-lang-en="Variables, operators, and control flow" data-lang-id="Variables, operators, dan control flow">Variables, operators, dan control flow</p>
+                        </div>
+                        <div class="curriculum-item">
+                            <span class="curriculum-title" data-lang-en="📌 Module 2: DOM & Events" data-lang-id="📌 Modul 2: DOM & Events">📌 Modul 2: DOM & Events</span>
+                            <p data-lang-en="HTML manipulation and event handling" data-lang-id="Manipulasi HTML dan event handling">Manipulasi HTML dan event handling</p>
+                        </div>
+                        <div class="curriculum-item">
+                            <span class="curriculum-title" data-lang-en="📌 Module 3: Modern JavaScript" data-lang-id="📌 Modul 3: Modern JavaScript">📌 Modul 3: Modern JavaScript</span>
+                            <p data-lang-en="ES6+, async programming, and design patterns" data-lang-id="ES6+, async programming, dan design patterns">ES6+, async programming, dan design patterns</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HTML & CSS COURSE -->
+            <div class="course-card" id="html-css">
+                <div class="course-header">
+                    <h3>🎨 HTML & CSS</h3>
+                    <span class="course-level" data-lang-en="Beginner" data-lang-id="Pemula">Pemula</span>
+                </div>
+                <div class="course-content">
+                    <h4 data-lang-en="Description" data-lang-id="📖 Deskripsi">📖 Deskripsi</h4>
+                    <p data-lang-en="HTML and CSS are the foundation of web development. HTML for structure, CSS for styling. Must be mastered to become a professional web developer." data-lang-id="HTML dan CSS adalah fondasi dari web development. HTML untuk struktur, CSS untuk styling. Wajib dikuasai untuk menjadi web developer profesional.">HTML dan CSS adalah fondasi dari web development. HTML untuk struktur, CSS untuk styling. Wajib dikuasai untuk menjadi web developer profesional.</p>
+
+                    <h4 data-lang-en="What You Will Learn" data-lang-id="🎯 Apa yang Akan Dipelajari">🎯 Apa yang Akan Dipelajari</h4>
+                    <ul class="features-list">
+                        <li data-lang-en="HTML semantics" data-lang-id="HTML semantics">HTML semantics</li>
+                        <li data-lang-en="CSS Grid & Flexbox" data-lang-id="CSS Grid & Flexbox">CSS Grid & Flexbox</li>
+                        <li data-lang-en="Responsive design" data-lang-id="Responsive design">Responsive design</li>
+                        <li data-lang-en="CSS animations & transitions" data-lang-id="CSS animations & transitions">CSS animations & transitions</li>
+                        <li data-lang-en="Best practices" data-lang-id="Best practices">Best practices</li>
+                    </ul>
+
+                    <div class="code-block">
+                        <code>&lt;h1&gt;Hello, World!&lt;/h1&gt;</code>
+                    </div>
+
+                    <div class="course-stats">
+                        <div class="stat">
+                            <div class="stat-label" data-lang-en="Study Duration" data-lang-id="Durasi Belajar"></div>
+                            <div class="stat-value" data-lang-id="1-3 bulan" data-lang-en="1-3 months"></div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label" data-lang-en="Number of Libraries" data-lang-id="Jumlah Pustaka"></div>
+                            <div class="stat-value" data-lang-en="tens to hundreds of libraries" data-lang-id="puluhan hingga ratusan pustaka "></div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label" data-lang-en="World Ranking" data-lang-id="Peringkat Dunia"></div>
+                            <div class="stat-value" data-lang-en="Web Based" data-lang-id="Dasar web"></div>
+                        </div>
+                    </div>
+
+                    <div class="curriculum">
+                        <div class="curriculum-item">
+                            <span class="curriculum-title" data-lang-en="📌 Module 1: HTML Fundamentals" data-lang-id="📌 Modul 1: HTML Fundamentals">📌 Modul 1: HTML Fundamentals</span>
+                            <p data-lang-en="Tags, elements, and semantic HTML" data-lang-id="Tags, elements, dan semantic HTML">Tags, elements, dan semantic HTML</p>
+                        </div>
+                        <div class="curriculum-item">
+                            <span class="curriculum-title" data-lang-en="📌 Module 2: CSS Styling" data-lang-id="📌 Modul 2: CSS Styling">📌 Modul 2: CSS Styling</span>
+                            <p data-lang-en="Selectors, properties, and layout techniques" data-lang-id="Selectors, properties, dan layout techniques">Selectors, properties, dan layout techniques</p>
+                        </div>
+                        <div class="curriculum-item">
+                            <span class="curriculum-title" data-lang-en="📌 Module 3: Responsive Web" data-lang-id="📌 Modul 3: Responsive Web">📌 Modul 3: Responsive Web</span>
+                            <p data-lang-en="Media queries, mobile-first design" data-lang-id="Media queries, mobile-first design">Media queries, mobile-first design</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- JAVA COURSE -->
+            <div class="course-card" id="java">
+                <div class="course-header">
+                    <h3>☕ Java</h3>
+                    <span class="course-level" data-lang-en="Intermediate - Advanced" data-lang-id="Intermediate - Advanced">Intermediate - Advanced</span>
+                </div>
+                <div class="course-content">
+                    <h4 data-lang-en="Description" data-lang-id="📖 Deskripsi">📖 Deskripsi</h4>
+                    <p data-lang-en="Java is a robust and versatile programming language. Used for enterprise applications, Android development, and backend systems." data-lang-id="Java adalah bahasa pemrograman yang robust dan versatile. Digunakan untuk enterprise applications, Android development, dan backend systems.">Java adalah bahasa pemrograman yang robust dan versatile. Digunakan untuk enterprise applications, Android development, dan backend systems.</p>
+
+                    <h4 data-lang-en="What You Will Learn" data-lang-id="🎯 Apa yang Akan Dipelajari">🎯 Apa yang Akan Dipelajari</h4>
+                    <ul class="features-list">
+                        <li data-lang-en="Object-Oriented Programming" data-lang-id="Object-Oriented Programming">Object-Oriented Programming</li>
+                        <li data-lang-en="Collections Framework" data-lang-id="Collections Framework">Collections Framework</li>
+                        <li data-lang-en="Exception handling" data-lang-id="Exception handling">Exception handling</li>
+                        <li data-lang-en="Multithreading" data-lang-id="Multithreading">Multithreading</li>
+                        <li data-lang-en="Spring Framework" data-lang-id="Spring Framework">Spring Framework</li>
+                    </ul>
+
+                    <div class="code-block">
+                        <code>System.out.println("Hello, World!");</code>
+                    </div>
+
+                    <div class="course-stats">
+                        <div class="stat">
+                            <div class="stat-label" data-lang-en="Study Duration" data-lang-id="Durasi Belajar"></div>
+                            <div class="stat-value" data-lang-id="12-18 bulan" data-lang-en="12-18 months"></div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label" data-lang-en="Number of Libraries" data-lang-id="Jumlah Pustaka"></div>
+                            <div class="stat-value" data-lang-en="more than 10 million" data-lang-id="lebih dari 10 juta"></div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-label" data-lang-en="World Ranking" data-lang-id="Peringkat Dunia"></div>
+                            <div class="stat-value">#4th, 8.12%</div>
+                        </div>
+                    </div>
+
+                    <div class="curriculum">
+                        <div class="curriculum-item">
+                            <span class="curriculum-title" data-lang-en="📌 Module 1: Java Basics" data-lang-id="📌 Modul 1: Java Basics">📌 Modul 1: Java Basics</span>
+                            <p data-lang-en="Syntax, data types, and control structures" data-lang-id="Syntax, data types, dan control structures">Syntax, data types, dan control structures</p>
+                        </div>
+                        <div class="curriculum-item">
+                            <span class="curriculum-title" data-lang-en="📌 Module 2: OOP Concepts" data-lang-id="📌 Modul 2: OOP Concepts">📌 Modul 2: OOP Concepts</span>
+                            <p data-lang-en="Classes, inheritance, polymorphism, encapsulation" data-lang-id="Classes, inheritance, polymorphism, encapsulation">Classes, inheritance, polymorphism, encapsulation</p>
+                        </div>
+                        <div class="curriculum-item">
+                            <span class="curriculum-title" data-lang-en="📌 Module 3: Advanced Features" data-lang-id="📌 Modul 3: Advanced Features">📌 Modul 3: Advanced Features</span>
+                            <p data-lang-en="Generics, collections, and concurrent programming" data-lang-id="Generics, collections, dan concurrent programming">Generics, collections, dan concurrent programming</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MORE LEARNING -->
+           <!--Daftar Belajar-->
+     <section class="projects" class="menu-section" id="more">
+        <div class="projects-container">
+        <div class="menu-section" id="quick-links">
+            <h2 class="section-title" style="text-align: center;">「 ✦ <span data-lang-en="More Complete Learning List" data-lang-id="🎓 Daftar Pembelajaran Lebih Lengkap">MENU</span> ✦ 」</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image"><img src="asset/Python.jpg" alt="Python" style="width:400px; height:300px;"></div>
+                    <div class="project-content">
+                        <h3 data-i18n="menu_learn">🐍 Python</h3>
+                        <p data-lang-id="🐍 Python adalah  bahasa pemrograman interpretatif tingkat tinggi yang populer, dikenal karena sintaksnya yang sederhana dan mudah dibaca serta fleksibilitasnya."
+                            data-lang-en="🐍 Python is a popular, high-level, interpreted programming language known for its simple, readable syntax and versatility."></p>
+                        <a href="python-learning.html" target="_parent"><button class="btn btn-primary" data-lang-en="Look" data-lang-id="Lihat">Lihat</button></a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image"><img src="asset/JavaScript.jpg" alt="JavaScript" style="width:400px; height:300px;"></div>
+                    <div class="project-content">
+                        <h3 data-i18n="produktif">📜 JavaScript</h3>
+                        <p data-lang-id="📜 JavaScript adalah bahasa pemrograman tingkat tinggi yang serbaguna dan teknologi inti dari World Wide Web yang memungkinkan halaman web interaktif dan berbagai macam aplikasi."
+                            data-lang-en="📜 JavaScript  is a versatile, high-level programming language and core technology of the World Wide Web that enables interactive web pages and a wide range of applications."></p>
+                        <a href="javascript-complete-learning.html" target="_parent"><button data-lang-en="Look" data-lang-id="Lihat" class="btn btn-primary">Lihat</button></a>
+                    </div>
+                </div>
+
+                 <div class="project-card">
+                    <div class="project-image"><img src="asset/HTML & CSS.jpg" alt="Html & Css" style="width:400px; height:300px;"></div>
+                    <div class="project-content">
+                        <h3 data-i18n="menu_learn">🎨 HTML & CSS</h3>
+                        <p data-lang-en="🎨 HTML (HyperText Markup Language) and CSS (Cascading Style Sheets) are the foundational languages for building web pages. HTML provides structure and content, while CSS handles the presentation and visual styling."
+                            data-lang-id="🎨 HTML (HyperText Markup Language) dan CSS (Cascading Style Sheets) adalah bahasa dasar untuk membangun halaman web. HTML menyediakan struktur dan konten, sedangkan CSS menangani presentasi dan gaya visual. "></p>
+                        <a href="html-css-complete-learning.html" target="_parent"><button class="btn btn-primary" data-lang-en="Look" data-lang-id="Lihat">Lihat</button></a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image"><img src="asset/Java.jpg" alt="Java" style="width:400px; height:300px;"></div>
+                    <div class="project-content">
+                        <h3 data-i18n="produktif">📜 Java</h3>
+                        <p data-lang-id="📜 Java adalah bahasa pemrograman tingkat tinggi, berorientasi objek, dan independen platform."
+                            data-lang-en="📜 Java is a high-level, object-oriented, and platform-independent programming language"></p>
+                        <a href="java-learning-platform.html" target="_parent"><button data-lang-en="Look" data-lang-id="Lihat" class="btn btn-primary">Lihat</button></a>
+                    </div>
+                </div>
+
+            </div>
+            </div>
+        </div>
+    </section>
+
+        <!-- RESOURCES SECTION -->
+        <div class="menu-section" id="resources">
+            <h2 data-lang-en="📚 Resources & Tools" data-lang-id="📚 Resources & Tools">📚 Resources & Tools</h2>
+            <p data-lang-en="We provide various tools and resources to support your learning:" data-lang-id="Kami menyediakan berbagai tools dan resources untuk mendukung pembelajaran Anda:">Kami menyediakan berbagai tools dan resources untuk mendukung pembelajaran Anda:</p>
+            <p style="margin-top: 15px;">
+                <strong data-lang-en="• Code Editor" data-lang-id="• Code Editor">• Code Editor</strong>: VS Code, IntelliJ IDEA, PyCharm<br>
+                <strong data-lang-en="• Documentation" data-lang-id="• Documentation">• Documentation</strong>: Official docs dan community guides<br>
+                <strong data-lang-en="• Practice Projects" data-lang-id="• Practice Projects">• Practice Projects</strong>: Mini projects dan real-world challenges<br>
+                <strong data-lang-en="• Community Forum" data-lang-id="• Community Forum">• Community Forum</strong>: Diskusi dengan learners lainnya<br>
+                <strong data-lang-en="• Video Tutorials" data-lang-id="• Video Tutorials">• Video Tutorials</strong>: Step-by-step coding videos
+            </p>
+        </div>
+
+        <!-- TUTORIAL SECTION -->
+        <div class="menu-section" id="tutorial">
+            <h2 data-lang-en="🎓 Coding Learning Tips & Tricks" data-lang-id="🎓 Tips & Tricks Belajar Koding">🎓 Tips & Tricks Belajar Koding</h2>
+           <ol>
+            <ul>
+                <h3 data-lang-en="1. Foundation and Preparation" data-lang-id="1. Fondasi dan Persiapan"></h3>
+                <li><strong data-lang-en="Understand the Basic Concepts: " data-lang-id="Pahami Konsep Dasar: "></strong>
+                    <span data-lang-id="Pelajari variabel, tipe data, struktur kontrol (if-else, loop), dan fungsi sebelum masuk ke framework." data-lang-en="Learn variables, data types, control structures (if-else, loops), and functions before diving into the framework."></span></li>
+                <li><strong data-lang-en="Select the Correct Language: " data-lang-id="Choose the Right Language:"></strong>
+                    <span data-lang-id="Mulailah dengan bahasa yang populer dan ramah pemula seperti Python (AI/Data), JavaScript (Web), atau Kotlin (Android)." data-lang-en="Start with a popular, beginner-friendly language like Python (AI/Data), JavaScript (Web), or Kotlin (Android)."></span></li>
+                <li><strong data-lang-id="Kuasai Bahasa Inggris: " data-lang-en="Master English: "></strong>
+                    <span data-lang-id="Dokumentasi teknis dan tutorial terbaik sebagian besar dalam bahasa Inggris." data-lang-en="The best technical documentation and tutorials are mostly in English."></span>
+            </ul>
+             <ul>
+                <h3 data-lang-en="2. Learning and Practice Strategy" data-lang-id="2.Strategi Belajar dan Praktik"></h3>
+                <li><strong data-lang-en="Understand the Basic Concepts: " data-lang-id="Praktik > Teori: "></strong>
+                    <span data-lang-id="Jangan hanya menonton video tutorial. Ketik langsung kodenya (coding) untuk membangun muscle memory." data-lang-en="Learn variables, data types, control structures (if-else, loops), and functions before diving into the framework."></span></li>
+                <li><strong data-lang-en="Select the Correct Language: " data-lang-id="Konsisten Setiap Hari:"></strong>
+                    <span data-lang-id="Mulailah dengan bahasa yang populer dan ramah pemula seperti Python (AI/Data), JavaScript (Web), atau Kotlin (Android)." data-lang-en="Start with a popular, beginner-friendly language like Python (AI/Data), JavaScript (Web), or Kotlin (Android)."></span></li>
+                <li><strong data-lang-id="Kuasai Bahasa Inggris: " data-lang-en="Master English: "></strong>
+                    <span data-lang-id="Dokumentasi teknis dan tutorial terbaik sebagian besar dalam bahasa Inggris." data-lang-en="The best technical documentation and tutorials are mostly in English."></span>
+            </ul>
+           </ol>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer id="contact">
+        <p><strong>💻 Platform Belajar Koding</strong></p>
+        <p data-lang-en="Learn Programming Easily and Enjoyably" data-lang-id="Belajar Pemrograman dengan Mudah dan Menyenangkan">Belajar Pemrograman dengan Mudah dan Menyenangkan</p>
+        <p style="margin-top: 15px; font-size: 12px; opacity: 0.8;">
+            &copy; 2026 Thertaria Project. <span data-lang-en="All rights reserved." data-lang-id="Semua hak dilindungi.">Semua hak dilindungi.</span>
+        </p>
+    </footer>
+
+   <!-- GUNAKAN FILE YANG SUDAH DIPERBAIKI -->
+   <script src="script/learn.js"></script>
+</body>
+</html>

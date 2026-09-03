@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="Tutorial JavaScript Lengkap - Dari Pemula hingga Mahir dengan IDE Interaktif">
+    <meta name="theme-color" content="#1a237e">
+    <title>Belajar JavaScript Lengkap - Tutorial & IDE Interaktif</title>
+    <link rel="stylesheet" href="style/javascript.css">
+    <link rel="icon" href="asset/Arcana Therzevena.png" type="image/x-icon">
+</head>
+
+<body oncontextmenu="return false;">
+    <!-- NAVBAR -->
+    <nav>
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle menu">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+        <ul id="navMenu">
+            <li><a href="#pengenalan" data-lang-en="📖 Introduction" data-lang-id="📖 Pengenalan">📖 Pengenalan</a></li>
+            <li><a href="#tutorial" data-lang-en="📚 Tutorial" data-lang-id="📚 Tutorial">📚 Tutorial</a></li>
+            <li><a href="#problem" data-lang-en="🔧 Problem Solving" data-lang-id="🔧 Problem Solving">🔧 Problem Solving</a></li>
+            <li><a href="#ide" data-lang-en="💻 IDE" data-lang-id="💻 IDE">💻 IDE</a></li>
+            <li><a href="#reference" data-lang-en="📋 Reference" data-lang-id="📋 Referensi">📋 Referensi</a></li>
+        </ul>
+        <div class="nav-controls">
+            <button class="settings-btn" id="settingsBtn" aria-label="Settings">⚙️</button>
+        </div>
+    </nav>
+
+    <!-- SETTINGS PANEL -->
+    <div class="settings-overlay" id="settingsOverlay"></div>
+    <div class="settings-panel" id="settingsPanel">
+        <div class="settings-header">
+            <h2 data-lang-en="⚙️ Settings" data-lang-id="⚙️ Pengaturan">⚙️ Pengaturan</h2>
+            <button class="close-settings" id="closeSettings">✕</button>
+        </div>
+        <div class="settings-content">
+            <div class="settings-group">
+                <label data-lang-en="🌙 Dark Mode" data-lang-id="🌙 Mode Gelap">🌙 Mode Gelap</label>
+                <div class="toggle-group">
+                    <div class="toggle-switch" id="darkModeToggle"></div>
+                    <span id="darkModeLabel" data-lang-en="Off" data-lang-id="Nonaktif"></span>
+                </div>
+            </div>
+
+            <div class="settings-group">
+                <label for="languageSelect" data-lang-en="🌐 Language" data-lang-id="🌐 Bahasa">🌐 Bahasa</label>
+                <select id="languageSelect">
+                    <option value="id">Bahasa Indonesia</option>
+                    <option value="en">English</option>
+                </select>
+            </div>
+
+            <div class="settings-group">
+                <label data-lang-en="📝 Font Size" data-lang-id="📝 Ukuran Font">📝 Ukuran Font</label>
+                <div class="font-size-options">
+                    <button class="font-size-btn" data-size="small">A-</button>
+                    <button class="font-size-btn active" data-size="normal">A</button>
+                    <button class="font-size-btn" data-size="large">A+</button>
+                    <button class="font-size-btn" data-size="extra-large">A++</button>
+                </div>
+            </div>
+
+            <div class="settings-group">
+                <label data-lang-en="🎨 Theme Color" data-lang-id="🎨 Warna Tema">🎨 Warna Tema</label>
+                <div class="color-palette">
+                    <div class="color-option active" data-theme="blue" style="background: linear-gradient(135deg, #1a237e, #283593);"></div>
+                    <div class="color-option" data-theme="purple" style="background: linear-gradient(135deg, #4a148c, #6a1b9a);"></div>
+                    <div class="color-option" data-theme="teal" style="background: linear-gradient(135deg, #004d40, #00695c);"></div>
+                    <div class="color-option" data-theme="red" style="background: linear-gradient(135deg, #b71c1c, #d32f2f);"></div>
+                    <div class="color-option" data-theme="green" style="background: linear-gradient(135deg, #1b5e20, #2e7d32);"></div>
+                    <div class="color-option" data-theme="orange" style="background: linear-gradient(135deg, #e65100, #ff6f00);"></div>
+                </div>
+            </div>
+
+            <div class="settings-group">
+                <label data-lang-en="💻 Code Theme" data-lang-id="💻 Tema Kode">💻 Tema Kode</label>
+                <div class="code-theme-options">
+                    <button class="theme-btn active" data-code-theme="monokai">Monokai</button>
+                    <button class="theme-btn" data-code-theme="github-light">Light</button>
+                    <button class="theme-btn" data-code-theme="github-dark">Dark</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="settings-footer">
+            <button class="reset-btn" id="resetBtn" data-lang-en="🔄 Reset All" data-lang-id="🔄 Reset Semua">🔄 Reset Semua</button>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <div class="header">
+        <h1 data-lang-en="📜 LEARN JAVASCRIPT COMPLETE" data-lang-id="📜 BELAJAR JAVASCRIPT LENGKAP">📜 BELAJAR JAVASCRIPT LENGKAP</h1>
+        <p data-lang-en="From Beginner to Expert - Comprehensive Tutorial, Problem Solving, and Interactive IDE" data-lang-id="Dari Pemula hingga Mahir - Tutorial Komprehensif, Problem Solving, dan IDE Interaktif">Dari Pemula hingga Mahir - Tutorial Komprehensif, Problem Solving, dan IDE Interaktif</p>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+        <!-- PENGENALAN -->
+        <div class="menu-section" id="pengenalan">
+            <h2 data-lang-en="📖 Introduction to JavaScript" data-lang-id="📖 Pengenalan JavaScript">📖 Pengenalan JavaScript</h2>
+            
+            <h3 data-lang-en="What is JavaScript?" data-lang-id="Apa itu JavaScript?">Apa itu JavaScript?</h3>
+            <p data-lang-en="JavaScript is a programming language designed to create interactive and dynamic web pages. Originally created by Brendan Eich in 1995, JavaScript has grown to become one of the most important programming languages ​​in the world." data-lang-id="JavaScript adalah bahasa pemrograman yang dirancang untuk membuat halaman web interaktif dan dinamis. Awalnya dibuat oleh Brendan Eich pada tahun 1995, JavaScript telah berkembang menjadi salah satu bahasa pemrograman paling penting di dunia.">JavaScript adalah bahasa pemrograman yang dirancang untuk membuat halaman web interaktif dan dinamis. Awalnya dibuat oleh Brendan Eich pada tahun 1995, JavaScript telah berkembang menjadi salah satu bahasa pemrograman paling penting di dunia.</p>
+
+            <h3 data-lang-en="Why JavaScript?" data-lang-id="Mengapa JavaScript?">Mengapa JavaScript?</h3>
+            <ul class="features-list">
+                <li><strong data-lang-en="Universal" data-lang-id="Universal">Universal</strong> <span data-lang-en="- Runs in all browsers without installation" data-lang-id="- Berjalan di semua browser tanpa instalasi">- Berjalan di semua browser tanpa instalasi</span></li>
+                <li><strong data-lang-en="Interactive" data-lang-id="Interactive">Interactive</strong> <span data-lang-en="- Creates responsive and user-friendly websites" data-lang-id="- Membuat website responsive dan user-friendly">- Membuat website responsive dan user-friendly</span></li>
+                <li><strong data-lang-en="Versatile" data-lang-id="Versatile">Versatile</strong> <span data-lang-en="- Can be used for frontend, backend, mobile, etc." data-lang-id="- Bisa untuk frontend, backend, mobile, dll">- Bisa untuk frontend, backend, mobile, dll</span></li>
+                <li><strong data-lang-en="Easy to Learn" data-lang-id="Easy to Learn">Easy to Learn</strong> <span data-lang-en="- Simple and intuitive syntax" data-lang-id="- Sintaks yang sederhana dan intuitif">- Sintaks yang sederhana dan intuitif</span></li>
+                <li><strong data-lang-en="Large Community" data-lang-id="Large Community">Large Community</strong> <span data-lang-en="- Thousands of libraries and frameworks" data-lang-id="- Ribuan library dan framework">- Ribuan library dan framework</span></li>
+            </ul>
+
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                <code>// Cara menggunakan JavaScript
+// 1. Inline
+&lt;button onclick="alert('Hello')"&gt;Click&lt;/button&gt;
+
+// 2. Internal
+&lt;script&gt;
+    console.log('Hello, JavaScript!');
+&lt;/script&gt;
+
+// 3. External
+&lt;script src="script.js"&gt;&lt;/script&gt;</code>
+            </div>
+        </div>
+
+        <!-- TUTORIAL -->
+        <div class="menu-section" id="tutorial">
+            <h2 data-lang-en="📚 JavaScript Tutorial" data-lang-id="📚 Tutorial JavaScript">📚 Tutorial JavaScript</h2>
+
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab(event, 'tab-dasar')" data-lang-en="Basics" data-lang-id="Dasar">Dasar</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tab-tipe-data')" data-lang-en="Data Types" data-lang-id="Tipe Data">Tipe Data</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tab-kontrol')" data-lang-en="Control Flow" data-lang-id="Kontrol Alur">Kontrol Alur</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tab-function')" data-lang-en="Functions" data-lang-id="Fungsi">Fungsi</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tab-dom')" data-lang-en="DOM" data-lang-id="DOM">DOM</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tab-async')" data-lang-en="Async" data-lang-id="Async">Async</button>
+            </div>
+
+            <!-- TAB DASAR -->
+            <div id="tab-dasar" class="tab-content active">
+                <div class="tutorial-grid">
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="Hello World" data-lang-id="Hello World">Hello World</h3>
+                            <span class="tutorial-level" data-lang-en="Beginner" data-lang-id="Pemula">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Your first program in JavaScript." data-lang-id="Program pertama Anda dalam JavaScript.">Program pertama Anda dalam JavaScript.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>console.log("Hello, World!");</code>
+                            </div>
+                            <div class="tip-box">
+                                <strong>💡 <span data-lang-en="Tip:" data-lang-id="Tip:">Tip:</span></strong> <span data-lang-en="Open DevTools (F12) to see output in console." data-lang-id="Buka DevTools (F12) untuk melihat output di console.">Buka DevTools (F12) untuk melihat output di console.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="Variables" data-lang-id="Variabel">Variabel</h3>
+                            <span class="tutorial-level" data-lang-en="Beginner" data-lang-id="Pemula">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Store and use data in your program." data-lang-id="Menyimpan dan menggunakan data dalam program.">Menyimpan dan menggunakan data dalam program.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>let nama = "Budi";
+let umur = 20;
+const PI = 3.14;
+
+console.log(nama);  // Budi
+console.log(umur);  // 20</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="Operators" data-lang-id="Operator">Operator</h3>
+                            <span class="tutorial-level" data-lang-en="Beginner" data-lang-id="Pemula">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Perform mathematical and comparison operations." data-lang-id="Melakukan operasi matematika dan perbandingan.">Melakukan operasi matematika dan perbandingan.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>let a = 10, b = 3;
+console.log(a + b);    // 13
+console.log(a > b);    // true
+console.log(a === b);  // false</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB TIPE DATA -->
+            <div id="tab-tipe-data" class="tab-content">
+                <div class="tutorial-grid">
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="Data Types" data-lang-id="Tipe Data">Tipe Data</h3>
+                            <span class="tutorial-level" data-lang-en="Beginner" data-lang-id="Pemula">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Understand various JavaScript data types." data-lang-id="Memahami berbagai tipe data JavaScript.">Memahami berbagai tipe data JavaScript.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>let num = 42;
+let text = "hello";
+let flag = true;
+let arr = [1, 2, 3];
+let obj = {name: "Budi"};</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Array</h3>
+                            <span class="tutorial-level" data-lang-en="Intermediate" data-lang-id="Menengah">Menengah</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Store multiple items in one variable." data-lang-id="Menyimpan multiple items dalam satu variabel.">Menyimpan multiple items dalam satu variabel.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>let fruits = ["apple", "banana"];
+console.log(fruits[0]);     // apple
+console.log(fruits.length); // 2
+fruits.push("grape");       // Tambah</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Object</h3>
+                            <span class="tutorial-level" data-lang-en="Intermediate" data-lang-id="Menengah">Menengah</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Store data with key-value pairs." data-lang-id="Menyimpan data dengan key-value pairs.">Menyimpan data dengan key-value pairs.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>let person = {
+    name: "Budi",
+    age: 25
+};
+console.log(person.name); // Budi</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB KONTROL -->
+            <div id="tab-kontrol" class="tab-content">
+                <div class="tutorial-grid">
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="If Statement" data-lang-id="If Statement">If Statement</h3>
+                            <span class="tutorial-level" data-lang-en="Beginner" data-lang-id="Pemula">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Make decisions based on conditions." data-lang-id="Membuat keputusan berdasarkan kondisi.">Membuat keputusan berdasarkan kondisi.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>let age = 18;
+if (age >= 18) {
+    console.log("Dewasa");
+} else {
+    console.log("Anak-anak");
+}</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="For Loop" data-lang-id="For Loop">For Loop</h3>
+                            <span class="tutorial-level" data-lang-en="Beginner" data-lang-id="Pemula">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Repeat code a certain number of times." data-lang-id="Mengulang kode dengan jumlah tertentu.">Mengulang kode dengan jumlah tertentu.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>for (let i = 0; i < 5; i++) {
+    console.log(i);
+}</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="While Loop" data-lang-id="While Loop">While Loop</h3>
+                            <span class="tutorial-level" data-lang-en="Beginner" data-lang-id="Pemula">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Repeat while condition is true." data-lang-id="Mengulang selama kondisi terpenuhi.">Mengulang selama kondisi terpenuhi.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>let i = 0;
+while (i < 5) {
+    console.log(i);
+    i++;
+}</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB FUNCTION -->
+            <div id="tab-function" class="tab-content">
+                <div class="tutorial-grid">
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="Function Basics" data-lang-id="Function Basics">Function Basics</h3>
+                            <span class="tutorial-level" data-lang-en="Intermediate" data-lang-id="Menengah">Menengah</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Create and use functions." data-lang-id="Membuat dan menggunakan function.">Membuat dan menggunakan function.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>function greet(name) {
+    return "Halo, " + name;
+}
+console.log(greet("Budi")); // Halo, Budi</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="Arrow Functions" data-lang-id="Arrow Functions">Arrow Functions</h3>
+                            <span class="tutorial-level" data-lang-en="Intermediate" data-lang-id="Menengah">Menengah</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Shorter syntax for functions." data-lang-id="Syntax yang lebih singkat untuk function.">Syntax yang lebih singkat untuk function.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>const add = (a, b) => a + b;
+console.log(add(3, 5)); // 8</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="Callbacks" data-lang-id="Callbacks">Callbacks</h3>
+                            <span class="tutorial-level" data-lang-en="Advanced" data-lang-id="Lanjut">Lanjut</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Function sent as parameter." data-lang-id="Function yang dikirim sebagai parameter.">Function yang dikirim sebagai parameter.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>function process(callback) {
+    callback("Done");
+}
+process(msg => console.log(msg));</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB DOM -->
+            <div id="tab-dom" class="tab-content">
+                <div class="tutorial-grid">
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="DOM Basics" data-lang-id="DOM Basics">DOM Basics</h3>
+                            <span class="tutorial-level" data-lang-en="Intermediate" data-lang-id="Menengah">Menengah</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Access and manipulate HTML elements." data-lang-id="Mengakses dan memanipulasi elemen HTML.">Mengakses dan memanipulasi elemen HTML.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>let elem = document.getElementById("id");
+elem.innerHTML = "Hello";
+elem.style.color = "red";</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="DOM Events" data-lang-id="DOM Events">DOM Events</h3>
+                            <span class="tutorial-level" data-lang-en="Intermediate" data-lang-id="Menengah">Menengah</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Respond to user interaction." data-lang-id="Menanggapi interaksi pengguna.">Menanggapi interaksi pengguna.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>btn.addEventListener("click", () => {
+    console.log("Clicked!");
+});</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="Creating Elements" data-lang-id="Creating Elements">Creating Elements</h3>
+                            <span class="tutorial-level" data-lang-en="Intermediate" data-lang-id="Menengah">Menengah</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Create and add new HTML elements." data-lang-id="Membuat dan menambahkan elemen HTML baru.">Membuat dan menambahkan elemen HTML baru.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>let div = document.createElement("div");
+div.textContent = "Hello";
+document.body.appendChild(div);</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB ASYNC -->
+            <div id="tab-async" class="tab-content">
+                <div class="tutorial-grid">
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Promises</h3>
+                            <span class="tutorial-level" data-lang-en="Advanced" data-lang-id="Lanjut">Lanjut</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Handle async operations with Promise." data-lang-id="Menangani operasi async dengan Promise.">Menangani operasi async dengan Promise.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>let promise = new Promise((resolve) => {
+    setTimeout(() => resolve("Done"), 1000);
+});
+promise.then(r => console.log(r));</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Async/Await</h3>
+                            <span class="tutorial-level" data-lang-en="Advanced" data-lang-id="Lanjut">Lanjut</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Cleaner syntax for Promise." data-lang-id="Syntax yang lebih clean untuk Promise.">Syntax yang lebih clean untuk Promise.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>async function getData() {
+    let data = await fetch(url);
+    return await data.json();
+}</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Fetch API</h3>
+                            <span class="tutorial-level" data-lang-en="Advanced" data-lang-id="Lanjut">Lanjut</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Goal" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Make HTTP request to server." data-lang-id="Membuat HTTP request ke server.">Membuat HTTP request ke server.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>fetch("https://api.example.com/data")
+    .then(r => r.json())
+    .then(d => console.log(d));</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PROBLEM SOLVING -->
+        <div class="menu-section" id="problem">
+            <h2 data-lang-en="🔧 Problem Solving" data-lang-id="🔧 Pemecahan Masalah">🔧 Pemecahan Masalah</h2>
+
+            <div class="problem-card">
+                <h3 data-lang-en="❌ ReferenceError" data-lang-id="❌ ReferenceError">❌ ReferenceError</h3>
+                <div class="problem-section">
+                    <strong data-lang-en="📌 Cause:" data-lang-id="📌 Penyebab:">📌 Penyebab:</strong>
+                    <p data-lang-en="Variable or function not defined." data-lang-id="Variabel atau function belum didefinisikan.">Variabel atau function belum didefinisikan.</p>
+                </div>
+                <div class="problem-section">
+                    <strong data-lang-en="💡 Solution:" data-lang-id="💡 Solusi:">💡 Solusi:</strong>
+                    <p data-lang-en="Define the variable before using it." data-lang-id="Pastikan variabel sudah didefinisikan sebelum digunakan.">Pastikan variabel sudah didefinisikan sebelum digunakan.</p>
+                </div>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                    <code>// ❌ SALAH
+console.log(name);
+
+// ✅ BENAR  
+let name = "Budi";
+console.log(name);</code>
+                </div>
+            </div>
+
+            <div class="problem-card">
+                <h3 data-lang-en="❌ TypeError" data-lang-id="❌ TypeError">❌ TypeError</h3>
+                <div class="problem-section">
+                    <strong data-lang-en="📌 Cause:" data-lang-id="📌 Penyebab:">📌 Penyebab:</strong>
+                    <p data-lang-en="Operation on incompatible data type." data-lang-id="Operasi pada tipe data yang tidak sesuai.">Operasi pada tipe data yang tidak sesuai.</p>
+                </div>
+                <div class="problem-section">
+                    <strong data-lang-en="💡 Solution:" data-lang-id="💡 Solusi:">💡 Solusi:</strong>
+                    <p data-lang-en="Check data type with typeof." data-lang-id="Periksa tipe data dengan typeof.">Periksa tipe data dengan typeof.</p>
+                </div>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                    <code>// ❌ SALAH
+let num = 5;
+console.log(num.toUpperCase());
+
+// ✅ BENAR
+let text = "hello";
+console.log(text.toUpperCase());</code>
+                </div>
+            </div>
+        </div>
+
+        <!-- IDE -->
+        <div class="menu-section" id="ide">
+            <h2 data-lang-en="💻 Interactive IDE" data-lang-id="💻 IDE Interaktif">💻 IDE Interaktif</h2>
+            <p data-lang-en="Write and run JavaScript code directly in your browser!" data-lang-id="Tulis dan jalankan kode JavaScript langsung di browser ini!">Tulis dan jalankan kode JavaScript langsung di browser ini!</p>
+
+            <div class="ide-container">
+                <div class="ide-panel">
+                    <div class="ide-header">
+                        <span data-lang-en="📝 Editor" data-lang-id="📝 Editor">📝 Editor</span>
+                        <div style="display: flex; gap: 5px; flex-wrap: wrap;">
+                            <button onclick="loadExample('hello')" data-lang-en="Hello" data-lang-id="Hello">Hello</button>
+                            <button onclick="loadExample('loop')" data-lang-en="Loop" data-lang-id="Loop">Loop</button>
+                            <button onclick="loadExample('function')" data-lang-en="Function" data-lang-id="Function">Function</button>
+                        </div>
+                    </div>
+                    <div class="editor">
+                        <textarea id="codeInput" placeholder="Tulis kode JavaScript di sini...">console.log('Hello, World!');</textarea>
+                    </div>
+                </div>
+
+                <div class="ide-panel">
+                    <div class="ide-header">
+                        <span data-lang-en="▶️ Output" data-lang-id="▶️ Output">▶️ Output</span>
+                        <button onclick="runCode()" data-lang-en="▶️ Run" data-lang-id="▶️ Jalankan">▶️ Jalankan</button>
+                    </div>
+                    <div class="output" id="output" data-lang-en="Output will appear here..." data-lang-id="Output akan muncul di sini...">Output akan muncul di sini...</div>
+                    <div style="padding: 15px; background: var(--bg-light); text-align: center; border-top: 1px solid var(--border-color);">
+                        <button onclick="clearOutput()" style="background: #f44336; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-weight: 600;" data-lang-en="🗑️ Clear" data-lang-id="🗑️ Hapus">🗑️ Hapus Output</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- REFERENCE -->
+        <div class="menu-section" id="reference">
+            <h2 data-lang-en="📋 Reference & Resources" data-lang-id="📋 Referensi & Resources">📋 Referensi & Resources</h2>
+
+            <h3 data-lang-en="📚 Documentation" data-lang-id="📚 Dokumentasi">📚 Dokumentasi</h3>
+            <ul class="features-list">
+                <li><strong>MDN Web Docs:</strong> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/" target="_blank">JavaScript Documentation</a></li>
+                <li><strong>JavaScript.info:</strong> <a href="https://javascript.info/" target="_blank">JavaScript Tutorial</a></li>
+                <li><strong>W3Shcools:</strong> <a href="https://www.w3schools.com/js/default.asp" target="_blank">Step-by-step tutorials</a></li>
+            </ul>
+
+            <h3 data-lang-en="🛠️ Tools" data-lang-id="🛠️ Tools">🛠️ Tools</h3>
+            <ul class="features-list">
+                <li><strong>VS Code:</strong> <span data-lang-en="Best text editor for JavaScript" data-lang-id="Text editor terbaik untuk JavaScript">Text editor terbaik untuk JavaScript</span></li>
+                <li><strong>Node.js:</strong> <span data-lang-en="JavaScript runtime for backend" data-lang-id="JavaScript runtime untuk backend">JavaScript runtime untuk backend</span></li>
+            </ul>
+            <h3 data-lang-en="Important Concepts" data-lang-id="Konsep-konsep Penting">Konsep-konsep Penting</h3>
+            <ul class="features-list">
+                <li><strong>Variables:</strong> <span data-lang-en=" Variables are containers for data, declared using let, const, or var. It is recommended to use const by default and let only if the value needs to be reassigned." 
+                                                    data-lang-id=" Variabel adalah wadah untuk data, yang dideklarasikan menggunakan `let`, `const`, atau `var`. Disarankan untuk menggunakan `const` secara default dan `let`t"> Variabel adalah wadah untuk data, yang dideklarasikan menggunakan `let`, `const`, atau `var`. Disarankan untuk menggunakan `const` secara default dan `let`</span></li>
+                <li><strong>Equality:</strong> <span data-lang-en="JavaScript has both the equality operator (==), which performs type coercion, and the strict equality operator (===), which checks both value and type." 
+                                                    data-lang-id="JavaScript memiliki operator kesamaan (==), yang melakukan konversi tipe, dan operator kesamaan ketat (===), yang memeriksa nilai dan tipe.">JavaScript memiliki operator kesamaan (==), yang melakukan konversi tipe, dan operator kesamaan ketat (===), yang memeriksa nilai dan tipe.</span></li>
+                <li><strong>References vs. Values:</strong> <span data-lang-en="Primitive data types (like numbers and strings) are passed by value, while objects and arrays are passed by reference. This means modifying a referenced object within a function will change the original object."
+                                                    data-lang-id=" Tipe data primitif (seperti angka dan string) dilewatkan berdasarkan nilai, sedangkan objek dan array dilewatkan berdasarkan referensi. Ini berarti memodifikasi objek yang direferensikan di dalam suatu fungsi akan mengubah objek aslinya."> VTipe data primitif (seperti angka dan string) dilewatkan berdasarkan nilai, sedangkan objek dan array dilewatkan berdasarkan referensi. Ini berarti memodifikasi objek yang direferensikan di dalam suatu fungsi akan mengubah objek aslinya.</span></li>
+                <li><strong>[.this] Keyword:</strong> <span data-lang-en=" The value of this changes depending on how a function is called (runtime binding). Arrow functions inherit this from their parent scope, which is a key difference from traditional functions." 
+                                                    data-lang-id="Nilai ` this` berubah tergantung pada bagaimana sebuah fungsi dipanggil (pengikatan saat runtime). Fungsi panah mewarisi `this` dari cakupan induknya, yang merupakan perbedaan utama dari fungsi tradisional. "> Nilai ` this` berubah tergantung pada bagaimana sebuah fungsi dipanggil (pengikatan saat runtime). Fungsi panah mewarisi `this` dari cakupan induknya, yang merupakan perbedaan utama dari fungsi tradisional.</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p><strong data-lang-en="📜 JavaScript Learning Platform" data-lang-id="📜 Platform Belajar JavaScript">📜 Platform Belajar JavaScript</strong></p>
+        <p data-lang-en="Comprehensive Tutorial, Problem Solving, and Interactive IDE" data-lang-id="Tutorial Komprehensif, Problem Solving, dan IDE Interaktif">Tutorial Komprehensif, Problem Solving, dan IDE Interaktif</p>
+        <p style="margin-top: 15px; font-size: 0.75rem; opacity: 0.8;">
+            &copy; 2026 Thertaria Project
+        </p>
+    </footer>
+
+    <script src="script/javascript.js"></script>
+</body>
+</html>

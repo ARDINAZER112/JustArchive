@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="description" content="Tutorial Python Lengkap - Dari Pemula hingga Mahir dengan IDE Interaktif">
+    <meta name="theme-color" content="#1a237e">
+    <title>Belajar Python Lengkap - Tutorial & IDE Interaktif</title>
+    <link rel="icon" href="asset/Arcana Therzevena.png" type="image/x-icon">
+    <link rel="stylesheet" href="style/python-style.css">
+</head>
+
+<body oncontextmenu="return false;">
+    <!-- NAVBAR -->
+    <nav>
+        <button class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle navigation menu">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+        <ul id="navMenu">
+            <li><a href="#pengenalan" data-lang-en="📖 Introduction" data-lang-id="📖 Pengenalan">📖 Pengenalan</a></li>
+            <li><a href="#tutorial" data-lang-en="📚 Tutorial" data-lang-id="📚 Tutorial">📚 Tutorial</a></li>
+            <li><a href="#problem" data-lang-en="🔧 Problem Solving" data-lang-id="🔧 Pemecahan Masalah">🔧 Pemecahan Masalah</a></li>
+            <li><a href="#ide" data-lang-en="💻 IDE" data-lang-id="💻 IDE">💻 IDE Interaktif</a></li>
+            <li><a href="#reference" data-lang-en="📋 Reference" data-lang-id="📋 Referensi">📋 Referensi</a></li>
+        </ul>
+        <div class="nav-controls">
+            <button class="settings-btn" id="settingsBtn" aria-label="Open settings">⚙️</button>
+        </div>
+    </nav>
+
+    <!-- SETTINGS PANEL -->
+    <div class="settings-overlay" id="settingsOverlay"></div>
+    <div class="settings-panel" id="settingsPanel">
+        <div class="settings-header">
+            <h2 data-lang-en="⚙️ Setting" data-lang-id="⚙️ Pengaturan">⚙️ Pengaturan</h2>
+            <button class="close-settings" id="closeSettings" aria-label="Close settings">✕</button>
+        </div>
+        <div class="settings-content">
+            <!-- Dark Mode Toggle -->
+            <div class="settings-group">
+                <label data-lang-en="🌙 Dark Mode" data-lang-id="🌙 Mode Gelap">🌙 Mode Gelap</label>
+                <div class="toggle-group">
+                    <div class="toggle-switch" id="darkModeToggle"></div>
+                    <span id="darkModeLabel" data-lang-en="Off" data-lang-id="Nonaktif"></span>
+                </div>
+            </div>
+
+            <!-- Language Selection -->
+            <div class="settings-group">
+                <label for="languageSelect" data-lang-en="🌐 Language" data-lang-id="🌐 Bahasa">🌐 Bahasa</label>
+                <select id="languageSelect">
+                    <option value="id">Indonesia</option>
+                    <option value="en">English</option>
+                </select>
+            </div>
+
+            <!-- Font Size -->
+            <div class="settings-group">
+                <label data-lang-en="📝 Font Size" data-lang-id="📝 Ukuran Font">📝 Ukuran Font</label>
+                <div class="font-size-options">
+                    <button class="font-size-btn" data-size="small">A-</button>
+                    <button class="font-size-btn active" data-size="normal">A</button>
+                    <button class="font-size-btn" data-size="large">A+</button>
+                    <button class="font-size-btn" data-size="extra-large">A++</button>
+                </div>
+            </div>
+
+            <!-- Theme Color -->
+            <div class="settings-group">
+                <label data-lang-en="🎨 Theme Color" data-lang-id="🎨 Warna Tema">🎨 Warna Tema</label>
+                <div class="color-palette">
+                    <div class="color-option active" data-theme="blue" style="background: linear-gradient(135deg, #1a237e, #283593);" title="Blue"></div>
+                    <div class="color-option" data-theme="purple" style="background: linear-gradient(135deg, #4a148c, #6a1b9a);" title="Purple"></div>
+                    <div class="color-option" data-theme="teal" style="background: linear-gradient(135deg, #004d40, #00695c);" title="Teal"></div>
+                    <div class="color-option" data-theme="red" style="background: linear-gradient(135deg, #b71c1c, #d32f2f);" title="Red"></div>
+                    <div class="color-option" data-theme="green" style="background: linear-gradient(135deg, #1b5e20, #2e7d32);" title="Green"></div>
+                    <div class="color-option" data-theme="orange" style="background: linear-gradient(135deg, #e65100, #ff6f00);" title="Orange"></div>
+                </div>
+            </div>
+
+            <!-- Code Theme -->
+            <div class="settings-group">
+                <label data-lang-en="💻 IDE Background Theme" data-lang-id="💻 Tema Latar Belakang IDE">💻 Tema Latar Belakang IDE</label>
+                <div class="code-theme-options">
+                    <button class="theme-btn active" data-code-theme="monokai">Monokai</button>
+                    <button class="theme-btn" data-code-theme="github-light">GitHub Light</button>
+                    <button class="theme-btn" data-code-theme="github-dark">GitHub Dark</button>
+                </div>
+            </div>
+
+            <!-- Auto-Run Toggle -->
+            <div class="settings-group">
+                <label data-lang-en="⚡ Auto Run Code" data-lang-id="⚡ Auto Jalankan Kode">⚡ Auto Jalankan Kode</label>
+                <div class="toggle-group">
+                    <div class="toggle-switch" id="autoRunToggle"></div>
+                    <span id="autoRunLabel"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="settings-footer">
+            <button class="reset-btn" id="resetBtn" data-lang-en="🔄 Reset All Settings" data-lang-id="🔄 Reset Semua Pengaturan">🔄 Reset Semua Pengaturan</button>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <div class="header">
+        <h1 data-lang-en="🐍 LEARN PYTHON" data-lang-id="🐍 BELAJAR PYTHON">🐍 BELAJAR PYTHON</h1>
+        <p data-lang-en="From Beginner to Expert - Comprehensive Tutorial, Problem Solving, and Interactive IDE" data-lang-id="Dari Pemula hingga Mahir - Tutorial Komprehensif, Problem Solving, dan IDE Interaktif">Dari Pemula hingga Mahir - Tutorial Komprehensif, Problem Solving, dan IDE Interaktif</p>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+        <!-- PENGENALAN SECTION -->
+        <div class="menu-section" id="pengenalan">
+            <h2 data-lang-en="📖 Introduction to Python" data-lang-id="📖 Pengenalan Python">📖 Pengenalan Python</h2>
+            
+            <h3 data-lang-en="What is Python?" data-lang-id="Apa itu Python?">Apa itu Python?</h3>
+            <p data-lang-en="Python is a high-level programming language created in 1989 by Guido van Rossum. It was designed with a focus on code readability and simplicity. It has become one of the most popular programming languages ​​in the world due to its ease of use and flexibility." data-lang-id="Python adalah bahasa pemrograman tingkat tinggi yang dibuat pada tahun 1989 oleh Guido van Rossum. Python dirancang dengan fokus pada keterbacaan kode dan kesederhanaan. Bahasa ini telah menjadi salah satu bahasa pemrograman paling populer di dunia karena kemudahan penggunaan dan fleksibilitasnya.">
+                Python adalah bahasa pemrograman tingkat tinggi yang dibuat pada tahun 1989 oleh Guido van Rossum. Python dirancang dengan fokus pada keterbacaan kode dan kesederhanaan. Bahasa ini telah menjadi salah satu bahasa pemrograman paling populer di dunia karena kemudahan penggunaan dan fleksibilitasnya.</p>
+
+            <h3 data-lang-en="Why Python?" data-lang-id="Mengapa Python?">Mengapa Python?</h3>
+            <ul class="features-list">
+                <li><strong data-lang-en="Easy to Learn" data-lang-id="Mudah Dipelajari ">Mudah Dipelajari</strong><p data-lang-en="Python syntax is similar to English" data-lang-id="Sintaks Python mirip dengan bahasa Inggris">Sintaks Python mirip dengan bahasa Inggris</p></li>
+                <li><strong data-lang-en="Versatile" data-lang-id="Versatile">Versatile</strong><p data-lang-en="Can be used for web, data science, AI, automation, etc." data-lang-id="Bisa digunakan untuk web, data science, AI, automation, dll">Bisa digunakan untuk web, data science, AI, automation, dll</p></li>
+                <li><strong data-lang-en="Big Community" data-lang-id="Komunitas Besar">Komunitas Besar</strong><p data-lang-en="Thousands of libraries and frameworks available" data-lang-id="Ribuan library dan framework tersedia">Ribuan library dan framework tersedia</p></li>
+                <li><strong data-lang-en="High Productivity" data-lang-id="Produktivitas Tinggi">Produktivitas Tinggi</strong><p data-lang-en="Write code faster with fewer lines" data-lang-id="Tulis kode lebih cepat dengan lebih sedikit baris">Tulis kode lebih cepat dengan lebih sedikit baris</p></li>
+                <li><strong data-lang-en="In-Demand" data-lang-id="In-Demand">In-Demand</strong><p data-lang-en="One of the most sought after languages ​​in the tech industry" data-lang-id="Salah satu bahasa paling dicari di industri teknologi">Salah satu bahasa paling dicari di industri tech</p></li>
+            </ul>
+
+            <h3 data-lang-en="Python installation" data-lang-id="Instalasi Python">Instalasi Python</h3>
+            <h3 data-lang-en="Check if Python is installed" data-lang-id="Periksa apakah Python sudah terinstal">Periksa apakah Python sudah terinstal</h3>
+            <p data-lang-en="Open your terminal and check the installed Python 3 version with the command" data-lang-id="Buka terminal Anda dan periksa versi Python 3 yang terpasang dengan perintah">Buka terminal Anda dan periksa versi Python 3 yang terpasang dengan perintah</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                <code>python --version</code>
+            </div>
+            <h3>Windows:</h3>
+            <p data-lang-en="Download from python.org and run the installer" data-lang-id="Download dari python.org dan jalankan installer">Download dari - dan jalankan installer</p>
+            <p><a href="https://www.python.org/" target="_blank">python.org</a></p>
+            <p data-lang-en="Or use the terminal (win + R then type cmd)" data-lang-id="Atau memakai terminal (win + R lalu ketik cmd)">Atau memakai terminal (win + R lalu ketik cmd)</p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                <code>winget search python</code>
+            </div>
+            <p data-lang-en="Then" data-lang-id="Kemudian">kemudian</p>
+             <div class="code-block">
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+            <code>winget install Python.Python.3</code>
+            </div>
+            <h3>MacOS:</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                <code>brew install python3</code>
+            </div>
+            <h3>Linux:</h3>
+            <h3>For Debian/Ubuntu/Mint/Kali Linux</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                <code>sudo apt-get install python3</code>
+            </div>
+            <h3>For Fedora/RHEL/CentOS</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                <code>sudo dnf install python3
+                    # or
+                    sudo yum install python3</code>
+            </div>
+            <h3>For Arch Linux</h3>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                <code>sudo pacman -S python</code>
+            </div>
+        </div>
+
+        <!-- TUTORIAL SECTION -->
+        <div class="menu-section" id="tutorial">
+            <h2 data-lang-en="📚 Python Tutorials" data-lang-id="📚 Tutorial Python">📚 Tutorial Python</h2>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab(event, 'tab-dasar')" data-lang-en="Basic" data-lang-id="Dasar">Dasar</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tab-tipe-data')" data-lang-en="Data Type" data-lang-id="Tipe Data">Tipe Data</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tab-kontrol')" data-lang-en="Flow Control" data-lang-id="Kontrol Alur">Kontrol Alur</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tab-function')" data-lang-en="Function" data-lang-id="Fungsi">Fungsi</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tab-oop')">OOP</button>
+            </div>
+
+            <!-- TAB 1: DASAR -->
+            <div id="tab-dasar" class="tab-content active">
+                <div class="tutorial-grid">
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Hello World</h3>
+                            <span class="tutorial-level" data-lang-en="Beginner" data-lang-id="Pemula">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Objective" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Your first program in Python" data-lang-id="Program Pertama Anda Dalam Python">Program pertama Anda dalam Python.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>print("Hello, World!")</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Variabel</h3>
+                            <span class="tutorial-level" data-lang-en="Beginner" data-lang-id="Pemula">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Objective" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Storing and using data in programs." data-lang-id="Menyimpan dan menggunakan data dalam program.">Menyimpan dan menggunakan data dalam program.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>name = "Budi"
+age = 20
+height = 175.5
+
+print(name)
+print(age)</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Operator</h3>
+                            <span class="tutorial-level" data-lang-en="Beginner" data-lang-id="Pemula">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Objective" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Perform mathematical operations and comparisons." data-lang-id="Melakukan operasi matematika dan perbandingan.">Melakukan operasi matematika dan perbandingan.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>a = 10
+b = 3
+print(a + b)    # 13
+print(a > b)    # True
+print(a == b)   # False</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Input & Output</h3>
+                            <span class="tutorial-level" data-lang-en="Beginner" data-lang-id="Pemula">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Objective" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Accept input from the user." data-lang-id="Menerima input dari pengguna.">Menerima input dari pengguna.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>name = input("Enter Name: ")
+age = int(input("Age: "))
+
+print(f"Name: {name}")
+print(f"Age: {age}")</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>String</h3>
+                            <span class="tutorial-level" data-lang-en="Beginner" data-lang-id="Pemula">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Objective" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Working with text and strings." data-lang-id="Bekerja dengan teks dan string">Bekerja dengan teks dan string.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>text = "Hello Python"
+
+print(text.upper())     # HELLO PYTHON
+print(text.lower())     # hello python
+print(len(text))        # 11
+print(text[0])          # H</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Comments</h3>
+                            <span class="tutorial-level" data-lang-en="Beginner" data-lang-id="Pemula">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Objective" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Added explanation in code." data-lang-id="Menambahkan penjelasan dalam kode">Menambahkan penjelasan dalam kode.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code"># This is a comment
+
+"""
+Multi-line comment
+"""
+
+print("Hello")  # Output text</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: TIPE DATA -->
+            <div id="tab-tipe-data" class="tab-content">
+                <div class="tutorial-grid">
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3 data-lang-en="Data Type" data-lang-id="Tipe Data">Tipe Data</h3>
+                            <span class="tutorial-level" data-lang-en="Beginner" data-lang-id="Pemula">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Objective" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Understanding various Python data types." data-lang-id="Memahami berbagai tipe data Python">Memahami berbagai tipe data Python.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>num = 25
+pi = 3.14
+text = "hello"
+flag = True
+
+print(type(num))        # &lt;class 'int'&gt;
+print(type(pi))         # &lt;class 'float'&gt;
+print(type(text))       # &lt;class 'str'&gt;</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>List</h3>
+                            <span class="tutorial-level" data-lang-en="Intermediate" data-lang-id="menengah">Intermediate</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Objective" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="store many items." data-lang-id="Menyimpan multiple item">Menyimpan multiple items.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>fruits = ["apple", "banana", "cherry"]
+
+print(fruits[0])        # apple
+print(len(fruits))      # 3
+
+fruits.append("grape")
+fruits.remove("banana")</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Dictionary</h3>
+                            <span class="tutorial-level" data-lang-en="Intermediate" data-lang-id="Menengah">Intermediate</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Objective" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Stores key-value data." data-lang-id="Meyimpan data key-value">Menyimpan data key-value.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>person = {
+    "name": "Budi",
+    "age": 25
+}
+
+print(person["name"])   # Budi
+person["age"] = 26</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Tuple</h3>
+                            <span class="tutorial-level" data-lang-en="Intermediate" data-lang-id="Menengah">Intermediate</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Objective" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Immutable collection" data-lang-id="Koleksi yang tidak dapat diubah">Immutable collection.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code">coordinates = (10, 20)
+colors = ("red", "green", "blue")
+
+print(coordinates[0])   # 10
+print(len(colors))      # 3</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Type Conversion</h3>
+                            <span class="tutorial-level" data-lang-en="Intermediate" data-lang-id="Menengah">Intermediate</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Objective" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Change the data type." data-lang-id="Mengubah tipe data">Mengubah tipe data.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>num_str = "123"
+num_int = int(num_str)
+
+age = 25
+age_str = str(umur)
+
+price = "90.000"
+price_float = float(harga)</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>String Methods</h3>
+                            <span class="tutorial-level" data-lang-en="Intermediate" data-lang-id="Menengah">Intermediate</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Objective" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="String Manipulation" data-lang-id="Manipulasi String">Manipulasi string.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>text = "Hello World"
+
+print(text.upper())     # HELLO WORLD
+print(text.lower())     # hello world
+print(text.replace("World", "Python"))
+words = text.split()    # ['Hello', 'World']</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: KONTROL ALUR -->
+            <div id="tab-kontrol" class="tab-content">
+                <div class="tutorial-grid">
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>If Statement</h3>
+                            <span class="tutorial-level" data-lang-en="Beginner" data-lang-id="Pemula">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Beginner" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="make decisions based on conditions" data-lang-id="Membuat keputusan berdasarkan kondisi">Membuat keputusan berdasarkan kondisi.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>age = 18
+
+if age >= 18:
+    print("Adult")
+else:
+    print("Children")</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>For Loop</h3>
+                            <span class="tutorial-level" data-lang-en="Beginner" data-lang-id="Pemula">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Objective" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="loop through the sequence" data-lang-id="Mengulang melalui sequence">Mengulang melalui sequence.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>for i in range(5):
+    print(i)  # 0, 1, 2, 3, 4
+
+fruits = ["apple", "banana"]
+for fruit in fruits:
+    print(fruit)</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>While Loop</h3>
+                            <span class="tutorial-level" data-lang-en="Beginner" data-lang-id="Pemula">Pemula</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Objective" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="repeats as long as the condition is true" data-lang-id="Mengulang selama kondisi benar">Mengulang selama kondisi benar.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>i = 1
+while i <= 5:
+    print(f"Number {i}")
+    i += 1
+
+# Break & Continue
+for i in range(5):
+    if i == 3:
+        continue
+    print(i)</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Logical Operators</h3>
+                            <span class="tutorial-level" data-lang-en="Intermediate" data-lang-id="Menengah">Intermediate</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Objective" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Combining multiple conditions." data-lang-id="Menggabungkan multiple kondisi">Menggabungkan multiple kondisi.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>age = 20
+salary = 5000000
+
+if age >= 18 and salary >= 1000000:
+    print("can be borrowed")
+
+if x > 0 or x < -10:
+    print("conditions are met")</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Nested Loops</h3>
+                            <span class="tutorial-level" data-lang-en="Intermediate" data-lang-id="Menengah">Intermediate</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Objective" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Using loops within loops." data-lang-id="Menggunakan loop dalam loop">Menggunakan loop dalam loop.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code"># Multiplication table
+for i in range(1, 4):
+    for j in range(1, 4):
+        print(f"{i} x {j} = {i*j}", end="  ")
+    print()</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>List Comprehension</h3>
+                            <span class="tutorial-level" data-lang-en="Intermediate" data-lang-id="Menengah">Intermediate</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Objective" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Create lists in an elegant way." data-lang-id="Membuat list dengan cara elegan">Membuat list dengan cara elegan.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>squares = [x**2 for x in range(1, 6)]
+# [1, 4, 9, 16, 25]
+
+even = [x for x in range(1, 11) if x % 2 == 0]
+# [2, 4, 6, 8, 10]</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: FUNCTION -->
+            <div id="tab-function" class="tab-content">
+                <div class="tutorial-grid">
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Function Basics</h3>
+                            <span class="tutorial-level" data-lang-en="Intermediate" data-lang-id="Menengah">Intermediate</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Objective" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Creating and using functions." data-lang-id="Membuat dan menggunakan function">Membuat dan menggunakan function.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>def greet(name):
+    return f"Halo, {name}!"
+
+result = greet("Budi")
+print(result)
+
+def add(a, b):
+    return a + b
+
+print(add(5, 3))  # 8</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Default Parameters</h3>
+                            <span class="tutorial-level" data-lang-en="Intermediate" data-lang-id="Menengah">Intermediate</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Objective" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Function with default values." data-lang-id="Function dengan default values.">Function dengan default values.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>def greet(name="Teman"):
+    print(f"Halo, {name}!")
+
+greet()          # Halo, Teman!
+greet("Budi")    # Halo, Budi!</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>*args & **kwargs</h3>
+                            <span class="tutorial-level" data-lang-en="Advanced" data-lang-id="Lanjutan">Advanced</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Objective" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p>Flexible parameters.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>def sum_numbers(*args):
+    return sum(args)
+
+print(sum_numbers(1, 2, 3, 4))  # 10
+
+def print_info(**kwargs):
+    for key, value in kwargs.items():
+        print(f"{key}: {value}")</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Lambda Functions</h3>
+                            <span class="tutorial-level" data-lang-en="Advanced" data-lang-id="Lanjutan">Advanced</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Objective" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="One line anonymous function." data-lang-id="Fungsi anonim satu baris.">Anonymous functions satu baris.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>square = lambda x: x ** 2
+print(square(5))  # 25
+
+add = lambda x, y: x + y
+print(add(3, 5))  # 8</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Maps and Filters</h3>
+                            <span class="tutorial-level" data-lang-en="Advanced" data-lang-id="Lanjutan">Advanced</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Objective" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p>Transform & filter data.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>nums = [1, 2, 3, 4, 5]
+
+squared = list(map(lambda x: x**2, nums))
+# [1, 4, 9, 16, 25]
+
+even = list(filter(lambda x: x % 2 == 0, nums))
+# [2, 4]</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Decorators</h3>
+                            <span class="tutorial-level" data-lang-en="Advanced" data-lang-id="Lanjutan">Advanced</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Objective" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p>Enhance functions.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>def decorator(func):
+    def wrapper():
+        print("Before")
+        func()
+        print("After")
+    return wrapper
+
+@decorator
+def say_hello():
+    print("Hello!")
+
+say_hello()</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 5: OOP -->
+            <div id="tab-oop" class="tab-content">
+                <div class="tutorial-grid">
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Class & Object</h3>
+                            <span class="tutorial-level" data-lang-en="Advanced" data-lang-id="Lanjutan">Advanced</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Objective" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Create classes and objects." data-lang-id="Membuat class dan object">Membuat class dan object.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+    
+    def introduce(self):
+        return f"I'm {self.name}"
+
+p = Person("Budi", 25)
+print(p.introduce())</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Inheritance</h3>
+                            <span class="tutorial-level" data-lang-id="Lanjutan" data-lang-en="Advanced">Advanced</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Objective" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Inheriting from another class." data-size="Mewarisi dari class lain">Mewarisi dari class lain.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>class Animal:
+    def speak(self):
+        print("Sound")
+
+class Dog(Animal):
+    def speak(self):
+        print("Bark")
+
+dog = Dog()
+dog.speak()  # Bark</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Polymorphism</h3>
+                            <span class="tutorial-level" data-lang-en="Advanced" data-lang-id="Lanjutan">Advanced</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Objective" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Different objects, same interface." data-lang-id="Berbagai object, interface sama.">Berbagai object, interface sama.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>class Cat:
+    def speak(self):
+        return "Meow"
+
+class Dog:
+    def speak(self):
+        return "Woof"
+
+def animal_sound(animal):
+    print(animal.speak())
+
+animal_sound(Cat())   # Meow
+animal_sound(Dog())   # Woof</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Encapsulation</h3>
+                            <span class="tutorial-level" data-lang-en="Advanced" data-lang-id="Lanjutan">Advanced</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Objective" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Restrict access to data." data-lang-id="Membatasi akses ke data.">Membatasi akses ke data.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>class Bank:
+    def __init__(self, balance):
+        self.__balance = balance
+    
+    def deposit(self, amount):
+        self.__balance += amount
+    
+    def get_balance(self):
+        return self.__balance</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>@property</h3>
+                            <span class="tutorial-level" data-lang-en="Advanced" data-lang-id="Lanjutan">Advanced</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Objective" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p>Getter dan setter.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>class Circle:
+    def __init__(self, radius):
+        self._radius = radius
+    
+    @property
+    def area(self):
+        return 3.14 * self._radius ** 2
+
+c = Circle(5)
+print(c.area)  # 78.5</code>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tutorial-card">
+                        <div class="tutorial-header">
+                            <h3>Static Methods</h3>
+                        <span class="tutorial-level" data-lang-en="Advanced" data-lang-id="Lanjutan">Advanced</span>
+                        </div>
+                        <div class="tutorial-content">
+                            <h4 data-lang-en="🎯 Objective" data-lang-id="🎯 Tujuan">🎯 Tujuan</h4>
+                            <p data-lang-en="Methods that don't need self." data-lang-id="Methods yang tidak perlu self.">Methods yang tidak perlu self.</p>
+                            <div class="code-block">
+                                <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                                <code>class Math:
+    @staticmethod
+    def add(a, b):
+        return a + b
+    
+    @classmethod
+    def from_string(cls, s):
+        return cls(*map(int, s.split()))
+
+print(Math.add(5, 3))  # 8</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PROBLEM SOLVING -->
+        <div class="menu-section" id="problem">
+            <h2 data-lang-en="🔧 Python Troubleshooting" data-lang-id="🔧 Pemecahan Masalah Python">🔧 Pemecahan Masalah Python</h2>
+
+            <div class="problem-card">
+                <h3>❌ SyntaxError</h3>
+                <div class="problem-section">
+                    <strong data-lang-en="📌 Causes:" data-lang-id="Penyebab :">📌 Penyebab:</strong>
+                    <p data-lang-en="Coding errors - missing colons, incorrect indentation, etc." data-lang-id="Kesalahan penulisan kode - kurang colon, indentasi salah, dll.">Kesalahan penulisan kode - kurang colon, indentasi salah, dll.</p>
+                </div>
+                <div class="problem-section">
+                    <strong data-lang-en="💡 Solution:" data-lang-id="💡 Solusi:">💡 Solusi:</strong>
+                    <p data-lang-en="Check the line that shows the error carefully." data-lang-id="Periksa baris yang ditunjukkan error dengan cermat.">Periksa baris yang ditunjukkan error dengan cermat.</p>
+                </div>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                    <code># ❌ FALSE
+if x > 5
+    print("x lebih besar")
+
+# ✅ TRUE
+if x > 5:
+    print("x lebih besar")</code>
+                </div>
+            </div>
+
+            <div class="problem-card">
+                <h3>❌ NameError</h3>
+                <div class="problem-section">
+                    <strong data-lang-en="📌 Causes:" data-lang-id="Penyebab :">📌 Penyebab:</strong>
+                    <p data-lang-en="The variable is not defined or the name is incorrect." data-lang-id="Variabel belum didefinisikan atau nama salah.">Variabel belum didefinisikan atau nama salah.</p>
+                </div>
+                <div class="problem-section">
+                    <strong data-lang-en="💡 Solution:" data-lang-id="💡 Solusi:">💡 Solusi:</strong>
+                    <p data-lang-en="Make sure the variable is defined before using it." data-lang-id="Pastikan variabel sudah didefinisikan sebelum digunakan.">Pastikan variabel sudah didefinisikan sebelum digunakan.</p>
+                </div>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                    <code># ❌ FALSE
+print(name)  # name tidak didefinisikan
+
+# ✅ TRUE
+name = "Budi"
+print(name)</code>
+                </div>
+            </div>
+
+            <div class="problem-card">
+                <h3>❌ TypeError</h3>
+                <div class="problem-section">
+                    <strong data-lang-en="📌 Causes:" data-lang-id="Penyebab :">📌 Penyebab:</strong>
+                    <p data-lang-en="Operations on inappropriate data types." data-lang-id="Operasi pada tipe data yang tidak sesuai.">Operasi pada tipe data yang tidak sesuai.</p>
+                </div>
+                <div class="problem-section">
+                    <strong data-lang-en="💡 Solution:" data-lang-id="💡 Solusi:">💡 Solusi:</strong>
+                    <p data-lang-en="Perform data type conversion before operation." data-lang-id="Lakukan konversi tipe data sebelum operasi.">Lakukan konversi tipe data sebelum operasi.</p>
+                </div>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                    <code># ❌ FALSE
+umur = input("Umur: ")
+total = umur + 10  # TypeError
+
+# ✅ TRUE
+umur = int(input("Umur: "))
+total = umur + 10</code>
+                </div>
+            </div>
+
+            <div class="problem-card">
+                <h3>❌ IndexError</h3>
+                <div class="problem-section">
+                    <strong data-lang-en="📌 Causes:" data-lang-id="Penyebab :">📌 Penyebab:</strong>
+                    <p data-lang-en="Accessing a non-existent index." data-lang-id="Mengakses index yang tidak ada.">Mengakses index yang tidak ada.</p>
+                </div>
+                <div class="problem-section">
+                    <strong data-lang-en="💡 Solution:" data-lang-id="💡 Solusi:">💡 Solusi:</strong>
+                    <p data-lang-en="Make sure the index is in the range." data-lang-id="Pastikan index berada dalam range.">Pastikan index berada dalam range.</p>
+                </div>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                    <code># ❌ FALSE
+fruits = ["apple", "banana"]
+print(fruits[5])  # IndexError
+
+# ✅ TRUE
+print(fruits[0])   # apple
+print(fruits[-1])  # banana</code>
+                </div>
+            </div>
+
+            <div class="problem-card">
+                <h3>❌ IndentationError</h3>
+                <div class="problem-section">
+                    <strong data-lang-en="📌 Causes:" data-lang-id="Penyebab :">📌 Penyebab:</strong>
+                    <p data-lang-en="Inconsistent indentation." data-lang-id="Indentasi tidak konsisten.">Indentasi tidak konsisten.</p>
+                </div>
+                <div class="problem-section">
+                    <strong data-lang-en="💡 Solution:" data-lang-id="💡 Solusi:">💡 Solusi:</strong>
+                    <p data-lang-en="Use 4 spaces or tabs consistently." data-lang-id="Gunakan 4 spasi atau tab konsisten.">Gunakan 4 spasi atau tab konsisten.</p>
+                </div>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                    <code># ❌ FALSE
+if x > 5:
+print("x lebih besar")
+
+# ✅ TRUE
+if x > 5:
+    print("x lebih besar")</code>
+                </div>
+            </div>
+        </div>
+
+        <!-- IDE -->
+        <div class="menu-section" id="ide">
+            <h2 data-lang-en="💻 Interactive IDE" data-lang-id="💻 IDE Interaktif">💻 IDE Interaktif</h2>
+            <p data-lang-en="Write and run Python code directly in the browser!" data-lang-id="Tulis dan jalankan kode Python langsung di browser ini!">Tulis dan jalankan kode Python langsung di browser ini!</p>
+
+            <div class="ide-container">
+                <div class="ide-panel">
+                    <div class="ide-header">
+                        <span>📝 Editor</span>
+                        <div style="display: flex; gap: 10px;">
+                            <button onclick="loadExample('hello')">Hello</button>
+                            <button onclick="loadExample('loop')">Loop</button>
+                            <button onclick="loadExample('function')">Function</button>
+                        </div>
+                    </div>
+                    <div class="editor">
+                        <textarea id="codeInput" placeholder="Write Python code here...">print('Hello, World!')</textarea>
+                    </div>
+                </div>
+
+                <div class="ide-panel">
+                    <div class="ide-header">
+                        <span>▶️ Output</span>
+                        <button onclick="runCode()" data-lang-en="▶️ Run" data-lang-id="▶️ Jalankan">▶️ Jalankan</button>
+                    </div>
+                    <div class="output" id="output">Output akan muncul di sini...</div>
+                    <div style="padding: 15px; background: var(--bg-light); text-align: center; border-top: 1px solid var(--border-color);">
+                        <button onclick="clearOutput()" style="background: #f44336; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; font-weight: 600;" data-lang-en="🗑️ Delete Output" data-lang-id="🗑️ Hapus Output">
+                            🗑️ Hapus Output
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <p data-lang-en="⚠ Note: This IDE uses a JavaScript-based Python simulator. It is not a complete IDE!!, so please use a local Python installation!. ⚠" data-lang-id="⚠ Catatan: IDE ini menggunakan simulator Python berbasis JavaScript. dan IDE ini tidaklah lengkap!!, gunakan instalasi Python lokal!. ⚠">⚠ Catatan: IDE ini menggunakan simulator Python berbasis JavaScript. dan IDE ini tidaklah lengkap!!, gunakan instalasi Python lokal!. ⚠</p>
+        </div>
+
+        <!-- REFERENCE -->
+        <div class="menu-section" id="reference">
+            <h2 data-lang-id="📋 Referensi & Sumber Daya" data-lang-en="📋 Reference & Resource">📋 Referensi & Resources</h2>
+
+            <h3 data-lang-en="📚 Documentation" data-lang-id="📚 Dokumentasi">📚 Dokumentasi</h3>
+            <ul class="features-list">
+                <li><strong>Official Python Docs:</strong> <a href="https://www.python.org/" target="_blank">python.org</a></li>
+                <li><strong>Real Python:</strong> <a href="https://realpython.com/" target="_blank">realpython.com</a></li>
+                <li><strong>W3Schools:</strong> <a href="https://www.w3schools.com/python/" target="_blank">w3schools.com/python</a></li>
+            </ul>
+
+            <h3 data-lang-en="🛠️ Tools & IDEs" data-lang-id="🛠️ Alat & IDE">🛠️ Tools & IDEs</h3>
+            <ul class="features-list">
+                <li><strong>PyCharm:</strong> IDE profesional</li>
+                <li><strong>VS Code:</strong> Light text editor</li>
+                <li><strong>Jupyter:</strong> Interactive notebook</li>
+            </ul>
+
+            <h3 data-lang-en="📦 Popular Libraries" data-lang-id="📦 Perpustakaan Populer">📦 Popular Libraries</h3>
+            <ul class="features-list">
+                <li><strong>NumPy:</strong> Numerical computing</li>
+                <li><strong>Pandas:</strong> Data analysis</li>
+                <li><strong>Django:</strong> Web framework</li>
+                <li><strong>Flask:</strong> Micro framework</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p><strong>🐍Python - By Ardinazer10</strong></p>
+        <p data-lang-en="Basic Tutorials, Problem Solving, and Interactive IDE" data-lang-id="Tutorial dasar, Problem Solving, dan IDE Interaktif">Tutorial Komprehensif, Problem Solving, dan IDE Interaktif</p>
+        <p></p>
+        <p style="margin-top: 15px; font-size: 0.75rem; opacity: 0.8;">
+            &copy; 2026 Thertaria Project. All rights reserved.</p>
+    </footer>
+
+   <script src="script/python-script.js"></script>
+</body>
+</html>
