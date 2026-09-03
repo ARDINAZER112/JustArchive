@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARCHTEN - Thertaria Project</title>
+    <link rel="icon" href="asset/icon/Zuiho-icon.jpeg" type="image/x-icon">
+    <link rel="stylesheet" href="style/thestyle.css">
+</head>
+<body oncontextmenu="return false;">
+    <!-- HEADER & NAVBAR -->
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="#" class="logo">Thertaria Project Website</a>
+                
+                <ul class="nav-menu" id="navMenu">
+                    <li class="nav-item"><a href="#beranda" class="nav-link" data-i18n="nav_home">Beranda</a></li>
+                    <li class="nav-item"><a href="#fitur" class="nav-link" data-i18n="nav_features">Fitur</a></li>
+                    <li class="nav-item"><a href="#gallery" class="nav-link" data-i18n="nav_gallery">GIF</a></li>
+                    <li class="nav-item"><a href="#quick-links" class="nav-link" data-i18n="nav_menu">Menu</a></li>
+                    <li class="nav-item"><a href="#tentang" class="nav-link" data-i18n="nav_about">Tentang</a></li>
+                    <li class="nav-item"><a href="#social-media" class="nav-link" data-i18n="nav_social">Sosial Media</a></li>
+                </ul>
+
+                <div class="nav-controls">
+                    <button class="nav-btn settings-btn" id="headerSettingsBtn" title="Pengaturan" aria-label="Pengaturan">
+                        ⚙️
+                    </button>
+                    <button class="nav-btn hamburger-btn" id="hamburgerBtn" title="Menu Navigasi" aria-label="Toggle Menu">
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MOBILE NAVIGATION MENU POPUP -->
+    <div class="nav-mobile-menu" id="navMobileMenu">
+        <div class="nav-mobile-overlay"></div>
+        <div class="nav-mobile-panel">
+            <div class="nav-mobile-header">
+                <h2 data-i18n="nav_menu_title">Menu Navigasi</h2>
+                <button class="nav-mobile-close" id="navMobileClose" aria-label="Tutup Menu">&times;</button>
+            </div>
+            <div class="nav-mobile-content">
+                <div class="nav-mobile-section">
+                    <h3 data-i18n="nav_menu_main">Menu Utama</h3>
+                    <ul>
+                        <li><a href="#beranda" data-i18n="nav_home">🏠 Beranda</a></li>
+                        <li><a href="#fitur" data-i18n="nav_features">✨ Fitur</a></li>
+                        <li><a href="#gallery" data-i18n="nav_gallery">🎬 GIF</a></li>
+                        <li><a href="#quick-links" data-i18n="nav_menu">📚 Menu Pembelajaran</a></li>
+                        <li><a href="#tentang" data-i18n="nav_about">ℹ️ Tentang</a></li>
+                        <li><a href="#social-media" data-i18n="nav_social">📱 Sosial Media</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SETTINGS MODAL PANEL -->
+    <div id="settingsModal" class="settings-modal">
+        <div class="settings-panel">
+            <!-- Header -->
+            <div class="settings-header">
+                <h2 id="settingsTitle" data-i18n="settings_title">Pengaturan</h2>
+                <button class="close-settings-btn" id="closeSettingsBtn">&times;</button>
+            </div>
+
+            <!-- Content -->
+            <div class="settings-content">
+                <!-- General Settings -->
+                <div class="settings-section">
+                    <h3 data-i18n="settings_general">Umum</h3>
+                    <div class="setting-item">
+                        <label for="language" data-i18n="settings_language">Bahasa:</label>
+                        <select id="language">
+                            <option value="id">Bahasa Indonesia</option>
+                            <option value="en">English</option>
+                            <option value="ja">日本語</option>
+                            <option value="cn">中文</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Audio Settings -->
+                <div class="settings-section">
+                    <h3 data-i18n="settings_audio">Audio & Notifikasi</h3>
+                    <div class="setting-item">
+                        <label data-i18n="settings_volume">Volume:</label>
+                        <span class="setting-value" id="volumeValue">70%</span>
+                    </div>
+                    <div class="setting-item">
+                        <input type="range" id="volume" min="0" max="100" value="70">
+                    </div>
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="soundEnabled" checked>
+                            <span data-i18n="settings_sound">Aktifkan Suara</span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="notificationEnabled" checked>
+                            <span data-i18n="settings_notification">Aktifkan Notifikasi</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Display Settings -->
+                <div class="settings-section">
+                    <h3 data-i18n="settings_display">Tampilan</h3>
+                    <div class="setting-item">
+                        <label for="textSize" data-i18n="settings_textsize">Ukuran Teks:</label>
+                        <select id="textSize">
+                            <option value="small" data-i18n="settings_textsize_small">Kecil</option>
+                            <option value="normal" selected data-i18n="settings_textsize_normal">Normal</option>
+                            <option value="large" data-i18n="settings_textsize_large">Besar</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Privacy Settings -->
+                <div class="settings-section">
+                    <h3 data-i18n="settings_privacy">Privasi & Keamanan</h3>
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="analytics" checked>
+                            <span data-i18n="settings_analytics">Izinkan Analytics</span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" id="cookies" checked>
+                            <span data-i18n="settings_cookies">Izinkan Cookies</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="settings-footer">
+                <button class="btn-settings btn-reset" id="resetBtn" data-i18n="settings_reset">Reset</button>
+                <button class="btn-settings btn-save" id="saveBtn" data-i18n="settings_save">Simpan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="beranda">
+        <div class="hero-content">
+            <h1 data-i18n="hero_welcome">Selamat Datang di Website Kami</h1>
+            <h1>====ARCHTEN====</h1>
+            <p data-i18n="hero_subtitle">Temukan solusi terbaik untuk kebutuhan digital Anda</p>
+            <a href="#social-media" class="hero-btn" data-i18n="hero_social">Social Media</a>
+            <a href="#project" class="hero-btn" data-i18n="hero_project">Project</a>
+        </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section class="features" id="fitur">
+        <div class="features-container">
+            <h2 class="section-title" data-i18n="features_title">✨ Fitur Unggulan</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3 data-i18n="feature_fast">Cepat & Efisien</h3>
+                    <p data-i18n="feature_fast_desc">Website kami dioptimalkan untuk kecepatan maksimal dengan loading time yang sangat singkat.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3 data-i18n="feature_secure">Aman & Terpercaya</h3>
+                    <p data-i18n="feature_secure_desc">Data Anda dilindungi dengan enkripsi tingkat enterprise dan standar keamanan internasional.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3 data-i18n="feature_responsive">Responsive Design</h3>
+                    <p data-i18n="feature_responsive_desc">Tampilan sempurna di semua perangkat, dari desktop, tablet, hingga smartphone.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3 data-i18n="feature_design">Desain Modern</h3>
+                    <p data-i18n="feature_design_desc">Interface yang indah dan intuitif dengan desain modern yang mengikuti tren terkini.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌍</div>
+                    <h3 data-i18n="feature_multilang">Multi Bahasa</h3>
+                    <p data-i18n="feature_multilang_desc">Dukungan berbagai bahasa memudahkan pengguna dari seluruh dunia mengakses konten kami.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 data-i18n="feature_performance">High Performance</h3>
+                    <p data-i18n="feature_performance_desc">Performa tinggi dengan teknologi terdepan memastikan pengalaman pengguna yang luar biasa.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GIF GALLERY SECTION -->
+    <section class="gif-section" id="gallery">
+        <div class="gif-container">
+            <h2 class="section-title" data-i18n="gallery_title">🎬GIF</h2>
+            <div class="gif-grid">
+                <div class="gif-card">
+                    <img src="https://media.tenor.com/7lHdnabfyTQAAAAi/herta-kurukuru.gif" alt="Herta Kurukuru GIF" class="gif-image">
+                    <div class="gif-info">
+                        <h3>Herta Kurukuru</h3>
+                    </div>
+                </div>
+                <div class="gif-card">
+                    <img src="https://media.tenor.com/yB6ozDoWij4AAAAi/honkai-star-rail-dance.gif" alt="Evernight Dance GIF" class="gif-image">
+                    <div class="gif-info">
+                        <h3>Evernight Dance</h3>
+                    </div>
+                </div>
+                <div class="gif-card">
+                    <img src="https://media.tenor.com/taxnt3zsc_4AAAAi/seseren-the-herta.gif" alt="The Herta Kurukuru GIF" class="gif-image">
+                    <div class="gif-info">
+                        <h3>The Herta Kurukuru</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+        <!-- QUICK LINKS -->
+        <div class="menu-section" id="quick-links">
+            <h2 style="text-align: center;">「 ✦ <span data-i18n="menu_title">MENU</span> ✦ 」</h2>
+            <div class="menu-links">
+                <a href="History/history.html" target="_parent" data-i18n="menu_history">Histori Of World</a>
+                <a href="LearnOther.html" target="_parent" data-i18n="menu_other">Lainnya</a>
+                <a href="Learn.html" target="_parent" data-i18n="menu_learn">Menu Belajar</a>
+            </div>
+        </div>
+        <!-- PROJECT LINKS -->
+        <div class="menu-section" id="project">
+            <h2 style="text-align: center;">「 ✦ <span data-i18n="project_title">PROJECT</span> ✦ 」</h2>
+            <div class="menu-links">
+                <a href="https://github.com/ARDINAZER112/Snake-Game" target="_parent" data-i18n="project_1">Snake Game </a>
+                <a href="https://github.com/ARDINAZER112/Fruit-Dropper" target="_parent" data-i18n="project_2">Fruit Dropper</a>
+                <a href="project3.html" target="_parent" data-i18n="project_3">Project 3</a>
+            </div>
+        </div>
+        <!-- Mini Games LINKS -->
+        <div class="menu-section" id="Kurukuru">
+            <h2 style="text-align: center;">「 ✦ <span data-i18n="herta_title">Mini Games</span> ✦ 」</h2>
+            <div class="menu-links">
+                <a href="Mini Games/Snake Game/index.html" target="_parent">Snake Game</a>
+                <a href="Mini Games/Fruit Dropper/fruit-dropper-improved.html" target="_parent">Fruit Dropper</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABOUT SECTION -->
+    <section class="about" id="tentang">
+        <div class="about-container">
+            <div class="about-content">
+                <h2 data-i18n="about_title">Tentang Kami</h2>
+                <p data-i18n="about_desc1">Kami adalah tim profesional yang berdedikasi untuk memberikan solusi digital terbaik bagi klien kami.</p>
+                <p data-i18n="about_desc2">Dengan menyediakan pengalaman pembelajaran yang luar biasa, kami membantu pengguna mencapai tujuan mereka dengan mudah dan efisien.</p>
+                <p data-i18n="about_desc3">Komitmen kami adalah memberikan hasil yang cukup luar biasa dan membantu pengguna mencapai tujuan mereka.</p>
+            </div>
+            <div class="about-image">
+            <img src="asset/icon/about-icon.jpg" alt="About Us" style="width:80%; height:80%; border-radius:10px;">
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="social-media" id="social-media">
+        <div class="social-media-container">
+            <h2 style="text-align: center;" data-i18n="social_title">Social Media</h2>
+            <div class="menu-links">
+                <a href="https://www.instagram.com/ardinazer10/" target="_blank">
+                    <img src="asset/icon/instagram-icon.png" alt="Instagram" style="width:50px; height:50px;">
+                    <span>ardinazer10</span>
+                </a>
+                <a href="https://www.tiktok.com/@ardinazer10?_r=1&_t=ZS-93gWcSJLryk" target="_blank">
+                    <img src="asset/icon/tiktok_icon.png" alt="TikTok" style="width:50px; height:50px;">
+                    <span>Ardinazer10</span>
+                </a>
+                <a href="https://youtube.com/@ardinazer?si=nlhVOV-EvKif-LDp" target="_blank">
+                    <img src="asset/icon/youtube-icon.png" alt="YouTube" style="width:50px; height:50px;">
+                    <span>ARDINAZER</span>
+                </a>
+                <a href="https://x.com/KTZINTHEHOUSE7" target="_blank">
+                    <img src="asset/icon/x-icon.png" alt="X" style="width:50px; height:50px;">
+                    <span>KTZINTHEHOUSE7</span>
+                </a>
+                <a href="https://web.facebook.com/profile.php?id=100091670920007" target="_blank">
+                    <img src="asset/icon/facebook-icon.png" alt="Facebook" style="width:50px; height:50px;">
+                    <span>Ardinazer</span>
+                </a>
+                <a href="https://github.com/ARDINAZER112" target="_blank">
+                    <img src="asset/icon/github-icon.png" alt="GitHub" style="width:50px; height:50px;">
+                    <span>ARDINAZER112</span>
+                </a>
+            </div>
+        </div>
+    </section>
+    <!-- Footer (shared) -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>Thertaria Project</h3>
+                    <p data-i18n="namespace">Your gateway to a simpler, more secure computing experience. Lightweight, fast, and user-friendly.</p>
+                </div>
+            </div>
+
+            <!-- Advertisement Section -->
+            <div class="ad-section" style="text-align: center; margin: 20px 0;">
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1883744520022866"
+                     crossorigin="anonymous"></script>
+                <ins class="adsbygoogle"
+                     style="display:inline-block;width:728px;height:90px"
+                     data-ad-client="ca-pub-1883744520022866"
+                     data-ad-slot="5985558433"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+            <div class="copyright">
+                <p data-i18n="footer_copyright">&copy;Thertaria Project 2026. All rights reserved.</p>
+                <p>Designed with <i class="fas fa-heart" style="color: var(--accent);"></i> ARDINAZER★シ - ARCHTEN</p>
+            </div>
+        </div>
+    </footer>
+
+  <script src="script/thescript.js"></script>
+  <script src="script/i18n.js"></script>
+</body>
+</html>
