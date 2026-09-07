@@ -1,0 +1,13 @@
+body {
+            background-color: #f0f8ff; /* Light background color */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Center content vertically in the viewport */
+            margin: 0;
+        }
+        h1 {
+            color: #8a2be2; /* Blue Violet text color */
+            font-family: Arial, sans-serif;
+            font-size: 48px;
+        }
