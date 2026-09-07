@@ -1,0 +1,17 @@
+node_modules
+dist
+dist-ssr
+*.local
+.parcel-cache
+bundle.html
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea
+
+# OS
+.DS_Store
+
+# Logs
+*.log
