@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Tebak Angka</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .container {
+      background: white;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 10px;
+      font-size: 28px;
+    }
+
+    .subtitle {
+      color: #666;
+      margin-bottom: 30px;
+      font-size: 14px;
+    }
+
+    .game-area {
+      background: #f5f5f5;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .info-text {
+      color: #667eea;
+      font-size: 16px;
+      margin-bottom: 15px;
+      font-weight: bold;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 18px;
+      border: 2px solid #667eea;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    input[type="number"]:focus {
+      outline: none;
+      border-color: #764ba2;
+      background: #f9f9f9;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    button {
+      flex: 1;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-submit {
+      background-color: #667eea;
+      color: white;
+    }
+
+    .btn-submit:hover {
+      background-color: #764ba2;
+      transform: translateY(-2px);
+    }
+
+    .btn-reset {
+      background-color: #ff6b6b;
+      color: white;
+    }
+
+    .btn-reset:hover {
+      background-color: #ee5a52;
+      transform: translateY(-2px);
+    }
+
+    .feedback {
+      min-height: 40px;
+      padding: 15px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      display: none;
+    }
+
+    .feedback.show {
+      display: block;
+    }
+
+    .correct {
+      background-color: #d4edda;
+      color: #155724;
+      border: 2px solid #28a745;
+    }
+
+    .wrong {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 2px solid #f5c6cb;
+    }
+
+    .hint {
+      background-color: #cfe2ff;
+      color: #084298;
+      border: 2px solid #b6d4fe;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .stat-box {
+      background: #f0f0f0;
+      padding: 12px;
+      border-radius: 8px;
+    }
+
+    .stat-label {
+      color: #666;
+      font-size: 12px;
+      margin-bottom: 5px;
+    }
+
+    .stat-value {
+      color: #667eea;
+      font-size: 24px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎮 Tebak Angka</h1>
+    <p class="subtitle">Tebak angka yang saya pikirkan antara 1 - 100</p>
+
+    <div class="game-area">
+      <div class="info-text" id="info">Masukkan angka dan tekan "Cek"</div>
+      <input type="number" id="guessInput" min="1" max="100" placeholder="Masukkan angka...">
+      
+      <div class="button-group">
+        <button class="btn-submit" onclick="checkGuess()">Cek</button>
+        <button class="btn-reset" onclick="resetGame()">Main Ulang</button>
+      </div>
+
+      <div class="feedback" id="feedback"></div>
+
+      <div class="stats">
+        <div class="stat-box">
+          <div class="stat-label">Percobaan</div>
+          <div class="stat-value" id="attempts">0</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">Level</div>
+          <div class="stat-value" id="level">Easy</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let secretNumber;
+    let attempts = 0;
+    let gameOver = false;
+
+    function initGame() {
+      secretNumber = Math.floor(Math.random() * 100) + 1;
+      attempts = 0;
+      gameOver = false;
+      document.getElementById('guessInput').value = '';
+      document.getElementById('guessInput').focus();
+      document.getElementById('feedback').classList.remove('show');
+      updateUI();
+    }
+
+    function checkGuess() {
+      if (gameOver) return;
+
+      const guess = parseInt(document.getElementById('guessInput').value);
+      const feedback = document.getElementById('feedback');
+
+      if (!guess || guess < 1 || guess > 100) {
+        showFeedback('Masukkan angka antara 1 - 100!', 'wrong');
+        return;
+      }
+
+      attempts++;
+      updateUI();
+
+      if (guess === secretNumber) {
+        showFeedback(`🎉 Benar! Angkanya adalah ${secretNumber}. Anda menebak dalam ${attempts} percobaan!`, 'correct');
+        gameOver = true;
+        document.getElementById('guessInput').disabled = true;
+      } else if (guess < secretNumber) {
+        showFeedback(`Terlalu kecil! Angka yang saya pikirkan lebih besar dari ${guess}`, 'hint');
+      } else {
+        showFeedback(`Terlalu besar! Angka yang saya pikirkan lebih kecil dari ${guess}`, 'hint');
+      }
+
+      document.getElementById('guessInput').value = '';
+    }
+
+    function showFeedback(message, type) {
+      const feedback = document.getElementById('feedback');
+      feedback.textContent = message;
+      feedback.className = `feedback show ${type}`;
+    }
+
+    function updateUI() {
+      document.getElementById('attempts').textContent = attempts;
+      
+      let level = 'Easy';
+      if (attempts > 10) level = 'Hard';
+      else if (attempts > 5) level = 'Medium';
+      document.getElementById('level').textContent = level;
+    }
+
+    function resetGame() {
+      document.getElementById('guessInput').disabled = false;
+      initGame();
+    }
+
+    // Enter key support
+    document.getElementById('guessInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        checkGuess();
+      }
+    });
+
+    // Initialize on load
+    window.onload = function() {
+      initGame();
+    };
+  </script>
+</body>
+</html>
+    }
+    window.addEventListener('resize', resize);
+
+    // --- Game variables ---
+    const gravity = 1400; // px/s^2
+    const TILE = 48;
+
+    // player
+    const player = {
+      x: 80, y: 0, w: 36, h: 44,
+      vx: 0, vy: 0,
+      speed: 300,
+      jumpPower: 520,
+      onGround: false,
+      color: '#ff5733',
+    };
+
+    let keys = {left:false,right:false,jump:false};
+    let score = 0;
+
+    // simple tile-based level (array of strings)
+    const level = [
+      '                                                                                ',
+      '                                                                                ',
+      '                                                                                ',
+      '                                                                                ',
+      '                                                                                ',
+      '                                                                                ',
+      '                                                                                ',
+      '                                                                                ',
+      '           c                                      c                             ',
+      '                                                                                ',
+      '    ---                     =         ccc                                   ccN ',
+      '====================   =========   ==========================  ================='
+    ];
+
+    // convert to rectangles
+    const platforms = [];
+    const coins = [];
+    const newlevel = [];
+    function buildLevel(){
+      platforms.length = 0; coins.length = 0;
+      for(let r=0;r<level.length;r++){
+        const row = level[r];
+        for(let c=0;c<row.length;c++){
+          const ch = row[c];
+          const x = c * TILE; const y = r * TILE + (H - level.length*TILE);
+          if(ch === '=' ) platforms.push({x,y,w:TILE,h:TILE});
+          if(ch === 'c') coins.push({x:x+TILE/2-10,y:y+TILE/2-10,w:20,h:20, taken:false});
+          if(ch === '-') platforms.push({x,y,w:TILE,h:TILE});
+          if(ch === 'N') newlevel.push({x,y,w:TILE/2-10,y:y+TILE/2-10,w:20,h:20, taken:false});
+        }
+      }
+    }
+
+    // camera
+    const camera = {x:0,y:0};
+
+    // build
+    buildLevel();
+
+    // helpers
+    function rectsOverlap(a,b){
+      return a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
+    }
+
+    // input handlers
+    window.addEventListener('keydown', e=>{
+      if(e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') keys.left=true;
+      if(e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') keys.right=true;
+      if(e.key === ' ' || e.key === 'Spacebar') keys.jump=true;
+    });
+    window.addEventListener('keyup', e=>{
+      if(e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') keys.left=false;
+      if(e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') keys.right=false;
+      if(e.key === ' ' || e.key === 'Spacebar') keys.jump=false;
+    });
+
+    // touch buttons
+    function touchStartHandler(button){
+      return function(e){
+        e.preventDefault();
+        if(button==='left') keys.left=true;
+        if(button==='right') keys.right=true;
+        if(button==='jump') keys.jump=true;
+      }
+    }
+    function touchEndHandler(button){
+      return function(e){
+        e.preventDefault();
+        if(button==='left') keys.left=false;
+        if(button==='right') keys.right=false;
+        if(button==='jump') keys.jump=false;
+      }
+    }
+    document.getElementById('left').addEventListener('touchstart', touchStartHandler('left'));
+    document.getElementById('left').addEventListener('touchend', touchEndHandler('left'));
+    document.getElementById('right').addEventListener('touchstart', touchStartHandler('right'));
+    document.getElementById('right').addEventListener('touchend', touchEndHandler('right'));
+    document.getElementById('jump').addEventListener('touchstart', touchStartHandler('jump'));
+    document.getElementById('jump').addEventListener('touchend', touchEndHandler('jump'));
+
+    // also support pointer events for mouse
+    ['mousedown','mouseup'].forEach(ev=>{
+      document.getElementById('left').addEventListener(ev, e=>{keys.left = ev==='mousedown'});
+      document.getElementById('right').addEventListener(ev, e=>{keys.right = ev==='mousedown'});
+      document.getElementById('jump').addEventListener(ev, e=>{keys.jump = ev==='mousedown'});
+    });
+
+    // main loop
+    let last = performance.now();
+    function loop(now){
+      const dt = Math.min(0.032, (now - last) / 1000);
+      update(dt);
+      render();
+      last = now;
+      requestAnimationFrame(loop);
+    }
+
+    function update(dt){
+      // horizontal input
+      let targetVx = 0;
+      if(keys.left) targetVx = -player.speed;
+      if(keys.right) targetVx = player.speed;
+      // smooth accel
+      const accel = 3000;
+      player.vx += (targetVx - player.vx) * Math.min(1, accel * dt / Math.abs(targetVx - player.vx || 1));
+
+      // jumping
+      if(keys.jump && player.onGround){
+        player.vy = -player.jumpPower;
+        player.onGround = false;
+      }
+
+      // apply gravity
+      player.vy += gravity * dt;
+
+      // integrate
+      player.x += player.vx * dt;
+      player.y += player.vy * dt;
+
+      // simple world bounds
+      if(player.y > H + 200){ // fell off
+        respawn();
+      }
+
+      // collisions with platforms (AABB) - simple axis separation
+      player.onGround = false;
+      for(const p of platforms){
+        const box = {x:p.x, y:p.y, w:p.w, h:p.h};
+        if(rectsOverlap(player, box)){
+          // find smallest penetration axis
+          const px = (player.x + player.w/2) - (box.x + box.w/2);
+          const py = (player.y + player.h/2) - (box.y + box.h/2);
+          const overlapX = (player.w + box.w)/2 - Math.abs(px);
+          const overlapY = (player.h + box.h)/2 - Math.abs(py);
+          if(overlapX < overlapY){
+            // push horizontally
+            if(px > 0) player.x += overlapX; else player.x -= overlapX;
+            player.vx = 0;
+          } else {
+            // push vertically
+            if(py > 0){ player.y += overlapY; player.vy = 0; }
+            else { player.y -= overlapY; player.vy = 0; player.onGround = true; }
+          }
+        }
+      }
+
+      // coin collection
+      for(const c of coins){
+        if(!c.taken && rectsOverlap(player,{x:c.x,y:c.y,w:c.w,h:c.h} )){
+          c.taken = true; score += 10; document.getElementById('score').textContent = score;
+        }
+      }
+
+      // camera follows player (clamped)
+      camera.x = player.x - W/2 + player.w/2;
+      camera.y = 0; // static vertical camera for simplicity
+      if(camera.x < 0) camera.x = 0;
+      // max level width
+      const levelWidth = level[0].length * TILE;
+      if(camera.x > levelWidth - W) camera.x = Math.max(0, levelWidth - W);
+    }
+
+    function respawn(){
+      player.x = 80; player.y = 0; player.vx = 0; player.vy = 0; score = 0;
+      for(const c of coins) c.taken = false;
+      document.getElementById('score').textContent = score;
+    }
+
+    function render(){
+      ctx.clearRect(0,0,W,H);
+
+      // background parallax
+      ctx.fillStyle = '#7ec0ee';
+      ctx.fillRect(0,0,W,H);
+
+      // draw platforms
+      ctx.save();
+      ctx.translate(-camera.x, -camera.y);
+      for(const p of platforms){
+        ctx.fillStyle = '#6b5b3a';
+        ctx.fillRect(p.x, p.y, p.w, p.h);
+        ctx.strokeStyle = 'rgba(0,0,0,0.2)'; ctx.strokeRect(p.x,p.y,p.w,p.h);
+      }
+
+      // draw coins
+      for(const c of coins){
+        if(c.taken) continue;
+        ctx.beginPath();
+        ctx.fillStyle = '#ffd95b';
+        ctx.ellipse(c.x + c.w/2, c.y + c.h/2, c.w/2, c.h/2, 0, 0, Math.PI*2);
+        ctx.fill();
+        ctx.closePath();
+      }
+
+      // draw player
+      ctx.fillStyle = player.color;
+      ctx.fillRect(player.x, player.y, player.w, player.h);
+      // simple eye
+      ctx.fillStyle = '#111'; ctx.fillRect(player.x + player.w - 14, player.y + 10, 6, 6);
+
+      ctx.restore();
+
+      // debug / HUD could be drawn here
+    }
+
+    // start loop
+    requestAnimationFrame(loop);
+
+    // initial player placement on top of first platform if available
+    function placeOnTop(){
+      // try to place player near start x
+      player.y = 0;
+      // let physics settle for a moment (optional)
+    }
+    placeOnTop();
+
+    // tweak: support tapping anywhere to jump (optional)
+    canvas.addEventListener('touchstart', e=>{
+      if(e.touches.length === 1){ keys.jump = true; setTimeout(()=>keys.jump=false, 150); }
+    });
+
+    // friendly hint hide on play
+    document.getElementById('hint').addEventListener('touchstart', ()=>{document.getElementById('hint').style.display='none'});
+
+  </script>
+</body>
+</html>
