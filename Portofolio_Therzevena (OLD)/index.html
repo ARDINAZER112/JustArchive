@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="description" content="Portfolio Arcana Therzevena — Web Developer yang sedang belajar membangun pengalaman web modern dan responsif.">
+<meta name="theme-color" content="#0a0e27">
+<title>Arcana Therzevena | Portfolio</title>
+<link rel="icon" href="asset/icon/Arcana Therzevena.png" type="image/x-icon">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Poppins:wght@300;400;600;700&display=swap"></noscript>
+<link rel="stylesheet" href="style/portofolio-style.css">
+</head>
+<body oncontextmenu="return false">
+
+<div class="cur-dot" id="curDot" aria-hidden="true"></div>
+<div class="cur-name" id="curName">ARDINAZER112</div>
+<div class="tdot"  id="tdot"  aria-hidden="true"></div>
+<div class="tring" id="tring" aria-hidden="true"></div>
+<div class="tname" id="tname">ARDINAZER112</div>
+<div class="nav-overlay" id="navOvl" onclick="closeMenu()" aria-hidden="true"></div>
+
+<!-- NAV -->
+<nav id="navbar" role="navigation" aria-label="Navigasi utama">
+  <div class="logo">&lt;ARDINAZER112&gt;</div>
+  <button class="hbg" id="hbg" aria-label="Buka menu" aria-expanded="false" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#home"         onclick="closeMenu()" class="clickable">Home</a></li>
+    <li><a href="#about"        onclick="closeMenu()" class="clickable">Tentang</a></li>
+    <li><a href="#contact"      onclick="closeMenu()" class="clickable">Media Sosial</a></li>
+    <li><a href="#project-link" onclick="closeMenu()" class="clickable">Daftar Project</a></li>
+    <li>
+      <div class="name-ctrl" role="group" aria-label="Ganti nama kursor">
+        <input type="text" id="newName" placeholder="Ganti nama cursor…" aria-label="Nama kursor baru" maxlength="30">
+        <button onclick="changeName()" class="clickable">Ganti</button>
+      </div>
+    </li>
+  </ul>
+</nav>
+
+<!-- MODAL -->
+<div class="overlay" id="modalOvl" role="dialog" aria-modal="true" aria-label="Daftar semua project">
+  <div class="modal">
+    <div class="modal-hdr">
+      <h2>📋 Daftar Project</h2>
+      <button class="close-btn" onclick="closeModal()" aria-label="Tutup">&times;</button>
+    </div>
+    <div class="filter-tabs" role="group" aria-label="Filter kategori">
+      <button class="ftab on" data-f="all"     onclick="setFilter(this)">🌐 Semua</button>
+      <button class="ftab"    data-f="game"    onclick="setFilter(this)">🎮 Game</button>
+      <button class="ftab"    data-f="website" onclick="setFilter(this)">💻 Website</button>
+    </div>
+    <div class="modal-grid" id="modalGrid" aria-live="polite"></div>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="home">
+    <div class="hero-gif-wrap" id="heroBgGif">
+            <img
+                class="hero-gif"
+                src="asset/img/poster.gif"
+                alt="Hero Background"
+                loading="eager"
+                decoding="async"
+            >
+            <div class="hero-video-overlay"></div>
+        </div>
+  <div class="hero-content">
+    <h1 id="heroTitle" data-text="Hi, I'm Arcana Therzevena">Hi, I'm <span class="hl">Arcana Therzevena</span></h1>
+    <p>Bersemangat menciptakan pengalaman web yang indah dan fungsional.<br>Mari kita bangun sesuatu yang luar biasa bersama.</p>
+    <div class="cta">
+      <a href="#project-link"><button class="btn btn-p clickable">Lihat Project Saya</button></a>
+      <a href="#contact"><button class="btn btn-s clickable">Hubungi Saya</button></a>
+    </div>
+  </div>
+  <div class="scroll-arrow" aria-hidden="true">
+    <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <h2 class="section-title">Tentang Gweh</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>Hai, saya <strong>ARDINAZER112</strong></p>
+      <p>Saya seorang calon pengembang web yang sedang belajar membangun proyek dengan teknologi modern.</p>
+      <p>Saat ini fokus pada:</p>
+      <div class="skills-grid">
+        <div class="skill"><h3>Frontend</h3><p>HTML / CSS</p></div>
+        <div class="skill"><h3>Backend</h3><p>Node.js, Python, SQL</p></div>
+        <div class="skill"><h3>Tools</h3><p>VS Code, NPM, Electron</p></div>
+        <div class="skill"><h3>Design</h3><p>UI/UX, Responsive</p></div>
+        <div class="skill"><h3>Platform</h3><p>Linux, Android</p></div>
+        <div class="skill"><h3>Learning</h3><p>PHP, MySQL, Kotlin, React</p></div>
+      </div>
+    </div>
+    <div class="about-visual">
+      <div class="code-block">
+        <div class="cl"><span class="ck">const</span> developer = {</div>
+        <div class="cl">&nbsp;&nbsp;<span class="ck">name</span>: <span class="cs">"Arcana Therzevena"</span>,</div>
+        <div class="cl">&nbsp;&nbsp;<span class="ck">skills</span>: [<span class="cs">"Web Dev"</span>, <span class="cs">"Layout"</span>],</div>
+        <div class="cl">&nbsp;&nbsp;<span class="ck">goal</span>: <span class="cs">"Membangun Web</span></div>
+        <div class="cl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="cs">Responsive &amp; Bermanfaat"</span></div>
+        <div class="cl">};</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects" id="project-link">
+  <div class="projects-wrap">
+    <h2 class="section-title">Daftar Project</h2>
+    <div class="proj-grid">
+      <article class="proj-card">
+        <div class="proj-img"><img src="asset/img/Therzevena.jpg" alt="Preview Thertaria Project" loading="lazy" decoding="async" width="400" height="300"></div>
+        <div class="proj-body">
+          <h3>Arc Project</h3>
+          <p>Project web pertama yang aku buat dan dibuat agar bermanfaat</p>
+          <div class="proj-btns">
+            <a href="https://veliciaproject.vercel.app/" target="_blank" rel="noopener noreferrer"><button class="btn btn-p clickable">🌐 Visit</button></a>
+          </div>
+        </div>
+      </article>
+      <article class="proj-card">
+        <div class="proj-img"><img src="asset/img/Chess_Game.jpg" alt="Preview Chess Game" loading="lazy" decoding="async" width="400" height="300"></div>
+        <div class="proj-body">
+          <h3>Chess Game</h3>
+          <p>Game Catur: vs AI, multiplayer lokal &amp; online</p>
+          <div class="proj-btns">
+            <a href="https://veliciaproject.vercel.app/Mini%20Games/Chess%20Game/chess-master.html" target="_blank" rel="noopener noreferrer"><button class="btn btn-p clickable">🌐 Visit</button></a>
+          </div>
+        </div>
+      </article>
+      <article class="proj-card">
+        <div class="proj-img"><img src="asset/img/tetrisgamepre.jpg" alt="Tetris" loading="lazy" decoding="async" width="400" height="300"></div>
+        <div class="proj-body">
+          <h3>Tetris</h3>
+          <p>Project game web no-5</p>
+          <div class="proj-btns">
+            <a href="https://veliciaproject.vercel.app/Mini%20Games/Tetris%20Game/tetris.html" target="_blank" rel="noopener noreferrer"><button class="btn btn-p clickable">🌐 Visit</button></a>
+          </div>
+        </div>
+      </article>
+        <a href="#" onclick="openModal(event)" class="btn-more">Daftar Project</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <h2 class="section-title"><span class="hl">Jika ada project menarik, Hubungi Saya</span></h2>
+  <p>Saya selalu tertarik untuk mendengar tentang proyek menarik dan peluang baru.<br>Jangan ragu menghubungi jika ingin berkolaborasi!</p>
+  <div class="soc-grid">
+    <a href="https://youtube.com/@ardinazer?si=nlhVOV-EvKif-LDp" target="_blank" rel="noopener noreferrer" class="soc"><img src="asset/icon/yt_icon_red_digital.png" alt="" width="44" height="44" loading="lazy">YouTube</a>
+    <a href="https://www.linkedin.com/in/arcana-therzevena-9153023b3" target="_blank" rel="noopener noreferrer" class="soc"><img src="asset/icon/InBug-Black.png" alt="" width="44" height="44" loading="lazy">LinkedIn</a>
+    <a href="https://github.com/ARDINAZER112" target="_blank" rel="noopener noreferrer" class="soc"><img src="asset/icon/GitHub_Invertocat_Black_Clearspace.svg" alt="" width="44" height="44" loading="lazy">GitHub</a>
+    <a href="https://x.com/KTZINTHEHOUSE7" target="_blank" rel="noopener noreferrer" class="soc"><img src="asset/icon/logo.svg" alt="" width="44" height="44" loading="lazy">X (Twitter)</a>
+    <a href="https://web.facebook.com/profile.php?id=100091670920007" target="_blank" rel="noopener noreferrer" class="soc"><img src="asset/icon/Facebook_f_logo_(2019).svg" alt="" width="44" height="44" loading="lazy">Facebook</a>
+    <a href="https://www.instagram.com/ardinazer10/" target="_blank" rel="noopener noreferrer" class="soc"><img src="asset/icon/instagram.png" alt="" width="44" height="44" loading="lazy">Instagram</a>
+  </div>
+</section>
+
+<footer>
+  <p>Dibuat dengan ARD &amp; Kebanyakan Permen 🍬</p>
+  <p>&copy; 2026 ARDINAZER10. All rights reserved.</p>
+</footer>
+
+<script src="script/portofolio-script.js"></script>
+</body>
+</html>
